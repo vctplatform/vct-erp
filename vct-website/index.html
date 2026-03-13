@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VCT Platform — Nền tảng Số hóa Võ Cổ Truyền Việt Nam</title>
+<meta name="description" content="VCT Platform — Nền tảng quản lý toàn diện cho Võ Cổ Truyền Việt Nam. Từ Liên đoàn Quốc gia đến CLB và VĐV. Real-time scoring, RBAC, Multi-tenant.">
+<meta name="keywords" content="VCT, Võ Cổ Truyền, Việt Nam, Platform, quản lý giải đấu, scoring, RBAC">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══ -->
+<nav class="site-nav">
+<div class="nav-inner">
+  <a href="index.html" class="nav-brand"><span class="nav-brand-icon">⚔️</span> VCT PLATFORM</a>
+  <button class="nav-hamburger" aria-label="Menu">☰</button>
+  <ul class="nav-links">
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="pitch.html">Pitch Deck</a></li>
+    <li><a href="diagrams.html">Sơ đồ</a></li>
+    <li><a href="docs.html">Nghiệp vụ</a></li>
+    <li><a href="pricing.html">Báo giá</a></li>
+    <li><button class="nav-theme" onclick="toggleTheme()" id="themeBtn" title="Chuyển sáng/tối">🌙</button></li>
+  </ul>
+</div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero-landing">
+<div class="hero-content">
+  <div class="hero-logo">⚔️ VCT PLATFORM</div>
+  <p class="hero-tagline">Nền tảng Số hóa Toàn diện cho Võ Cổ Truyền Việt Nam — Từ Liên đoàn Quốc gia đến từng Câu lạc bộ và Vận động viên</p>
+  <div class="hero-version">v7.0 • Enterprise Edition • 2026</div>
+  <div class="hero-buttons">
+    <a href="pitch.html" class="btn btn-primary">🎯 Xem Pitch Deck</a>
+    <a href="pricing.html" class="btn btn-outline">💰 Xem Báo giá</a>
+    <a href="diagrams.html" class="btn btn-outline">📊 Sơ đồ Nghiệp vụ</a>
+  </div>
+</div>
+</section>
+
+<!-- ══ STATS BAR ══ -->
+<div class="stats-bar">
+  <div class="stat-item animate-in"><div class="stat-num" data-count="9">0</div><div class="stat-label">Phân hệ</div></div>
+  <div class="stat-item animate-in"><div class="stat-num" data-count="11">0</div><div class="stat-label">Vai trò RBAC</div></div>
+  <div class="stat-item animate-in"><div class="stat-num" data-count="24">0</div><div class="stat-label">Domain Module</div></div>
+  <div class="stat-item animate-in"><div class="stat-num" data-count="119">0</div><div class="stat-label">Trang UI</div></div>
+  <div class="stat-item animate-in"><div class="stat-num" data-count="34">0</div><div class="stat-label">Tỉnh/Thành</div></div>
+  <div class="stat-item animate-in"><div class="stat-num">∞</div><div class="stat-label">CLB & VĐV</div></div>
+</div>
+
+<!-- ══ FEATURES ══ -->
+<section class="section">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Giá trị cốt lõi</span>
+    <h2>Tại sao chọn VCT Platform?</h2>
+    <p class="subtitle">Giải pháp toàn diện giúp số hóa mọi hoạt động Võ Cổ Truyền — từ quản lý tổ chức đến chấm điểm real-time</p>
+  </div>
+  <div class="grid grid-3">
+    <div class="card feature-card animate-in">
+      <div class="card-icon">🔗</div>
+      <h3>Thống nhất Dữ liệu</h3>
+      <p>Một nguồn dữ liệu duy nhất cho 34 tỉnh/thành, hàng nghìn CLB, hàng chục nghìn VĐV — thay thế Excel rời rạc.</p>
+    </div>
+    <div class="card feature-card animate-in">
+      <div class="card-icon">⚡</div>
+      <h3>Real-time Scoring</h3>
+      <p>Chấm điểm trực tiếp trên tablet, bảng điểm live, thông báo tức thì — WebSocket cho giải đấu chuyên nghiệp.</p>
+    </div>
+    <div class="card feature-card animate-in">
+      <div class="card-icon">🔐</div>
+      <h3>Multi-tenant & RBAC</h3>
+      <p>Phân quyền 11 vai trò, cách ly dữ liệu theo tổ chức, đảm bảo an ninh & quyền riêng tư tuyệt đối.</p>
+    </div>
+    <div class="card feature-card animate-in">
+      <div class="card-icon">🌏</div>
+      <h3>Di sản & Bản sắc</h3>
+      <p>Số hóa phả hệ môn phái, kỹ thuật đặc trưng, hệ thống 14 cấp đai — bảo tồn và phát huy Võ Cổ Truyền.</p>
+    </div>
+    <div class="card feature-card animate-in">
+      <div class="card-icon">📊</div>
+      <h3>Minh bạch Tài chính</h3>
+      <p>Theo dõi thu-chi, hóa đơn, tài trợ từ liên đoàn đến CLB — kiểm toán rõ ràng, minh bạch 100%.</p>
+    </div>
+    <div class="card feature-card animate-in">
+      <div class="card-icon">📱</div>
+      <h3>Multi-platform</h3>
+      <p>Web (Next.js), Mobile (Expo/React Native), PWA — truy cập mọi nơi, mọi lúc, trên mọi thiết bị.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ HOW IT WORKS ══ -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Quy trình</span>
+    <h2>Vận hành Đơn giản — Hiệu quả Tối đa</h2>
+    <p class="subtitle">Từ đăng ký đến tổng kết giải đấu, mọi thứ được số hóa và tự động</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card animate-in">
+      <div class="step-icon">📝</div>
+      <h4>Đăng ký & Thiết lập</h4>
+      <p>CLB đăng ký nền tảng, nhập VĐV, HLV. LĐ Tỉnh duyệt — tất cả online, nhanh gọn.</p>
+    </div>
+    <div class="step-card animate-in">
+      <div class="step-icon">🏆</div>
+      <h4>Tổ chức Giải đấu</h4>
+      <p>Cấu hình giải, mở đăng ký, bốc thăm tự động, xếp lịch theo ràng buộc thông minh.</p>
+    </div>
+    <div class="step-card animate-in">
+      <div class="step-icon">⚔️</div>
+      <h4>Thi đấu Real-time</h4>
+      <p>Trọng tài chấm điểm trên tablet, kết quả hiển thị live cho khán giả qua WebSocket.</p>
+    </div>
+    <div class="step-card animate-in">
+      <div class="step-icon">📈</div>
+      <h4>Phân tích & Báo cáo</h4>
+      <p>Tổng hợp kết quả, cập nhật BXH, xuất báo cáo tài chính — mọi thứ tự động.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ 9 SUBSYSTEMS ══ -->
+<section class="section">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Hệ sinh thái</span>
+    <h2>9 Phân hệ — Một nền tảng Thống nhất</h2>
+    <p class="subtitle">Mỗi phân hệ phục vụ một vai trò riêng biệt, tất cả kết nối qua API & WebSocket</p>
+  </div>
+  <div class="grid grid-3">
+    <div class="card animate-in"><div class="card-icon">🏛</div><h3>Liên đoàn Quốc gia <span class="badge b-purple">Admin</span></h3><p>Quản lý tổ chức, giải đấu, nhân sự, tài chính, di sản, phê duyệt, quy chế toàn quốc.</p></div>
+    <div class="card animate-in"><div class="card-icon">🌏</div><h3>Liên đoàn Tỉnh <span class="badge b-green">Provincial</span></h3><p>CLB, VĐV, HLV cấp tỉnh. Đăng ký giải, báo cáo tổng hợp, tài chính tỉnh.</p></div>
+    <div class="card animate-in"><div class="card-icon">⚖</div><h3>Kỷ luật <span class="badge b-red">Discipline</span></h3><p>Vi phạm, điều trần, xử phạt, thanh tra — 10 loại vi phạm, 7 hình thức xử phạt.</p></div>
+    <div class="card animate-in"><div class="card-icon">🏆</div><h3>Giải đấu <span class="badge b-orange">Tournament</span></h3><p>Vòng đời giải từ A→Z: đăng ký, bốc thăm, lịch thi, chấm điểm, bracket, kết quả.</p></div>
+    <div class="card animate-in"><div class="card-icon">🏠</div><h3>Câu lạc bộ <span class="badge b-cyan">Club</span></h3><p>Võ sinh, HLV, lớp học, điểm danh, thi đai, tài chính CLB, giải đấu.</p></div>
+    <div class="card animate-in"><div class="card-icon">👨‍⚖️</div><h3>Trọng tài <span class="badge b-pink">Referee</span></h3><p>Giao diện chấm điểm real-time, phân công sàn, bảng điểm live, khiếu nại.</p></div>
+    <div class="card animate-in"><div class="card-icon">🏃</div><h3>VĐV Portal <span class="badge b-green">Athlete</span></h3><p>Hồ sơ cá nhân, thành tích, giải đấu, CLB, luyện tập, e-learning.</p></div>
+    <div class="card animate-in"><div class="card-icon">👁</div><h3>Công chúng <span class="badge b-cyan">Spectator</span></h3><p>Bảng điểm live, lịch thi đấu, BXH, kết quả, huy chương, di sản.</p></div>
+    <div class="card animate-in"><div class="card-icon">⚙</div><h3>Quản trị <span class="badge b-red">System</span></h3><p>Tenant, User, Role, Feature Flags, Health, Audit, Data Quality.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ══ PRICING PREVIEW ══ -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Báo giá</span>
+    <h2>Gói linh hoạt cho mọi Quy mô</h2>
+    <p class="subtitle">Từ CLB nhỏ miễn phí đến giải pháp Enterprise cho Liên đoàn Quốc gia</p>
+  </div>
+  <div class="pricing-grid">
+    <div class="pricing-card animate-in">
+      <div class="pricing-name">🌱 Free</div>
+      <div class="pricing-price">0đ</div>
+      <div class="pricing-period">Miễn phí vĩnh viễn</div>
+      <ul class="pricing-features">
+        <li class="yes">CLB ≤30 hội viên</li>
+        <li class="yes">≤50 VĐV</li>
+        <li class="yes">2 giải đấu / năm</li>
+        <li class="no">Live scoring</li>
+        <li class="info">Support: Cộng đồng</li>
+      </ul>
+      <div class="pricing-cta">Bắt đầu miễn phí</div>
+    </div>
+    <div class="pricing-card pricing-card--popular animate-in">
+      <div class="pricing-name">🚀 Pro</div>
+      <div class="pricing-price">2M/th</div>
+      <div class="pricing-period">~24M/năm (tiết kiệm 17%)</div>
+      <ul class="pricing-features">
+        <li class="yes">LĐ Tỉnh / CLB ≤200 HV</li>
+        <li class="yes">≤500 VĐV</li>
+        <li class="yes">20 giải đấu / năm</li>
+        <li class="yes">Live scoring WebSocket</li>
+        <li class="info">Support: Email 48h</li>
+      </ul>
+      <div class="pricing-cta pricing-cta--primary">Đăng ký Pro</div>
+    </div>
+    <div class="pricing-card pricing-card--enterprise animate-in">
+      <div class="pricing-name">🏛 Enterprise</div>
+      <div class="pricing-price">Liên hệ</div>
+      <div class="pricing-period">Tùy chỉnh theo nhu cầu</div>
+      <ul class="pricing-features">
+        <li class="yes">Liên đoàn Quốc gia</li>
+        <li class="yes">VĐV không giới hạn</li>
+        <li class="yes">Giải đấu không giới hạn</li>
+        <li class="yes">API đầy đủ + Webhook</li>
+        <li class="info">Support: Hotline 24/7</li>
+      </ul>
+      <div class="pricing-cta">Liên hệ tư vấn</div>
+    </div>
+  </div>
+  <div class="text-center mt-16 animate-in">
+    <a href="pricing.html" class="btn btn-outline">📋 Xem chi tiết Biểu phí đầy đủ →</a>
+  </div>
+</div>
+</section>
+
+<!-- ══ USE CASES ══ -->
+<section class="section">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Đối tượng</span>
+    <h2>Ai sử dụng VCT Platform?</h2>
+  </div>
+  <div class="grid grid-3">
+    <div class="persona-card animate-in">
+      <div class="persona-icon">🏛</div>
+      <span class="persona-role b-purple">Liên đoàn Tỉnh</span>
+      <h3>Quản lý 50+ CLB, 500+ VĐV</h3>
+      <p class="persona-quote">"Trước đây chúng tôi quản lý bằng Excel và Zalo. Giờ mọi thứ trên một nền tảng — từ đăng ký giải đến báo cáo tài chính."</p>
+    </div>
+    <div class="persona-card animate-in">
+      <div class="persona-icon">🏠</div>
+      <span class="persona-role b-cyan">Chủ nhiệm CLB</span>
+      <h3>Võ sinh, Lớp học, Tài chính</h3>
+      <p class="persona-quote">"Điểm danh tự động, theo dõi tiến trình từng võ sinh, thi lên đai online — tiết kiệm hàng giờ mỗi tuần."</p>
+    </div>
+    <div class="persona-card animate-in">
+      <div class="persona-icon">⚖</div>
+      <span class="persona-role b-pink">Trọng tài</span>
+      <h3>Chấm điểm Real-time</h3>
+      <p class="persona-quote">"Chấm điểm trên tablet, kết quả hiển thị ngay trên bảng điểm. Không còn phiếu giấy, không sai sót tổng hợp."</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ TECH STACK ══ -->
+<section class="section section-alt">
+<div class="container">
+  <div class="section-header animate-in">
+    <span class="section-tag">Công nghệ</span>
+    <h2>Kiến trúc Enterprise-grade</h2>
+  </div>
+  <div class="grid grid-4">
+    <div class="card animate-in text-center"><div class="card-icon">🐹</div><h3>Go Backend</h3><p>24 domain modules, Clean Architecture, Repository Pattern</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">⚛️</div><h3>React + Next.js</h3><p>119 pages, SSR, TypeScript, Solito cross-platform</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">📱</div><h3>Expo / React Native</h3><p>Mobile app, tab navigation, offline support</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">🐘</div><h3>PostgreSQL</h3><p>ACID, RLS, Migrations, 18 bộ dữ liệu chuẩn</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">⚡</div><h3>WebSocket</h3><p>Live scoring, real-time events, push notifications</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">🔐</div><h3>JWT + RBAC</h3><p>11 roles, tenant isolation, audit logging</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">🐳</div><h3>Docker + Fly.io</h3><p>CI/CD, auto-deploy, health monitoring</p></div>
+    <div class="card animate-in text-center"><div class="card-icon">🔏</div><h3>PKI Signatures</h3><p>Ký số chứng nhận, huy chương, văn bản</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="section">
+<div class="container">
+  <div class="cta-banner animate-in">
+    <h2>Sẵn sàng Số hóa Võ Cổ Truyền?</h2>
+    <p>Liên hệ để được demo miễn phí và tư vấn gói phù hợp cho tổ chức của bạn</p>
+    <div class="hero-buttons">
+      <a href="pitch.html" class="btn btn-primary">🎯 Xem Pitch Deck đầy đủ</a>
+      <a href="docs.html" class="btn btn-outline">📖 Tài liệu Nghiệp vụ</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="site-footer">
+  <div class="footer-logo">⚔️ VCT PLATFORM</div>
+  <p><strong>Nền tảng Số hóa Toàn diện cho Võ Cổ Truyền Việt Nam</strong></p>
+  <div class="footer-links">
+    <a href="index.html">Trang chủ</a>
+    <a href="pitch.html">Pitch Deck</a>
+    <a href="diagrams.html">Sơ đồ</a>
+    <a href="docs.html">Nghiệp vụ</a>
+    <a href="pricing.html">Báo giá</a>
+  </div>
+  <p class="mt-8">Backend: Go • Frontend: React/Next.js • Mobile: Expo • Database: PostgreSQL • Realtime: WebSocket</p>
+  <p class="mt-4">© 2026 VCT Platform • Version 7.0 Enterprise Edition</p>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

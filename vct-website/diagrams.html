@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VCT Platform — Sơ đồ Nghiệp vụ Toàn diện (Mermaid)</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--font:'Inter',system-ui,sans-serif;--radius:14px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
+[data-theme="dark"]{--bg:#090b12;--bg2:#0f1219;--card:#151921;--card2:#1c2030;--accent:#6366f1;--accent2:#818cf8;--accentG:linear-gradient(135deg,#6366f1,#06b6d4);--text:#f1f5f9;--text2:#94a3b8;--text3:#64748b;--border:#1e293b;--shadow:0 4px 30px rgba(0,0,0,.4)}
+[data-theme="light"]{--bg:#f8fafc;--bg2:#ffffff;--card:#ffffff;--card2:#f1f5f9;--accent:#4f46e5;--accent2:#6366f1;--accentG:linear-gradient(135deg,#4f46e5,#0891b2);--text:#0f172a;--text2:#475569;--text3:#94a3b8;--border:#e2e8f0;--shadow:0 4px 30px rgba(0,0,0,.08)}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.7;transition:var(--transition)}
+.hero{text-align:center;padding:50px 20px 30px}
+.logo{font-size:2.6rem;font-weight:900;background:var(--accentG);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:-1px}
+.tagline{color:var(--text2);font-size:1.1rem;margin-top:6px;font-weight:300}
+.container{max-width:1400px;margin:0 auto;padding:0 20px 40px}
+
+/* Theme Toggle */
+.theme-toggle{position:fixed;top:20px;right:20px;z-index:1000;width:46px;height:46px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;transition:var(--transition);box-shadow:var(--shadow)}
+.theme-toggle:hover{transform:scale(1.1);border-color:var(--accent)}
+
+/* TOC */
+.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin:20px 0}
+.toc h3{font-size:1rem;font-weight:700;margin-bottom:12px;color:var(--accent2)}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.toc a{color:var(--text2);text-decoration:none;font-size:.88rem;padding:6px 12px;border-radius:8px;display:block;transition:var(--transition)}
+.toc a:hover{background:var(--card2);color:var(--accent2)}
+.toc a .num{color:var(--accent2);font-weight:700;margin-right:6px}
+
+/* Diagram sections */
+.diagram-section{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:30px;margin:24px 0;overflow-x:auto}
+.diagram-section h3{font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.diagram-section h3 .badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.b-purple{background:rgba(99,102,241,.15);color:var(--accent2)}
+.b-green{background:rgba(34,197,94,.15);color:#22c55e}
+.b-orange{background:rgba(245,158,11,.15);color:#f59e0b}
+.b-cyan{background:rgba(6,182,212,.15);color:#06b6d4}
+.b-pink{background:rgba(236,72,153,.15);color:#ec4899}
+.b-red{background:rgba(239,68,68,.15);color:#ef4444}
+.diagram-section .desc{color:var(--text2);font-size:.88rem;margin-bottom:18px}
+.mermaid{margin:10px 0}
+
+/* Section separator */
+h2.sep{font-size:1.4rem;font-weight:800;margin:40px 0 8px;padding-top:20px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;color:var(--accent2)}
+
+/* Footer */
+.footer{text-align:center;padding:40px 0;color:var(--text3);font-size:.82rem;border-top:1px solid var(--border);margin-top:40px}
+.footer strong{color:var(--text2)}
+
+@media(max-width:768px){
+.logo{font-size:1.8rem}
+.toc-grid{grid-template-columns:1fr}
+.diagram-section{padding:16px}
+}
+</style>
+</head>
+<body>
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">&#127769;</button>
+
+<div class="hero">
+<div class="logo">&#9876;&#65039; VCT PLATFORM — Sơ đồ Nghiệp vụ</div>
+<div class="tagline">Bộ sơ đồ Mermaid toàn diện — Tổ chức, Vai trò, Quy trình, Luồng dữ liệu</div>
+</div>
+
+<div class="container">
+
+<!-- TABLE OF CONTENTS -->
+<div class="toc">
+<h3>&#128218; Mục lục — 16 Sơ đồ</h3>
+<div class="toc-grid">
+<a href="#d1"><span class="num">01</span>Cấu trúc Tổ chức Phân cấp</a>
+<a href="#d2"><span class="num">02</span>Phân quyền RBAC 12 Vai trò</a>
+<a href="#d3"><span class="num">03</span>Kiến trúc Hệ thống Tổng thể</a>
+<a href="#d4"><span class="num">04</span>Luồng Dữ liệu giữa 9 Phân hệ</a>
+<a href="#d5"><span class="num">05</span>Vòng đời Giải đấu</a>
+<a href="#d6"><span class="num">06</span>Vòng đời VĐV</a>
+<a href="#d7"><span class="num">07</span>Thành lập CLB mới</a>
+<a href="#d8"><span class="num">08</span>Chuyển nhượng VĐV</a>
+<a href="#d9"><span class="num">09</span>Approval Engine (State Machine)</a>
+<a href="#d10"><span class="num">10</span>Thi lên Đai</a>
+<a href="#d11"><span class="num">11</span>Chấm điểm Real-time</a>
+<a href="#d12"><span class="num">12</span>Kỷ luật & Vi phạm</a>
+<a href="#d13"><span class="num">13</span>Cấp Chứng chỉ HLV/TT</a>
+<a href="#d14"><span class="num">14</span>Tài chính & Thu phí</a>
+<a href="#d15"><span class="num">15</span>Hệ thống Đai VCT</a>
+<a href="#d16"><span class="num">16</span>Ngày thi đấu (Match Day)</a>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="sep">&#127970; Phần I — Tổ chức & Vai trò</h2>
+
+<!-- D1: ORG HIERARCHY -->
+<div class="diagram-section" id="d1">
+<h3>&#127970; 01. Cấu trúc Tổ chức Phân cấp <span class="badge b-purple">Organization</span></h3>
+<p class="desc">Hệ thống multi-tenant 4 cấp: Quốc gia → Tỉnh → Quận/Huyện → CLB. Mỗi cấp có vai trò và quyền hạn riêng biệt.</p>
+<pre class="mermaid">
+graph TD
+    VCT["🏛 Liên đoàn VCT Việt Nam<br/><i>Federation - Tenant gốc</i>"]
+    
+    VCT --> BKT["📋 Ban Kỹ thuật"]
+    VCT --> BTT["⚖ Ban Trọng tài"]
+    VCT --> BKL["⚖ Ban Kỷ luật"]
+    VCT --> BTC_QG["💰 Ban Tài chính"]
+    VCT --> BDN["🌐 Ban Đối ngoại"]
+    
+    VCT --> HN["🌏 LĐ Hà Nội"]
+    VCT --> BD["🌏 LĐ Bình Định"]
+    VCT --> HCM["🌏 LĐ TP.HCM"]
+    VCT --> DOTS["🌏 ... 31 LĐ Tỉnh khác"]
+    
+    HN --> HN_BCH["👥 Ban chấp hành tỉnh"]
+    HN --> HN_QH["🏢 Hội/Chi hội Quận/Huyện"]
+    HN --> HN_TT["⚖ TT cấp tỉnh"]
+    
+    HN_QH --> CLB1["🏠 CLB Thăng Long VCT"]
+    HN_QH --> CLB2["🏠 CLB Bạch Đằng"]
+    HN_QH --> CLB3["🏠 ..."]
+    
+    CLB1 --> HLV1["🥋 HLV"]
+    CLB1 --> VS1["🏃 Võ sinh / VĐV"]
+    CLB1 --> LOP1["📚 Lớp học"]
+    
+    BD --> BD_CLB["🏠 CLB Bình Định các"]
+    HCM --> HCM_CLB["🏠 CLB TP.HCM các"]
+
+    style VCT fill:#4f46e5,color:#fff,stroke:#4f46e5
+    style HN fill:#16a34a,color:#fff,stroke:#16a34a
+    style BD fill:#16a34a,color:#fff,stroke:#16a34a
+    style HCM fill:#16a34a,color:#fff,stroke:#16a34a
+    style CLB1 fill:#0891b2,color:#fff,stroke:#0891b2
+    style CLB2 fill:#0891b2,color:#fff,stroke:#0891b2
+</pre>
+</div>
+
+<!-- D2: RBAC ROLES -->
+<div class="diagram-section" id="d2">
+<h3>&#128101; 02. Phân quyền RBAC 12 Vai trò <span class="badge b-red">Security</span></h3>
+<p class="desc">Hệ thống 12 vai trò phân cấp — mỗi vai trò chỉ truy cập được dữ liệu trong phạm vi tổ chức (tenant isolation).</p>
+<pre class="mermaid">
+graph LR
+    subgraph PLATFORM["⚙ Platform Level"]
+        admin["🔴 admin<br/><i>Toàn quyền hệ thống</i>"]
+    end
+    
+    subgraph FEDERATION["🏛 Federation Level"]
+        president["🟣 federation_president<br/><i>Chủ tịch LĐ</i>"]
+        secretary["🟣 federation_secretary<br/><i>Tổng Thư ký</i>"]
+        tech_dir["🔵 technical_director<br/><i>Giám đốc Kỹ thuật</i>"]
+    end
+    
+    subgraph PROVINCE["🌏 Provincial Level"]
+        prov_admin["🟢 provincial_admin<br/><i>Admin LĐ Tỉnh</i>"]
+    end
+    
+    subgraph TOURNAMENT["🏆 Tournament Level"]
+        btc["🟠 btc<br/><i>Ban Tổ Chức</i>"]
+        ref_mgr["🩷 referee_manager<br/><i>Tổng Trọng tài</i>"]
+        referee["🩷 referee<br/><i>Trọng tài</i>"]
+        medical["🟠 medical_staff<br/><i>Y tế</i>"]
+    end
+    
+    subgraph MEMBER["🏃 Member Level"]
+        coach["🟢 coach<br/><i>HLV</i>"]
+        delegate["🔵 delegate<br/><i>Trưởng đoàn</i>"]
+        athlete["🟢 athlete<br/><i>VĐV - Read only</i>"]
+    end
+    
+    admin --> president
+    admin --> prov_admin
+    president --> secretary
+    president --> tech_dir
+    prov_admin --> btc
+    btc --> ref_mgr
+    ref_mgr --> referee
+    btc --> medical
+    prov_admin --> coach
+    coach --> delegate
+    delegate --> athlete
+</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="sep">&#128640; Phần II — Kiến trúc & Luồng Dữ liệu</h2>
+
+<!-- D3: SYSTEM ARCHITECTURE -->
+<div class="diagram-section" id="d3">
+<h3>&#128421; 03. Kiến trúc Hệ thống Tổng thể <span class="badge b-cyan">Architecture</span></h3>
+<p class="desc">4 tầng kiến trúc: Client → API Gateway → Domain Services → Data Infrastructure. Event-driven với WebSocket.</p>
+<pre class="mermaid">
+graph TB
+    subgraph CLIENTS["📱 Frontend Clients"]
+        WEB["🖥 Web App<br/><i>Next.js + React</i>"]
+        MOB["📱 Mobile<br/><i>Expo / React Native</i>"]
+        PWA["📱 PWA<br/><i>Offline Support</i>"]
+        PUB["👁 Spectator Portal<br/><i>Public</i>"]
+    end
+    
+    subgraph GATEWAY["🔐 API Gateway & Middleware"]
+        AUTH["🔑 JWT Auth<br/><i>Access + Refresh Token</i>"]
+        RBAC["👮 RBAC Middleware<br/><i>12 Roles</i>"]
+        RATE["⚡ Rate Limiter"]
+        AUDIT["📝 Audit Logger"]
+    end
+    
+    subgraph DOMAIN["⚙ Domain Services - 23 Modules"]
+        direction LR
+        FED[federation]
+        PROV[provincial]
+        CLUB[club]
+        TOUR[tournament]
+        SCORE[scoring]
+        ATH[athlete]
+        DISC[discipline]
+        APPR[approval]
+        FIN[finance]
+        TRAIN[training]
+        CERT[certification]
+        BRACK[bracket]
+        PAR[parent]
+        DOC[document]
+        INTL[international]
+    end
+    
+    subgraph INFRA["🗄 Data & Infrastructure"]
+        PG["🐘 PostgreSQL<br/><i>ACID + RLS + Migrations</i>"]
+        WS["⚡ WebSocket Hub<br/><i>Live Scoring</i>"]
+        EVT["📋 Event Bus<br/><i>Domain Events</i>"]
+        NOTIF["🔔 Notifications<br/><i>Push / Email / SMS</i>"]
+        STORE["📁 File Storage"]
+    end
+    
+    CLIENTS --> GATEWAY
+    GATEWAY --> DOMAIN
+    DOMAIN --> INFRA
+    WS -.->|"real-time"| CLIENTS
+    EVT -.->|"triggers"| NOTIF
+</pre>
+</div>
+
+<!-- D4: DATA FLOW -->
+<div class="diagram-section" id="d4">
+<h3>&#128260; 04. Luồng Dữ liệu giữa 9 Phân hệ <span class="badge b-green">Data Flow</span></h3>
+<p class="desc">Sơ đồ dữ liệu luân chuyển hai chiều giữa các phân hệ qua REST API và WebSocket.</p>
+<pre class="mermaid">
+graph TD
+    LDQG["🏛 LĐ Quốc gia"]
+    LDT["🌏 34 LĐ Tỉnh/TP"]
+    CLB["🏠 1000+ CLB"]
+    GIAI["🏆 Giải đấu"]
+    TT["⚖ Trọng tài"]
+    VDV["🏃 50K+ VĐV"]
+    KL["⚖ Kỷ luật"]
+    TC["💰 Tài chính"]
+    PH["👁 Công chúng"]
+    
+    LDQG -->|"Quy chế, Master Data"| LDT
+    LDQG -->|"Config giải"| GIAI
+    LDQG -->|"Ban Kỷ luật"| KL
+    
+    LDT -->|"Báo cáo"| LDQG
+    LDT -->|"Quản lý CLB"| CLB
+    LDT -->|"ĐK đoàn"| GIAI
+    LDT -->|"Hồ sơ VĐV"| VDV
+    
+    CLB -->|"ĐK VĐV"| GIAI
+    CLB -->|"Quản lý VĐV"| VDV
+    CLB -->|"Hồ sơ"| LDT
+    
+    GIAI -->|"Phân công sàn"| TT
+    GIAI -->|"Kết quả, BXH"| VDV
+    GIAI -->|"Vi phạm"| KL
+    GIAI -->|"Live Score"| PH
+    GIAI -->|"KQ tổng hợp"| LDQG
+    
+    TT -->|"Điểm real-time"| GIAI
+    TT -.->|"WebSocket"| PH
+    
+    KL -->|"Đình chỉ"| VDV
+    KL -->|"Xử phạt"| CLB
+    KL -->|"Cấm thi đấu"| GIAI
+    KL -->|"Báo cáo"| LDQG
+    
+    TC -->|"Hóa đơn"| CLB
+    TC -->|"Hội phí"| LDT
+    TC -->|"Phí giải"| GIAI
+
+    style LDQG fill:#4f46e5,color:#fff
+    style LDT fill:#16a34a,color:#fff
+    style CLB fill:#0891b2,color:#fff
+    style GIAI fill:#d97706,color:#fff
+    style TT fill:#db2777,color:#fff
+    style VDV fill:#16a34a,color:#fff
+    style KL fill:#dc2626,color:#fff
+    style TC fill:#6366f1,color:#fff
+    style PH fill:#64748b,color:#fff
+</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="sep">&#127942; Phần III — Quy trình Giải đấu</h2>
+
+<!-- D5: TOURNAMENT LIFECYCLE -->
+<div class="diagram-section" id="d5">
+<h3>&#127942; 05. Vòng đời Giải đấu (Tournament Lifecycle) <span class="badge b-orange">Tournament</span></h3>
+<p class="desc">Từ khởi tạo giải → đăng ký → vận hành → kết thúc. Mỗi giai đoạn có trạng thái và vai trò chịu trách nhiệm riêng.</p>
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> Draft: LĐ/BTC tạo giải
+    Draft --> Configuration: Cấu hình nội dung, hạng cân
+    Configuration --> OpenRegistration: Mở đăng ký
+    
+    OpenRegistration --> ClosedRegistration: Hết hạn / BTC đóng
+    OpenRegistration --> OpenRegistration: CLB đăng ký đoàn & VĐV
+    
+    ClosedRegistration --> WeighIn: Cân đo kiểm tra
+    WeighIn --> DrawBracket: Bốc thăm xếp lịch
+    DrawBracket --> InProgress: Bắt đầu thi đấu
+    
+    InProgress --> InProgress: Chấm điểm real-time 🔴
+    InProgress --> Completed: Tất cả nội dung kết thúc
+    
+    Completed --> Finalized: Duyệt KQ + Trao giải
+    Finalized --> Archived: Lưu trữ
+    Finalized --> [*]
+    
+    OpenRegistration --> Cancelled: Hủy giải
+    Draft --> Cancelled: Hủy giải
+    Cancelled --> [*]
+
+    note right of InProgress
+        WebSocket live scoring
+        5 giám định/sàn
+        Auto bracket update
+    end note
+</pre>
+</div>
+
+<!-- D6: ATHLETE LIFECYCLE -->
+<div class="diagram-section" id="d6">
+<h3>&#127947; 06. Vòng đời Vận động viên <span class="badge b-green">Athlete</span></h3>
+<p class="desc">Từ khi đăng ký vào CLB → huấn luyện → thi đai → thi đấu → thành tích → chuyển nhượng. Vòng lặp suốt sự nghiệp.</p>
+<pre class="mermaid">
+graph LR
+    A["📝 Đăng ký<br/>CLB nhập hồ sơ"] --> B["🥋 Huấn luyện<br/>Lộ trình đai, lớp, điểm danh"]
+    B --> C["🎓 Thi lên Đai<br/>Lý thuyết + Thực hành + Thể lực"]
+    C --> D["🏆 Thi đấu<br/>ĐK giải, cân đo, thi"]
+    D --> E["📊 BXH & Thành tích<br/>Huy chương, xếp hạng"]
+    E --> B
+    
+    D --> F["⚖ Vi phạm?"]
+    F -->|"Không"| E
+    F -->|"Có"| G["🚨 Kỷ luật<br/>Đình chỉ / Cấm thi"]
+    G --> B
+    
+    B --> H["🔄 Chuyển nhượng<br/>Sang CLB mới (Approval)"]
+    H --> B
+    
+    E --> I["🥋 Lên Huyền đai<br/>Trở thành HLV"]
+    
+    style A fill:#16a34a,color:#fff
+    style C fill:#9333ea,color:#fff
+    style D fill:#d97706,color:#fff
+    style G fill:#dc2626,color:#fff
+</pre>
+</div>
+
+<!-- D7: CLUB REGISTRATION -->
+<div class="diagram-section" id="d7">
+<h3>&#127968; 07. Quy trình Thành lập CLB mới <span class="badge b-cyan">Club</span></h3>
+<p class="desc">CLB nộp hồ sơ qua platform → LĐ Tỉnh xét duyệt → LĐ Quốc gia phê duyệt (nếu cần) → Cấp mã.</p>
+<pre class="mermaid">
+sequenceDiagram
+    participant CLB as 🏠 CLB (Người sáng lập)
+    participant SYS as ⚙ VCT Platform
+    participant LDT as 🌏 LĐ Tỉnh
+    participant LDQG as 🏛 LĐ Quốc gia
+    
+    CLB->>SYS: Nộp hồ sơ thành lập
+    Note over CLB,SYS: Tên CLB, địa chỉ, HLV trưởng,<br/>giấy phép, ảnh cơ sở
+    
+    SYS->>SYS: Tạo Approval Request (pending)
+    SYS->>LDT: 🔔 Thông báo yêu cầu mới
+    
+    LDT->>SYS: Xem hồ sơ chi tiết
+    
+    alt Thiếu giấy tờ
+        LDT->>SYS: Return (yêu cầu bổ sung)
+        SYS->>CLB: 🔔 Thông báo cần bổ sung
+        CLB->>SYS: Nộp bổ sung
+        SYS->>LDT: 🔔 Hồ sơ đã cập nhật
+    end
+    
+    LDT->>SYS: ✅ Approve bước 1
+    SYS->>LDQG: 🔔 Chuyển phê duyệt bước 2
+    
+    LDQG->>SYS: ✅ Approve bước 2
+    SYS->>SYS: Cấp mã CLB + Tạo tenant
+    SYS->>CLB: 🔔 CLB đã được phê duyệt!
+    SYS->>LDT: 🔔 CLB đã hoạt động
+    
+    Note over SYS: Audit log ghi nhận toàn bộ
+</pre>
+</div>
+
+<!-- D8: ATHLETE TRANSFER -->
+<div class="diagram-section" id="d8">
+<h3>&#128260; 08. Chuyển nhượng VĐV giữa CLB <span class="badge b-orange">Transfer</span></h3>
+<p class="desc">Quy trình 3 bước phê duyệt: CLB mới tạo yêu cầu → CLB cũ đồng ý → LĐ Tỉnh xác nhận.</p>
+<pre class="mermaid">
+sequenceDiagram
+    participant NEW as 🏠 CLB mới
+    participant SYS as ⚙ Platform
+    participant OLD as 🏠 CLB cũ
+    participant LDT as 🌏 LĐ Tỉnh
+    participant VDV as 🏃 VĐV
+    
+    NEW->>SYS: Tạo yêu cầu chuyển nhượng VĐV
+    SYS->>SYS: Tạo Approval (3 bước)
+    
+    SYS->>OLD: 🔔 Yêu cầu cho VĐV chuyển
+    OLD->>SYS: ✅ Đồng ý (Bước 1)
+    
+    SYS->>LDT: 🔔 Xin phê duyệt chuyển nhượng
+    LDT->>SYS: Kiểm tra điều kiện
+    Note over LDT,SYS: Không nợ phí, không đang bị kỷ luật,<br/>đủ thời gian tối thiểu tại CLB cũ
+    LDT->>SYS: ✅ Phê duyệt (Bước 2)
+    
+    SYS->>SYS: Cập nhật CLB_ID của VĐV
+    SYS->>VDV: 🔔 Bạn đã chuyển sang CLB mới
+    SYS->>NEW: 🔔 VĐV đã gia nhập
+    SYS->>OLD: 🔔 VĐV đã rời CLB
+    
+    Note over SYS: Lịch sử CLB được lưu trữ
+</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="sep">&#9989; Phần IV — Phê duyệt & Quản lý</h2>
+
+<!-- D9: APPROVAL ENGINE -->
+<div class="diagram-section" id="d9">
+<h3>&#9989; 09. Approval Engine — State Machine <span class="badge b-purple">Core Engine</span></h3>
+<p class="desc">Engine phê duyệt đa bước tổng quát — áp dụng cho CLB, chuyển nhượng, giải đấu, chứng chỉ, kỷ luật.</p>
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> pending: Submit yêu cầu
+    
+    pending --> in_review: Người duyệt mở xem
+    
+    in_review --> approved: ✅ Approve
+    in_review --> rejected: ❌ Reject (bắt buộc lý do)
+    in_review --> returned: ↩ Return (yêu cầu bổ sung)
+    
+    returned --> pending: Người tạo cập nhật & re-submit
+    
+    approved --> approved: Bước tiếp (nếu multi-step)
+    
+    pending --> cancelled: Người tạo hủy
+    in_review --> cancelled: Người tạo hủy
+    
+    pending --> expired: ⏰ Quá hạn deadline
+    in_review --> expired: ⏰ Quá hạn deadline
+    
+    approved --> [*]: Hoàn tất (all steps done)
+    rejected --> [*]
+    cancelled --> [*]
+    expired --> [*]
+
+    note right of approved
+        Mỗi bước ghi:
+        - action_by (UUID)
+        - action_at (timestamp)
+        - comment (text)
+        - from_step → to_step
+    end note
+    
+    note left of pending
+        Áp dụng cho:
+        - CLB mới
+        - Chuyển nhượng VĐV
+        - Đăng cai giải
+        - Cấp chứng chỉ
+        - Thi lên đai
+        - Khiếu nại
+    end note
+</pre>
+</div>
+
+<!-- D10: BELT EXAM -->
+<div class="diagram-section" id="d10">
+<h3>&#127947; 10. Quy trình Thi lên Đai <span class="badge b-green">Training</span></h3>
+<p class="desc">HLV đề nghị → Thi 4 phần (Lý thuyết 20% + Quyền 40% + Kỹ thuật 20% + Thể lực 20%) → Tổng ≥65 điểm → Cấp đai.</p>
+<pre class="mermaid">
+graph TD
+    A["🥋 HLV đề nghị<br/><i>VĐV đủ tháng tập</i>"] --> B["📝 Tạo đơn thi đai"]
+    B --> C{"LĐ Tỉnh<br/>duyệt đơn?"}
+    
+    C -->|"❌ Từ chối"| Z1["Trả lại CLB"]
+    C -->|"✅ Duyệt"| D["📖 Phần 1: Lý thuyết<br/><i>Viết/vấn đáp — 20%</i>"]
+    
+    D --> E["🥋 Phần 2: Quyền thuật<br/><i>Bắt buộc + Tự chọn — 40%</i>"]
+    E --> F["⚔ Phần 3: Kỹ thuật/Đối luyện<br/><i>Thực hành — 20%</i>"]
+    F --> G["💪 Phần 4: Thể lực<br/><i>Chống đẩy, bụng, chạy — 20%</i>"]
+    
+    G --> H{"Tổng ≥ 65<br/>điểm?"}
+    
+    H -->|"✅ Đạt"| I["🎓 Cấp chứng nhận đai mới"]
+    H -->|"Trượt 1 môn"| J["⏳ Thi lại sau 3 tháng"]
+    H -->|"Trượt ≥2 môn"| K["⏳ Thi lại toàn bộ sau 6 tháng"]
+    
+    I --> L["📋 Cập nhật hồ sơ VĐV"]
+    L --> M["🔔 Thông báo CLB & VĐV"]
+    
+    style A fill:#16a34a,color:#fff
+    style I fill:#4f46e5,color:#fff
+    style J fill:#d97706,color:#fff
+    style K fill:#dc2626,color:#fff
+</pre>
+</div>
+
+<!-- D11: SCORING FLOW -->
+<div class="diagram-section" id="d11">
+<h3>&#9878; 11. Luồng Chấm điểm Real-time <span class="badge b-pink">Scoring</span></h3>
+<p class="desc">Event-driven: TT chấm → WebSocket broadcast → Scoreboard, Bracket, Notification, Integrity đồng thời.</p>
+<pre class="mermaid">
+sequenceDiagram
+    participant BTC as 🏆 BTC
+    participant TT as ⚖ Trọng tài (x5)
+    participant API as ⚙ API Server
+    participant WS as ⚡ WebSocket Hub
+    participant SB as 📊 Scoreboard
+    participant BR as 🏅 Bracket
+    participant NT as 🔔 Notifications
+    participant IG as 🚨 Integrity Check
+    
+    BTC->>API: Mở trận (gán VĐV + sàn)
+    API->>WS: Broadcast "match.started"
+    WS->>SB: Hiển thị trận
+    
+    loop Mỗi hiệp / mỗi đòn
+        TT->>API: Submit điểm (tablet)
+        API->>API: Validate & Save to DB
+        API->>WS: Broadcast "score.submitted"
+        
+        par Fan-out Events
+            WS->>SB: Update Scoreboard LIVE
+            WS->>BR: Cập nhật bracket (nếu kết thúc)
+            API->>NT: Push to đoàn + VĐV
+            API->>IG: Kiểm tra gian lận điểm
+        end
+    end
+    
+    BTC->>API: Kết thúc trận
+    API->>API: Bỏ điểm cao/thấp nhất → TB
+    API->>WS: Broadcast "match.completed"
+    WS->>SB: Hiện kết quả chính thức
+    API->>BR: Auto-advance winner
+</pre>
+</div>
+
+<!-- D12: DISCIPLINE -->
+<div class="diagram-section" id="d12">
+<h3>&#9878; 12. Quy trình Kỷ luật & Vi phạm <span class="badge b-red">Discipline</span></h3>
+<p class="desc">Từ phát hiện vi phạm → điều tra → điều trần → xử phạt → giám sát thi hành. 10 loại VP, 7 hình thức xử phạt.</p>
+<pre class="mermaid">
+stateDiagram-v2
+    [*] --> reported: 🚨 Phát hiện vi phạm
+    
+    reported --> investigating: Mở hồ sơ, phân loại mức độ
+    
+    investigating --> hearing_scheduled: Đủ chứng cứ → Lập lịch điều trần
+    investigating --> dismissed: Không đủ cơ sở → Bác bỏ
+    
+    hearing_scheduled --> hearing: ⚖ Phiên điều trần
+    
+    hearing --> sanctioned: Có vi phạm → Xử phạt
+    hearing --> dismissed: Không vi phạm → Bác bỏ
+    
+    sanctioned --> monitoring: Thi hành quyết định
+
+    monitoring --> completed: Hết thời hạn xử phạt
+    monitoring --> escalated: Vi phạm thêm → Tăng nặng
+    
+    escalated --> sanctioned: Xử phạt nặng hơn
+    completed --> [*]
+    dismissed --> [*]
+    
+    note right of sanctioned
+        7 Hình thức:
+        • Cảnh cáo
+        • Phạt tiền
+        • Đình chỉ thi đấu
+        • Cấm vĩnh viễn
+        • Hủy kết quả
+        • Quản chế
+        • Chuyển pháp luật
+    end note
+    
+    note left of reported
+        10 Loại vi phạm:
+        • Khai gian cân/tuổi
+        • Phi thể thao
+        • Doping
+        • Vi phạm quy chế
+        • Xúc phạm TT
+        • Giả mạo giấy tờ
+        • Dàn xếp kết quả
+        • Vi phạm an toàn
+        • Hành chính
+    end note
+</pre>
+</div>
+
+<!-- D13: CERTIFICATION -->
+<div class="diagram-section" id="d13">
+<h3>&#128220; 13. Cấp Chứng chỉ HLV / Trọng tài <span class="badge b-purple">Certification</span></h3>
+<p class="desc">Từ nộp hồ sơ → đào tạo → thi → Ban KT duyệt → TTK cấp chứng chỉ (ký số PKI). Hiệu lực 3-4 năm.</p>
+<pre class="mermaid">
+graph LR
+    A["📝 Nộp hồ sơ<br/><i>Bằng cấp + KN</i>"] --> B["📖 Đào tạo<br/><i>Khóa 3-7 ngày</i>"]
+    B --> C["🥋 Thi thực hành<br/><i>Chấm / Vận hành</i>"]
+    C --> D{"Đạt?"}
+    
+    D -->|"❌"| E["Thi lại<br/><i>Sau 6 tháng</i>"]
+    D -->|"✅"| F["📋 Ban KT duyệt"]
+    
+    F --> G["🔏 TTK cấp CC<br/><i>Ký số PKI</i>"]
+    G --> H["📅 Hiệu lực<br/><i>3-4 năm</i>"]
+    H --> I{"Hết hạn?"}
+    
+    I -->|"Gia hạn"| J["📝 Nộp đơn GH<br/><i>50% phí cấp mới</i>"]
+    J --> F
+    I -->|"Không GH"| K["❌ Hết hiệu lực"]
+    
+    style A fill:#6366f1,color:#fff
+    style G fill:#16a34a,color:#fff
+    style K fill:#dc2626,color:#fff
+</pre>
+</div>
+
+<!-- D14: FINANCE -->
+<div class="diagram-section" id="d14">
+<h3>&#128176; 14. Quy trình Tài chính & Thu phí <span class="badge b-orange">Finance</span></h3>
+<p class="desc">4 luồng thu phí chính: Giải đấu, Chứng chỉ, Hội phí, Sự kiện. Audit trail đầy đủ.</p>
+<pre class="mermaid">
+graph TD
+    subgraph PHIGIAI["🏆 Phí Giải đấu"]
+        G1["Phí/VĐV: 50K-500K"]
+        G2["Phí/Đoàn: 500K-5M"]
+        G3["Đặt cọc: 0-10M"]
+    end
+    
+    subgraph PHICC["📜 Phí Chứng chỉ"]
+        C1["HLV: 1M-2M"]
+        C2["TT: 800K-3M"]
+        C3["Gia hạn: 50% phí gốc"]
+    end
+    
+    subgraph HOIPHI["💳 Hội phí Thường niên"]
+        H1["VĐV: 200K/năm"]
+        H2["HLV/TT: 500K/năm"]
+        H3["CLB: 2M-5M/năm"]
+        H4["LĐ Tỉnh: 10M/năm"]
+    end
+    
+    subgraph PHIDAI["🥋 Phí Thi Đai"]
+        D1["Đai màu: 200K+100K"]
+        D2["Huyền đai 1-3: 500K+300K"]
+        D3["Huyền đai 4+: 1M+500K"]
+    end
+    
+    PHIGIAI --> INV["📄 Tạo hóa đơn"]
+    PHICC --> INV
+    HOIPHI --> INV
+    PHIDAI --> INV
+    
+    INV --> NOTIFY["📧 Gửi thông báo<br/><i>Email + Push + SMS</i>"]
+    NOTIFY --> PAY["🏦 Thanh toán<br/><i>Online / Chuyển khoản</i>"]
+    PAY --> CONFIRM["✅ Xác nhận<br/><i>Tự động / Thủ công</i>"]
+    CONFIRM --> REPORT["📊 Báo cáo tổng hợp"]
+    REPORT --> AUDIT_F["🔍 Kiểm toán"]
+    
+    style INV fill:#d97706,color:#fff
+    style CONFIRM fill:#16a34a,color:#fff
+    style AUDIT_F fill:#6366f1,color:#fff
+</pre>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<h2 class="sep">&#128200; Phần V — Hệ thống Đai & Vận hành</h2>
+
+<!-- D15: BELT SYSTEM -->
+<div class="diagram-section" id="d15">
+<h3>&#129355; 15. Hệ thống Đai Võ Cổ Truyền <span class="badge b-green">Belt Ranks</span></h3>
+<p class="desc">14 cấp bậc đai từ Trắng → Cửu đẳng Huyền đai. Timeline từ 0 đến 50+ năm tu luyện.</p>
+<pre class="mermaid">
+graph LR
+    W["⬜ Trắng<br/><i>0 tháng</i>"] --> Y["🟡 Vàng<br/><i>6 tháng</i>"]
+    Y --> G["🟢 Xanh lá<br/><i>12 tháng</i>"]
+    G --> B["🔵 Xanh dương<br/><i>24 tháng</i>"]
+    B --> BR["🟤 Nâu<br/><i>36 tháng</i>"]
+    BR --> H1["⬛ Sơ đẳng<br/><i>4 năm - HLV tập sự</i>"]
+    H1 --> H2["⬛ Nhị đẳng<br/><i>6 năm - Dạy độc lập</i>"]
+    H2 --> H3["⬛ Tam đẳng<br/><i>9 năm - HLV tỉnh</i>"]
+    H3 --> H4["⬛ Tứ đẳng<br/><i>13 năm - HLV QG</i>"]
+    H4 --> H5["⬛ Ngũ đẳng<br/><i>18 năm - VÕ SƯ</i>"]
+    H5 --> H6["⬛ Lục đẳng<br/><i>24 năm</i>"]
+    H6 --> H7["⬛ Thất đẳng<br/><i>31 năm - ĐẠI VÕ SƯ</i>"]
+    H7 --> H89["⬛ Bát-Cửu đẳng<br/><i>40-50 năm - VINH DANH</i>"]
+    
+    style W fill:#e2e8f0,color:#334155
+    style Y fill:#fbbf24,color:#78350f
+    style G fill:#22c55e,color:#fff
+    style B fill:#3b82f6,color:#fff
+    style BR fill:#92400e,color:#fff
+    style H1 fill:#1e293b,color:#f1f5f9
+    style H5 fill:#4f46e5,color:#fff
+    style H7 fill:#9333ea,color:#fff
+    style H89 fill:#dc2626,color:#fff
+</pre>
+</div>
+
+<!-- D16: MATCH DAY -->
+<div class="diagram-section" id="d16">
+<h3>&#127967; 16. Vận hành Ngày thi đấu (Match Day) <span class="badge b-orange">Operations</span></h3>
+<p class="desc">Timeline một ngày thi đấu từ check-in sáng → cân đo → thi đấu → trao giải. Mỗi bước có vai trò chịu trách nhiệm.</p>
+<pre class="mermaid">
+sequenceDiagram
+    participant DOAN as 👥 Đoàn/VĐV
+    participant BTC as 🏆 BTC Giải
+    participant YTE as 🏥 Ban Y tế
+    participant TTT as ⚖ Tổng TT
+    participant TT as ⚖ Trọng tài
+    participant SYS as ⚙ Platform
+    
+    rect rgb(40, 60, 40)
+        Note over DOAN,SYS: ☀ SÁNG — Check-in & Chuẩn bị
+        DOAN->>BTC: Check-in đoàn (quét QR)
+        BTC->>SYS: Xác nhận có mặt
+        BTC->>YTE: Chuyển VĐV cân đo
+        YTE->>SYS: Ghi cân nặng, kiểm tra sức khỏe
+        YTE->>BTC: Cấp phép thi đấu ✅
+        BTC->>SYS: Khóa danh sách VĐV đủ ĐK
+    end
+    
+    rect rgb(60, 40, 40)
+        Note over DOAN,SYS: ⚔ THI ĐẤU — Real-time Scoring
+        TTT->>TT: Phân công sàn + trận
+        BTC->>SYS: Mở trận (gán VĐV)
+        SYS->>TT: 🔔 Trận sắp bắt đầu
+        
+        loop Mỗi trận
+            TT->>SYS: Chấm điểm real-time 📱
+            SYS->>SYS: ⚡ WebSocket broadcast
+            SYS->>DOAN: 📊 Update scoreboard
+        end
+        
+        BTC->>SYS: Kết thúc → Auto bracket
+    end
+    
+    rect rgb(40, 40, 60)
+        Note over DOAN,SYS: 🏅 CHIỀU — Trao giải & Tổng kết
+        SYS->>BTC: Tổng hợp kết quả toàn đoàn
+        BTC->>DOAN: 🏅 Trao HCV / HCB / HCĐ
+        BTC->>SYS: Finalize kết quả
+        SYS->>SYS: Cập nhật BXH VĐV + thành tích
+    end
+</pre>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<p style="font-size:1.1rem;color:var(--accent2);font-weight:700;margin-bottom:8px">&#9876;&#65039; VCT Platform — Sơ đồ Nghiệp vụ</p>
+<p><strong>16 sơ đồ Mermaid toàn diện</strong> — Tổ chức, Vai trò, Kiến trúc, Luồng dữ liệu, Quy trình Giải đấu, VĐV, CLB, Phê duyệt, Đai, Chấm điểm, Kỷ luật, Chứng chỉ, Tài chính</p>
+<p style="margin-top:8px">&copy; 2026 VCT Platform &bull; Version 7.0 &bull; Tài liệu tự động từ mã nguồn</p>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// Theme
+function toggleTheme(){
+    const h=document.documentElement;
+    const d=h.getAttribute('data-theme')==='dark'?'light':'dark';
+    h.setAttribute('data-theme',d);
+    document.getElementById('themeBtn').innerHTML=d==='dark'?'\u{1F319}':'\u{2600}\u{FE0F}';
+    localStorage.setItem('vct-theme',d);
+    // Re-init mermaid with new theme
+    initMermaid(d);
+}
+(function(){
+    const t=localStorage.getItem('vct-theme');
+    if(t){
+        document.documentElement.setAttribute('data-theme',t);
+        document.getElementById('themeBtn').innerHTML=t==='dark'?'\u{1F319}':'\u{2600}\u{FE0F}';
+    }
+})();
+
+// Mermaid init
+function initMermaid(theme){
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: theme === 'light' ? 'default' : 'dark',
+        themeVariables: theme === 'light' ? {
+            primaryColor: '#4f46e5',
+            primaryTextColor: '#0f172a',
+            primaryBorderColor: '#4f46e5',
+            lineColor: '#475569',
+            secondaryColor: '#f1f5f9',
+            tertiaryColor: '#e2e8f0',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '14px'
+        } : {
+            primaryColor: '#6366f1',
+            primaryTextColor: '#f1f5f9',
+            primaryBorderColor: '#6366f1',
+            lineColor: '#64748b',
+            secondaryColor: '#1c2030',
+            tertiaryColor: '#232838',
+            fontFamily: 'Inter, system-ui, sans-serif',
+            fontSize: '14px'
+        },
+        flowchart: { curve: 'basis', padding: 16 },
+        sequence: { mirrorActors: false, messageMargin: 40 },
+        stateDiagram: { defaultRenderer: 'dagre' }
+    });
+    // Re-render all diagrams
+    document.querySelectorAll('.mermaid').forEach(function(el, i){
+        var code = el.getAttribute('data-original') || el.textContent;
+        if(!el.getAttribute('data-original')) el.setAttribute('data-original', code);
+        el.removeAttribute('data-processed');
+        el.innerHTML = code;
+    });
+    mermaid.run();
+}
+
+// Initial render
+document.addEventListener('DOMContentLoaded', function(){
+    var theme = document.documentElement.getAttribute('data-theme') || 'dark';
+    initMermaid(theme);
+});
+</script>
+</body>
+</html>

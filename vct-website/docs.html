@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VCT Platform - Tài liệu Nghiệp vụ Toàn diện</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0f1117;--card:#1a1d27;--card2:#222636;--accent:#6366f1;--accent2:#818cf8;--green:#22c55e;--orange:#f59e0b;--red:#ef4444;--cyan:#06b6d4;--pink:#ec4899;--text:#e2e8f0;--text2:#94a3b8;--border:#2d3148;--radius:12px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+.container{max-width:1400px;margin:0 auto;padding:20px}
+h1{font-size:2.2rem;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-align:center;padding:40px 0 10px}
+.subtitle{text-align:center;color:var(--text2);font-size:1.1rem;margin-bottom:40px}
+h2{font-size:1.5rem;color:var(--accent2);margin:40px 0 20px;padding-bottom:10px;border-bottom:2px solid var(--border)}
+h3{font-size:1.15rem;color:var(--cyan);margin:20px 0 12px}
+h4{font-size:1rem;color:var(--orange);margin:15px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:20px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;transition:transform .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(99,102,241,.15)}
+.card-title{font-size:1.1rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.badge{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.75rem;font-weight:600}
+.b-purple{background:rgba(99,102,241,.2);color:var(--accent2)}
+.b-green{background:rgba(34,197,94,.2);color:var(--green)}
+.b-orange{background:rgba(245,158,11,.2);color:var(--orange)}
+.b-cyan{background:rgba(6,182,212,.2);color:var(--cyan)}
+.b-pink{background:rgba(236,72,153,.2);color:var(--pink)}
+.b-red{background:rgba(239,68,68,.2);color:var(--red)}
+ul{padding-left:20px;margin:6px 0}
+li{margin:4px 0;color:var(--text2);font-size:.92rem}
+li strong{color:var(--text)}
+table{width:100%;border-collapse:collapse;margin:15px 0;font-size:.88rem}
+th{background:var(--card2);color:var(--accent2);padding:10px 12px;text-align:left;border:1px solid var(--border)}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:rgba(99,102,241,.05)}
+.toc{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:25px 30px;margin:30px 0}
+.toc a{color:var(--accent2);text-decoration:none;display:block;padding:4px 0;font-size:.95rem}
+.toc a:hover{color:var(--cyan)}
+.flow{background:var(--card2);border-radius:8px;padding:15px 20px;margin:10px 0;font-size:.9rem;color:var(--text2);border-left:3px solid var(--accent)}
+.stat-row{display:flex;gap:15px;flex-wrap:wrap;margin:20px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:18px 24px;flex:1;min-width:180px;text-align:center}
+.stat .num{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.stat .lbl{color:var(--text2);font-size:.85rem;margin-top:4px}
+.perm-y{color:var(--green);font-weight:700;text-align:center}
+.perm-n{color:var(--border);text-align:center}
+.section{margin-bottom:40px}
+@media(max-width:768px){.grid{grid-template-columns:1fr}h1{font-size:1.6rem}}
+.table-wrapper{overflow-x:auto}
+.note{color:var(--text2);font-size:.82rem;margin-top:8px}
+.footer{text-align:center;padding:40px 0;color:var(--text2);font-size:.85rem;border-top:1px solid var(--border);margin-top:40px}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>&#9876; VCT PLATFORM — Tài liệu Nghiệp vụ Toàn diện</h1>
+<p class="subtitle">Nền tảng Quản lý Võ Cổ Truyền Việt Nam &bull; Phiên bản 7.0 &bull; Cập nhật: 13/03/2026</p>
+
+<div class="stat-row">
+<div class="stat"><div class="num">9</div><div class="lbl">Workspace / Phân hệ</div></div>
+<div class="stat"><div class="num">12</div><div class="lbl">Vai trò RBAC</div></div>
+<div class="stat"><div class="num">23</div><div class="lbl">Domain Module (Backend)</div></div>
+<div class="stat"><div class="num">119</div><div class="lbl">Trang giao diện</div></div>
+<div class="stat"><div class="num">38</div><div class="lbl">API Handler</div></div>
+</div>
+
+<div class="toc">
+<h3>&#128214; Mục lục</h3>
+<a href="#ws">I. Tổng quan các Phân hệ (Workspace)</a>
+<a href="#fed">II. Phân hệ Liên đoàn Quốc gia (Federation Admin)</a>
+<a href="#prov">III. Phân hệ Liên đoàn Tỉnh (Provincial)</a>
+<a href="#disc">IV. Phân hệ Kỷ luật (Discipline)</a>
+<a href="#tourn">V. Phân hệ Vận hành Giải đấu (Tournament Ops)</a>
+<a href="#club">VI. Phân hệ Quản lý Câu lạc bộ (Club Management)</a>
+<a href="#ref">VII. Phân hệ Trọng tài (Referee Console)</a>
+<a href="#ath">VIII. Phân hệ Vận động viên (Athlete Portal)</a>
+<a href="#pub">IX. Phân hệ Công chúng (Public / Spectator)</a>
+<a href="#sys">X. Phân hệ Quản trị Hệ thống (System Admin)</a>
+<a href="#roles">XI. Hệ thống Vai trò & Phân quyền (RBAC)</a>
+<a href="#org">XII. Cấu trúc Tổ chức</a>
+<a href="#domain">XIII. Các Module Nghiệp vụ Backend</a>
+<a href="#v7">XIV. Tính năng Nâng cao V7 (Enterprise)</a>
+<a href="#api">XV. Tổng quan API Endpoints</a>
+</div>
+
+<!-- ═══════════ I. TONG QUAN PHAN HE ═══════════ -->
+<section class="section" id="ws">
+<h2>I. Tổng quan các Phân hệ (Workspace)</h2>
+<p>VCT Platform tổ chức theo mô hình <strong>Multi-Workspace</strong>, mỗi workspace phục vụ một nhóm người dùng với vai trò riêng biệt.</p>
+<div class="grid">
+<div class="card"><div class="card-title">&#127970; Liên đoàn Quốc gia <span class="badge b-purple">federation_admin</span></div><p>Quản lý toàn diện Liên đoàn Võ Cổ Truyền VN: tổ chức, nhân sự, giải đấu, tài chính, di sản, cộng đồng, quy chế, phê duyệt, văn bản, chứng chỉ.</p></div>
+<div class="card"><div class="card-title">&#127463; Liên đoàn Tỉnh <span class="badge b-green">federation_provincial</span></div><p>Quản lý cấp tỉnh/thành: CLB, VĐV, HLV, giải đấu tỉnh, đăng ký thi đấu, báo cáo tổng hợp, tài chính.</p></div>
+<div class="card"><div class="card-title">&#9878; Kỷ luật <span class="badge b-red">federation_discipline</span></div><p>Xử lý vi phạm: vụ việc kỷ luật, phiên điều trần, xử phạt/cấm thi, thanh tra, báo cáo.</p></div>
+<div class="card"><div class="card-title">&#127942; Vận hành Giải đấu <span class="badge b-orange">tournament_ops</span></div><p>Toàn bộ vòng đời giải: cấu hình, nội dung, đăng ký, bốc thăm, lịch thi, chấm điểm, kết quả, huy chương, khiếu nại.</p></div>
+<div class="card"><div class="card-title">&#127968; Câu lạc bộ <span class="badge b-cyan">club_management</span></div><p>Quản lý CLB: võ sinh, HLV, lớp học, điểm danh, trang thiết bị, cơ sở, tài chính, thi lên đai, đăng ký giải.</p></div>
+<div class="card"><div class="card-title">&#128101; Trọng tài <span class="badge b-pink">referee_console</span></div><p>Giao diện chấm điểm: lịch trình, phân công, chấm đối kháng, chấm quyền, bảng điểm live, khiếu nại.</p></div>
+<div class="card"><div class="card-title">&#127947; Vận động viên <span class="badge b-green">athlete_portal</span></div><p>Portal cá nhân: hồ sơ, thành tích, xếp hạng, giải đấu, CLB, luyện tập, e-learning.</p></div>
+<div class="card"><div class="card-title">&#128064; Công chúng <span class="badge b-cyan">public_spectator</span></div><p>Xem trực tiếp: bảng điểm live, lịch thi đấu, xếp hạng, kết quả, huy chương, di sản, cộng đồng.</p></div>
+<div class="card"><div class="card-title">&#9881; Quản trị Hệ thống <span class="badge b-red">system_admin</span></div><p>Quản trị platform: tenant, user, role, feature flags, sức khỏe hệ thống, toàn vẹn dữ liệu, audit log.</p></div>
+</div>
+</section>
+
+<!-- ═══════════ II. LIEN DOAN QUOC GIA ═══════════ -->
+<section class="section" id="fed">
+<h2>II. Phân hệ Liên đoàn Quốc gia (Federation Admin)</h2>
+<h3>2.1 Tổng quan & Lịch</h3>
+<ul><li><strong>Dashboard</strong> — Thống kê tổng quan: số tỉnh/thành, CLB, VĐV, giải đấu, tài chính</li>
+<li><strong>Lịch</strong> — Lịch sự kiện toàn liên đoàn, giải đấu, họp, tập huấn</li>
+<li><strong>Phê duyệt</strong> — Xử lý yêu cầu: thành lập CLB, đăng ký giải, chuyển nhượng VĐV, cấp chứng chỉ</li></ul>
+
+<h3>2.2 Tổ chức</h3>
+<ul><li><strong>Tổ chức (Organizations)</strong> — CRUD các đơn vị trực thuộc liên đoàn</li>
+<li><strong>CLB (Clubs)</strong> — Quản lý danh sách CLB toàn quốc</li>
+<li><strong>Nhân sự (People)</strong> — HLV, trọng tài, cán bộ liên đoàn</li>
+<li><strong>Tỉnh/Thành (Provinces)</strong> — Danh sách liên đoàn tỉnh, thống kê</li>
+<li><strong>Sơ đồ tổ chức (Org Chart)</strong> — Biểu đồ cấu trúc tổ chức</li></ul>
+
+<h3>2.3 Giải đấu</h3>
+<ul><li>Danh sách giải • Quản lý giải • Nội dung thi đấu • Đăng ký • Lịch thi • Kết quả • Báo cáo</li></ul>
+
+<h3>2.4 Quy chế & Dữ liệu gốc</h3>
+<ul><li><strong>Quy chế</strong> — Quản lý các quy chế, điều lệ thi đấu</li>
+<li><strong>Master Data</strong> — Hạng cân, nội dung thi, cấp đai, môn phái, kỹ thuật</li></ul>
+
+<h3>2.5 Xếp hạng & Di sản</h3>
+<ul><li><strong>Bảng xếp hạng</strong> — VĐV, đoàn theo điểm tích lũy</li>
+<li><strong>Di sản (Heritage)</strong> — Phả hệ môn phái, bài quyền, kỹ thuật đặc trưng</li>
+<li><strong>Phả hệ (Lineage)</strong> — Dòng truyền thừa các hệ phái</li></ul>
+
+<h3>2.6 Đào tạo</h3>
+<ul><li>Giáo trình • Thư viện kỹ thuật • Thi lên đai</li></ul>
+
+<h3>2.7 Tài chính</h3>
+<ul><li>Tổng quan tài chính • Hóa đơn • Phí/Lệ phí • Tài trợ • Ngân sách</li></ul>
+
+<h3>2.8 Cộng đồng</h3>
+<ul><li>Tin tức/Bài viết • Nhóm • Sự kiện cộng đồng</li></ul>
+
+<h3>2.9 Hành chính</h3>
+<ul><li>Văn bản chính thức • Chứng chỉ/Chứng nhận • Thông báo • Cấu hình quy trình phê duyệt (Workflow)</li></ul>
+<div class="flow"><strong>Quy trình phê duyệt:</strong> Tạo yêu cầu → Bước duyệt 1 (Thư ký) → Bước duyệt 2 (Chủ tịch) → Phê duyệt/Từ chối → Thông báo kết quả → Lưu lịch sử</div>
+</section>
+
+<!-- ═══════════ III. LIEN DOAN TINH ═══════════ -->
+<section class="section" id="prov">
+<h2>III. Phân hệ Liên đoàn Tỉnh (Provincial)</h2>
+<h3>Nghiệp vụ chính</h3>
+<ul><li><strong>Dashboard tỉnh</strong> — Thống kê CLB, VĐV, HLV trong tỉnh</li>
+<li><strong>CLB cấp tỉnh</strong> — Quản lý CLB trực thuộc: thành lập, cập nhật, tạm dừng</li>
+<li><strong>VĐV cấp tỉnh</strong> — Hồ sơ VĐV, chuyển nhượng giữa CLB</li>
+<li><strong>HLV cấp tỉnh</strong> — Danh sách, chứng chỉ HLV, phân công</li>
+<li><strong>Giải đấu tỉnh</strong> — Tạo và quản lý giải cấp tỉnh/khu vực</li>
+<li><strong>Đăng ký thi đấu</strong> — CLB đăng ký đoàn/VĐV tham gia giải</li>
+<li><strong>Báo cáo</strong> — Thống kê, tổng hợp gửi liên đoàn quốc gia</li>
+<li><strong>Tài chính tỉnh</strong> — Thu phí, ngân sách hoạt động tỉnh</li></ul>
+<div class="flow"><strong>Quy trình thành lập CLB:</strong> Nộp hồ sơ → Liên đoàn tỉnh xét duyệt → Bổ sung (nếu cần) → Phê duyệt → Cấp mã CLB → Đồng bộ lên LĐ quốc gia</div>
+</section>
+
+<!-- ═══════════ IV. KY LUAT ═══════════ -->
+<section class="section" id="disc">
+<h2>IV. Phân hệ Kỷ luật (Discipline)</h2>
+<ul><li><strong>Dashboard kỷ luật</strong> — Tổng quan vụ việc đang xử lý</li>
+<li><strong>Vụ việc (Cases)</strong> — Tạo, theo dõi, phân loại vụ vi phạm</li>
+<li><strong>Điều trần (Hearings)</strong> — Lập lịch, ghi biên bản phiên điều trần</li>
+<li><strong>Xử phạt (Sanctions)</strong> — Ra quyết định: cảnh cáo, cấm thi đấu, tước đai</li>
+<li><strong>Thanh tra (Inspections)</strong> — Kiểm tra CLB, giải đấu</li>
+<li><strong>Báo cáo kỷ luật</strong> — Thống kê vi phạm theo thời gian, loại</li></ul>
+<div class="flow"><strong>Quy trình xử lý kỷ luật:</strong> Báo cáo vi phạm → Mở vụ việc → Điều tra → Phiên điều trần → Ra quyết định → Thông báo → Giám sát thi hành</div>
+</section>
+
+<!-- ═══════════ V. GIAI DAU ═══════════ -->
+<section class="section" id="tourn">
+<h2>V. Phân hệ Vận hành Giải đấu (Tournament Ops)</h2>
+<h3>5.1 Tổng quan</h3>
+<ul><li>Dashboard giải đấu • Quản lý giải (CRUD) • Thống kê giải</li></ul>
+<h3>5.2 Thiết lập</h3>
+<ul><li><strong>Cấu hình giải</strong> — Tên, cấp độ, ngày, địa điểm, đơn vị tổ chức</li>
+<li><strong>Nội dung thi đấu</strong> — Đối kháng (hạng cân, giới, lứa tuổi), Quyền (bài bắt buộc/tự chọn)</li>
+<li><strong>Sàn đấu (Arena)</strong> — Tạo sàn, vị trí, kích thước, sức chứa, phân công phụ trách</li>
+<li><strong>Trọng tài</strong> — Danh sách, cấp bậc, chuyên môn, đơn vị</li></ul>
+<h3>5.3 Đăng ký</h3>
+<ul><li><strong>Quản lý đăng ký</strong> — Duyệt/từ chối đăng ký đoàn, VĐV</li>
+<li><strong>Đoàn (Team)</strong> — Mã, tên, tỉnh, trưởng đoàn, trạng thái (nháp→chờ duyệt→xác nhận→check-in)</li>
+<li><strong>VĐV (Athlete)</strong> — Họ tên, giới, ngày sinh, cân nặng, chiều cao, đoàn, trạng thái</li>
+<li><strong>Đăng ký nội dung</strong> — VĐV đăng ký thi ở nội dung cụ thể, validation tự động</li>
+<li><strong>Cân đo (Weigh-in)</strong> — Kiểm tra cân nặng trước thi đấu</li></ul>
+<h3>5.4 Vận hành</h3>
+<ul><li><strong>Lịch thi đấu</strong> — Xếp lịch tối ưu theo ràng buộc (VĐV, sàn, trọng tài)</li>
+<li><strong>Họp chuyên môn</strong> — Biên bản cuộc họp kỹ thuật trước giải</li>
+<li><strong>Bốc thăm</strong> — Xếp cặp đấu, seed VĐV hạt giống</li>
+<li><strong>Phân công trọng tài</strong> — Gán trọng tài cho từng trận/sàn</li>
+<li><strong>Đối kháng (Combat)</strong> — Chấm điểm real-time, võ sĩ đỏ/xanh</li>
+<li><strong>Quyền (Forms)</strong> — Chấm điểm biểu diễn quyền thuật</li>
+<li><strong>Bracket</strong> — Nhánh thi đấu loại trực tiếp/vòng tròn</li></ul>
+<h3>5.5 Kết quả</h3>
+<ul><li>Quản lý kết quả • Bảng kết quả • Huy chương • Khiếu nại • Gallery media • Báo cáo giải</li></ul>
+
+<div class="flow"><strong>Vòng đời giải đấu:</strong> Nháp (nhap) → Mở đăng ký (dang_ky) → Khóa đăng ký (khoa_dk) → Thi đấu (thi_dau) → Kết thúc (ket_thuc)</div>
+<div class="flow"><strong>Vòng đời đoàn:</strong> Nháp → Chờ duyệt → Yêu cầu bổ sung / Xác nhận → Đã check-in / Từ chối</div>
+</section>
+
+<!-- ═══════════ VI. CLB ═══════════ -->
+<section class="section" id="club">
+<h2>VI. Phân hệ Quản lý Câu lạc bộ (Club Management)</h2>
+<ul><li><strong>Dashboard CLB</strong> — Tổng quan: số võ sinh, buổi tập, doanh thu</li>
+<li><strong>Võ sinh (Students)</strong> — Danh sách, hồ sơ, lịch sử tập luyện, đai</li>
+<li><strong>HLV (Coaches)</strong> — Phân công, chứng chỉ, lịch dạy</li>
+<li><strong>Giáo trình</strong> — Chương trình đào tạo theo đai/cấp</li>
+<li><strong>Thư viện kỹ thuật</strong> — Video, hình ảnh các bài quyền, kỹ thuật</li>
+<li><strong>Kế hoạch tập luyện</strong> — Lịch tập tuần/tháng</li>
+<li><strong>Lớp học (Classes)</strong> — Quản lý lớp, khung giờ, sĩ số</li>
+<li><strong>Điểm danh (Attendance)</strong> — Theo dõi chuyên cần từng buổi</li>
+<li><strong>Thi lên đai (Belt Exams)</strong> — Tổ chức, chấm điểm, cấp đai</li>
+<li><strong>E-Learning</strong> — Học trực tuyến, video bài giảng</li>
+<li><strong>Cơ sở (Facilities)</strong> — Quản lý phòng tập, sàn tập</li>
+<li><strong>Trang thiết bị (Equipment)</strong> — Theo dõi, bảo trì thiết bị</li>
+<li><strong>Tài chính CLB</strong> — Học phí, hóa đơn, phí/lệ phí, doanh thu & chi</li>
+<li><strong>Giải đấu</strong> — Xem giải, đăng ký VĐV tham gia</li></ul>
+</section>
+
+<!-- ═══════════ VII. TRONG TAI ═══════════ -->
+<section class="section" id="ref">
+<h2>VII. Phân hệ Trọng tài (Referee Console)</h2>
+<ul><li><strong>Dashboard</strong> — Lịch trình hôm nay, trận sắp chấm</li>
+<li><strong>Lịch thi đấu</strong> — Xem lịch theo sàn, ngày, nội dung</li>
+<li><strong>Phân công</strong> — Xem phân công sàn/trận của bản thân</li>
+<li><strong>Chấm Đối kháng</strong> — Giao diện chấm real-time, nút điểm đỏ/xanh</li>
+<li><strong>Chấm Quyền</strong> — Chấm điểm biểu diễn, trừ điểm lỗi</li>
+<li><strong>Bảng điểm (Scoreboard)</strong> — Hiển thị live điểm số</li>
+<li><strong>Khiếu nại</strong> — Xem/xử lý khiếu nại kết quả</li>
+<li><strong>Kết quả</strong> — Xem bảng kết quả tổng hợp</li></ul>
+</section>
+
+<!-- ═══════════ VIII. VAN DONG VIEN ═══════════ -->
+<section class="section" id="ath">
+<h2>VIII. Phân hệ Vận động viên (Athlete Portal)</h2>
+<ul><li><strong>Trang chủ</strong> — Dashboard cá nhân, thông báo, giải sắp tới</li>
+<li><strong>Hồ sơ (Profile)</strong> — Thông tin cá nhân, ảnh, cấp đai, đoàn/CLB</li>
+<li><strong>Xếp hạng</strong> — Thứ hạng cá nhân theo nội dung/cấp</li>
+<li><strong>Thành tích (Results)</strong> — Lịch sử thi đấu, huy chương</li>
+<li><strong>Giải đấu</strong> — Xem giải đang/sắp diễn ra</li>
+<li><strong>CLB</strong> — CLB đang sinh hoạt, lịch sử thành viên</li>
+<li><strong>Luyện tập (Training)</strong> — Log buổi tập, tiến trình</li>
+<li><strong>E-Learning</strong> — Khóa học online, video kỹ thuật</li></ul>
+</section>
+
+<!-- ═══════════ IX. CONG CHUNG ═══════════ -->
+<section class="section" id="pub">
+<h2>IX. Phân hệ Công chúng (Public / Spectator)</h2>
+<ul><li><strong>Bảng điểm Live</strong> — Xem trực tiếp điểm trận đấu</li>
+<li><strong>Chế độ Khán giả</strong> — Giao diện tối ưu xem trận trên thiết bị cá nhân</li>
+<li><strong>Lịch thi đấu</strong> — Tra cứu trận theo ngày/sàn/VĐV</li>
+<li><strong>Bảng xếp hạng</strong> — Xem BXH VĐV, đoàn</li>
+<li><strong>Kết quả</strong> — Tra cứu kết quả sau trận</li>
+<li><strong>Huy chương</strong> — Bảng tổng sắp huy chương</li>
+<li><strong>Di sản Võ Cổ Truyền</strong> — Tìm hiểu lịch sử, phả hệ môn phái</li>
+<li><strong>Cộng đồng</strong> — Tin tức, bài viết, sự kiện</li></ul>
+</section>
+
+<!-- ═══════════ X. SYS ADMIN ═══════════ -->
+<section class="section" id="sys">
+<h2>X. Phân hệ Quản trị Hệ thống (System Admin)</h2>
+<ul><li><strong>Platform Analytics</strong> — Thống kê toàn hệ thống: user active, API calls, storage</li>
+<li><strong>Tenant Management</strong> — Quản lý tổ chức thuê (multi-tenant): LĐ quốc gia, LĐ tỉnh, CLB</li>
+<li><strong>User Management</strong> — CRUD người dùng, gán vai trò, khóa/mở tài khoản</li>
+<li><strong>Role Management</strong> — Định nghĩa vai trò, phân quyền RBAC</li>
+<li><strong>Feature Flags</strong> — Bật/tắt tính năng theo tenant/vai trò</li>
+<li><strong>System Health</strong> — Giám sát server, DB, cache, WebSocket</li>
+<li><strong>Notifications</strong> — Quản lý thông báo hệ thống, template</li>
+<li><strong>Integrity Monitoring</strong> — Phát hiện gian lận, bất thường điểm số</li>
+<li><strong>Data Quality</strong> — Kiểm tra chất lượng dữ liệu: completeness, accuracy, consistency</li>
+<li><strong>Audit Logs</strong> — Lịch sử thao tác: ai, làm gì, lúc nào, từ đâu</li></ul>
+</section>
+
+<!-- ═══════════ XI. RBAC ═══════════ -->
+<section class="section" id="roles">
+<h2>XI. Hệ thống Vai trò & Phân quyền (RBAC)</h2>
+<h3>11.1 Danh sách 12 vai trò</h3>
+<div class="grid">
+<div class="card"><div class="card-title"><span class="badge b-red">admin</span> Quản trị viên Hệ thống</div><p>Toàn quyền trên mọi tài nguyên. Quản lý platform, user, tenant, cấu hình.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-purple">federation_president</span> Chủ tịch Liên đoàn</div><p>Quản lý tổ chức, CLB, thành viên, di sản, giải, tài chính. Phê duyệt cấp cao nhất.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-purple">federation_secretary</span> Tổng Thư ký LĐ</div><p>Xử lý hành chính: văn bản, nhập liệu thành viên, giao dịch tài chính, tổ chức giải.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-green">provincial_admin</span> Admin Liên đoàn Tỉnh</div><p>Quản lý CLB, VĐV, HLV, giải cấp tỉnh. Đăng ký đoàn và VĐV tham gia giải quốc gia.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-cyan">technical_director</span> Giám đốc Kỹ thuật</div><p>Quản lý kỹ thuật, bài quyền, hệ thống đai, di sản. Tham vấn quy chế thi đấu.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-orange">btc</span> Ban Tổ Chức Giải</div><p>Vận hành toàn bộ giải: VĐV, đoàn, đăng ký, lịch, trọng tài, kết quả, huy chương, tài chính giải.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-pink">referee_manager</span> Tổng Trọng tài</div><p>Phân công trọng tài, giám sát chấm điểm, xử lý khiếu nại, quản lý chất lượng trọng tài.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-pink">referee</span> Trọng tài</div><p>Chấm điểm đối kháng/quyền, cân đo, xem lịch & kết quả.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-green">coach</span> Huấn luyện viên</div><p>Quản lý VĐV của mình, đăng ký thi đấu, theo dõi kết quả, xem lịch & kỹ thuật.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-cyan">delegate</span> Trưởng đoàn</div><p>Đăng ký đoàn & VĐV, import/export dữ liệu, nộp khiếu nại, theo dõi kết quả.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-green">athlete</span> Vận động viên</div><p>Xem xếp hạng, kết quả, lịch thi, huy chương, kỹ thuật, giải đấu. Read-only.</p></div>
+<div class="card"><div class="card-title"><span class="badge b-orange">medical_staff</span> Y tế</div><p>Xem/cập nhật hồ sơ VĐV, cân đo, xem lịch & kết quả. Cấp phép y tế thi đấu.</p></div>
+</div>
+
+<h3>11.2 Ma trận Phân quyền</h3>
+<div class="table-wrapper">
+<table>
+<tr><th>Tài nguyên</th><th>admin</th><th>fed_president</th><th>fed_secretary</th><th>prov_admin</th><th>tech_dir</th><th>btc</th><th>ref_mgr</th><th>referee</th><th>coach</th><th>delegate</th><th>athlete</th><th>medical</th></tr>
+<tr><td>organizations</td><td class="perm-y">FULL</td><td class="perm-y">VCUDE</td><td class="perm-y">VCUE</td><td class="perm-y">VU</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td></tr>
+<tr><td>clubs</td><td class="perm-y">FULL</td><td class="perm-y">VCUDE</td><td class="perm-y">VCUE</td><td class="perm-y">VCU</td><td class="perm-n">-</td><td class="perm-y">VCU</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-n">-</td><td class="perm-n">-</td></tr>
+<tr><td>tournaments</td><td class="perm-y">FULL</td><td class="perm-y">VCUE</td><td class="perm-y">VCUE</td><td class="perm-y">VCU</td><td class="perm-n">-</td><td class="perm-y">VCUE</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">V</td><td class="perm-n">-</td><td class="perm-y">V</td><td class="perm-n">-</td></tr>
+<tr><td>athletes/teams</td><td class="perm-y">FULL</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">VCUIE</td><td class="perm-n">-</td><td class="perm-y">VCUIE</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">VCUIE</td><td class="perm-y">VCUIE</td><td class="perm-n">-</td><td class="perm-y">VU</td></tr>
+<tr><td>results</td><td class="perm-y">FULL</td><td class="perm-y">VE</td><td class="perm-y">VE</td><td class="perm-y">VE</td><td class="perm-y">V</td><td class="perm-y">VCUE</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td></tr>
+<tr><td>scoring</td><td class="perm-y">FULL</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">V</td><td class="perm-y">VU</td><td class="perm-y">VU</td><td class="perm-y">VU</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td></tr>
+<tr><td>heritage</td><td class="perm-y">FULL</td><td class="perm-y">VCUDE</td><td class="perm-y">VCU</td><td class="perm-y">V</td><td class="perm-y">VCU</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td></tr>
+<tr><td>finance</td><td class="perm-y">FULL</td><td class="perm-y">VUE</td><td class="perm-y">VCUE</td><td class="perm-y">VCU</td><td class="perm-n">-</td><td class="perm-y">VCUE</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td></tr>
+<tr><td>rankings</td><td class="perm-y">FULL</td><td class="perm-y">VE</td><td class="perm-y">VE</td><td class="perm-y">V</td><td class="perm-y">VU</td><td class="perm-y">VE</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-y">V</td><td class="perm-n">-</td></tr>
+<tr><td>weigh-ins</td><td class="perm-y">FULL</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">VCUE</td><td class="perm-y">V</td><td class="perm-y">VU</td><td class="perm-y">V</td><td class="perm-n">-</td><td class="perm-n">-</td><td class="perm-y">VU</td></tr>
+</table>
+</div>
+<p class="note"><strong>Chú thích:</strong> V=View, C=Create, U=Update, D=Delete, I=Import, E=Export, FULL=Toàn quyền</p>
+</section>
+
+<!-- ═══════════ XII. TO CHUC ═══════════ -->
+<section class="section" id="org">
+<h2>XII. Cấu trúc Tổ chức</h2>
+<h3>12.1 Hierarchy Tổ chức (Multi-Tenant)</h3>
+<div class="flow"><strong>Liên đoàn Võ Cổ Truyền Việt Nam</strong> (Federation / Tenant gốc)<br>
+&nbsp;&nbsp;├── Liên đoàn Tỉnh / Thành (63 tỉnh) — Provincial Federation<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Hội/Chi hội cấp Quận/Huyện — Sub-Association<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Câu lạc bộ (Club) — đơn vị cơ sở<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Võ sinh (Student/Athlete)<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Huấn luyện viên (Coach)<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Lớp học (Class)<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── VĐV cấp tỉnh — Provincial Athlete<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── HLV cấp tỉnh — Provincial Coach<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── Trọng tài cấp tỉnh — Provincial Referee<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── Ban chấp hành (Committee)<br>
+&nbsp;&nbsp;├── Ban chuyên môn quốc gia (Technical Committee)<br>
+&nbsp;&nbsp;├── Ban trọng tài quốc gia (Referee Committee)<br>
+&nbsp;&nbsp;└── Đối tác quốc tế (International Partners)</div>
+
+<h3>12.2 Đối tượng Người dùng</h3>
+<table>
+<tr><th>Đối tượng</th><th>Mô tả</th><th>Workspace chính</th></tr>
+<tr><td>Quản trị viên Platform</td><td>Vận hành kỹ thuật toàn hệ thống</td><td>system_admin</td></tr>
+<tr><td>Chủ tịch / Phó CT LĐ</td><td>Lãnh đạo liên đoàn, phê duyệt cấp cao</td><td>federation_admin</td></tr>
+<tr><td>Tổng Thư ký LĐ</td><td>Hành chính, văn bản, quản lý thành viên</td><td>federation_admin</td></tr>
+<tr><td>Giám đốc Kỹ thuật</td><td>Chuẩn hóa kỹ thuật, di sản, đai</td><td>federation_admin</td></tr>
+<tr><td>Admin LĐ Tỉnh</td><td>Quản lý CLB, VĐV, giải cấp tỉnh</td><td>federation_provincial</td></tr>
+<tr><td>Chủ nhiệm CLB / HLV</td><td>Quản lý CLB, võ sinh, lớp học</td><td>club_management</td></tr>
+<tr><td>Ban Tổ Chức giải</td><td>Vận hành giải từ A-Z</td><td>tournament_ops</td></tr>
+<tr><td>Tổng Trọng tài</td><td>Phân công, giám sát trọng tài</td><td>tournament_ops</td></tr>
+<tr><td>Trọng tài</td><td>Chấm điểm trận đấu</td><td>referee_console</td></tr>
+<tr><td>Trưởng đoàn</td><td>Đăng ký đoàn, quản lý VĐV của đoàn</td><td>tournament_ops</td></tr>
+<tr><td>HLV</td><td>Quản lý VĐV, đăng ký thi</td><td>club_management</td></tr>
+<tr><td>Vận động viên</td><td>Xem hồ sơ, kết quả, luyện tập</td><td>athlete_portal</td></tr>
+<tr><td>Phụ huynh / Giám hộ</td><td>Theo dõi con em (VĐV vị thành niên)</td><td>athlete_portal</td></tr>
+<tr><td>Nhân viên Y tế</td><td>Kiểm tra sức khỏe, cân đo VĐV</td><td>tournament_ops</td></tr>
+<tr><td>Khán giả / Công chúng</td><td>Xem trực tiếp, kết quả, di sản</td><td>public_spectator</td></tr>
+</table>
+</section>
+
+<!-- ═══════════ XIII. BACKEND MODULES ═══════════ -->
+<section class="section" id="domain">
+<h2>XIII. Các Module Nghiệp vụ Backend (23 Domain Modules)</h2>
+<div class="grid">
+<div class="card"><div class="card-title">&#127942; tournament</div><p>Giải đấu: CRUD, vòng đời trạng thái, thống kê, quản lý nâng cao (MgmtService).</p></div>
+<div class="card"><div class="card-title">&#127947; athlete</div><p>VĐV: hồ sơ chi tiết, thành viên CLB, lịch sử thi đấu, huấn luyện (ProfileService, TrainingService).</p></div>
+<div class="card"><div class="card-title">&#127970; organization</div><p>Đoàn, Trọng tài, Sàn đấu — quản lý thực thể tổ chức cốt lõi.</p></div>
+<div class="card"><div class="card-title">&#9878; scoring</div><p>Chấm điểm real-time: đối kháng & quyền. Cấu hình điểm, validation.</p></div>
+<div class="card"><div class="card-title">&#128203; registration</div><p>Đăng ký VĐV vào nội dung thi đấu, validation tự động hạng cân/tuổi.</p></div>
+<div class="card"><div class="card-title">&#127919; bracket</div><p>Nhánh thi đấu: single/double elimination, round-robin, auto-generate.</p></div>
+<div class="card"><div class="card-title">&#128200; ranking</div><p>Bảng xếp hạng VĐV và Đoàn theo điểm tích lũy.</p></div>
+<div class="card"><div class="card-title">&#128220; heritage</div><p>Di sản Võ Cổ Truyền: hệ thống đai, kỹ thuật, phả hệ môn phái.</p></div>
+<div class="card"><div class="card-title">&#128176; finance</div><p>Tài chính: giao dịch, ngân sách, hóa đơn, thanh toán, biểu phí, tài trợ.</p></div>
+<div class="card"><div class="card-title">&#127963; federation</div><p>Liên đoàn quốc gia: tỉnh/thành, đơn vị trực thuộc, nhân sự, master data, PR, quan hệ quốc tế.</p></div>
+<div class="card"><div class="card-title">&#9989; approval</div><p>Engine phê duyệt đa bước: workflow configurable, history tracking.</p></div>
+<div class="card"><div class="card-title">&#128196; certification</div><p>Quản lý chứng chỉ/chứng nhận: cấp, gia hạn, thu hồi.</p></div>
+<div class="card"><div class="card-title">&#9878; discipline</div><p>Kỷ luật: vụ việc, phiên điều trần, xử phạt.</p></div>
+<div class="card"><div class="card-title">&#128221; document</div><p>Văn bản chính thức: tạo, ký số, lưu trữ, xác minh.</p></div>
+<div class="card"><div class="card-title">&#127758; international</div><p>Quan hệ quốc tế: đối tác, sự kiện quốc tế, đoàn đại biểu.</p></div>
+<div class="card"><div class="card-title">&#127463; provincial</div><p>Liên đoàn tỉnh: hội, CLB, VĐV, HLV, trọng tài, ban chấp hành, chuyển nhượng, giải tỉnh, tài chính tỉnh.</p></div>
+<div class="card"><div class="card-title">&#127968; club</div><p>CLB nâng cao: điểm danh, trang thiết bị, cơ sở vật chất.</p></div>
+<div class="card"><div class="card-title">&#128227; btc</div><p>Ban Tổ Chức giải: quản lý vận hành giải chuyên biệt.</p></div>
+<div class="card"><div class="card-title">&#128106; parent</div><p>Phụ huynh/Giám hộ: liên kết cha-con, đồng ý thi đấu, chuyên cần, kết quả con em.</p></div>
+<div class="card"><div class="card-title">&#128101; community</div><p>Cộng đồng: CLB, thành viên, sự kiện, marketplace.</p></div>
+<div class="card"><div class="card-title">&#128137; btc/orchestrator</div><p>Điều phối giải: state machine, chuyển trạng thái tự động.</p></div>
+<div class="card"><div class="card-title">&#128640; training</div><p>Đào tạo: buổi tập, log luyện tập, tiến trình VĐV.</p></div>
+<div class="card"><div class="card-title">&#128218; repository</div><p>Layer repository chung: interface chuẩn cho tất cả domain.</p></div>
+</div>
+</section>
+
+<!-- ═══════════ XIV. V7 ENTERPRISE ═══════════ -->
+<section class="section" id="v7">
+<h2>XIV. Tính năng Nâng cao V7 (Enterprise)</h2>
+<h3>Layer A — Bảo vệ Dữ liệu & Đồng bộ</h3>
+<ul><li><strong>Crypto-Shredding (GDPR)</strong> — Mã hóa dữ liệu cá nhân VĐV bằng DEK, xóa an toàn khi có yêu cầu</li>
+<li><strong>Erasure Tombstone</strong> — Ghi nhận chứng chỉ xóa dữ liệu tuân thủ GDPR</li>
+<li><strong>Offline Sync & Conflict Resolution</strong> — Đồng bộ offline, phát hiện xung đột, tự động merge hoặc escalate</li>
+<li><strong>Config Changelog</strong> — Version control cho cấu hình, rollback khi cần</li></ul>
+
+<h3>Layer B — Quản trị & An ninh</h3>
+<ul><li><strong>Event Schema Registry</strong> — Quản lý schema sự kiện domain: versioning, compatibility</li>
+<li><strong>Zanzibar-style ReBAC</strong> — Authorization tuple (object-relation-subject), derived permissions</li>
+<li><strong>Digital Signatures</strong> — Ký số kết quả, chứng nhận huy chương (PKI, chain hash)</li>
+<li><strong>Translation (i18n)</strong> — Đa ngôn ngữ centralized: machine → human reviewed → official</li>
+<li><strong>Data Quality Monitoring</strong> — Kiểm tra chất lượng dữ liệu: completeness, accuracy, consistency, timeliness</li>
+<li><strong>Multi-channel Notifications</strong> — Push/email/SMS, quiet hours, delivery tracking</li></ul>
+
+<h3>Layer C — Vận hành Giải đấu</h3>
+<ul><li><strong>Resource Scheduling</strong> — Lập lịch tối ưu: sàn đấu, trọng tài, y tế (constraint-based)</li>
+<li><strong>Document Templates</strong> — Template HTML cho chứng nhận, giấy khen, huy chương</li>
+<li><strong>Issued Documents + QR</strong> — Cấp văn bản kỹ thuật số, xác minh bằng QR code</li>
+<li><strong>Integrity Monitoring</strong> — Phát hiện gian lận: unusual scoring pattern, anti-match-fixing</li>
+<li><strong>Scoring Baselines</strong> — Baseline thống kê cho anomaly detection</li></ul>
+
+<h3>Layer D — Khả năng Mở rộng</h3>
+<ul><li><strong>Federation Merge</strong> — Sáp nhập liên đoàn: mapping, duplicate detection, rollback</li>
+<li><strong>Multi-Sport Profile</strong> — Cấu hình đa môn: loại thi đấu, hạng cân, xếp hạng riêng</li>
+<li><strong>Team Events</strong> — Thi đấu đồng đội: team entry, bout system, substitution</li>
+<li><strong>Athlete Daily Load</strong> — Theo dõi tải trọng VĐV/ngày: an toàn sức khỏe thi đấu</li>
+<li><strong>Auth Provider Abstraction</strong> — Hỗ trợ đa provider: Supabase, Auth0, Firebase, Keycloak</li>
+<li><strong>Storage Provider Abstraction</strong> — Hỗ trợ đa storage: Supabase Storage, S3, GCS</li></ul>
+</section>
+
+<!-- ═══════════ XV. API ═══════════ -->
+<section class="section" id="api">
+<h2>XV. Tổng quan API Endpoints</h2>
+<table>
+<tr><th>Nhóm</th><th>Endpoint</th><th>Mô tả</th></tr>
+<tr><td rowspan="7">Auth</td><td>POST /api/v1/auth/login</td><td>Đăng nhập</td></tr>
+<tr><td>POST /api/v1/auth/register</td><td>Đăng ký tài khoản</td></tr>
+<tr><td>POST /api/v1/auth/refresh</td><td>Làm mới access token</td></tr>
+<tr><td>GET /api/v1/auth/me</td><td>Thông tin user hiện tại</td></tr>
+<tr><td>POST /api/v1/auth/logout</td><td>Đăng xuất</td></tr>
+<tr><td>POST /api/v1/auth/switch-context</td><td>Chuyển ngữ cảnh workspace</td></tr>
+<tr><td>GET /api/v1/auth/my-roles</td><td>Danh sách vai trò của user</td></tr>
+<tr><td rowspan="6">Tournament</td><td>/api/v1/tournaments/</td><td>CRUD giải đấu</td></tr>
+<tr><td>/api/v1/tournaments-action/*</td><td>Mở/Khóa ĐK, Bắt đầu, Kết thúc giải</td></tr>
+<tr><td>/api/v1/brackets-action/*</td><td>Generate bracket, trao huy chương</td></tr>
+<tr><td>/api/v1/registration/</td><td>Đăng ký nội dung thi đấu</td></tr>
+<tr><td>/api/v1/scoring/</td><td>Chấm điểm real-time</td></tr>
+<tr><td>/api/v1/rankings/</td><td>Bảng xếp hạng</td></tr>
+<tr><td rowspan="4">Organization</td><td>/api/v1/athletes/</td><td>Quản lý VĐV</td></tr>
+<tr><td>/api/v1/teams/</td><td>Quản lý Đoàn</td></tr>
+<tr><td>/api/v1/referees/</td><td>Quản lý Trọng tài</td></tr>
+<tr><td>/api/v1/arenas/</td><td>Quản lý Sàn đấu</td></tr>
+<tr><td rowspan="3">Heritage</td><td>/api/v1/belts/</td><td>Hệ thống Đai</td></tr>
+<tr><td>/api/v1/techniques/</td><td>Kỹ thuật Võ Cổ Truyền</td></tr>
+<tr><td>/api/v1/heritage/*</td><td>Phả hệ, Dòng truyền thừa</td></tr>
+<tr><td rowspan="3">Finance</td><td>/api/v1/transactions/</td><td>Giao dịch tài chính</td></tr>
+<tr><td>/api/v1/budgets</td><td>Ngân sách</td></tr>
+<tr><td>/api/v1/finance/*</td><td>Hóa đơn, Thanh toán, Phí, Tài trợ</td></tr>
+<tr><td rowspan="3">Community</td><td>/api/v1/clubs/</td><td>CLB</td></tr>
+<tr><td>/api/v1/members/</td><td>Thành viên</td></tr>
+<tr><td>/api/v1/community-events/</td><td>Sự kiện cộng đồng</td></tr>
+<tr><td>Federation</td><td>/api/v1/federation/*</td><td>Tỉnh, Đơn vị, Nhân sự, Master Data, PR, Quốc tế</td></tr>
+<tr><td>Provincial</td><td>/api/v1/provincial/*</td><td>LĐ Tỉnh: CLB, VĐV, HLV, Giải, Tài chính</td></tr>
+<tr><td>Approval</td><td>/api/v1/approvals/*</td><td>Workflow phê duyệt đa bước</td></tr>
+<tr><td>Public</td><td>/api/v1/public/</td><td>API công khai (không cần auth)</td></tr>
+<tr><td>Realtime</td><td>/api/v1/ws</td><td>WebSocket: live scoring, notifications</td></tr>
+<tr><td>Health</td><td>/healthz, /readyz</td><td>Liveness & Readiness probes</td></tr>
+</table>
+</section>
+
+<footer class="footer">
+<p><strong>VCT Platform</strong> &mdash; N&#7873;n t&#7843;ng Qu&#7843;n l&#253; V&#245; C&#7893; Truy&#7873;n Vi&#7879;t Nam</p>
+<p>Backend: Go &bull; Frontend: React/Next.js &bull; Database: PostgreSQL &bull; Realtime: WebSocket</p>
+<p>&copy; 2026 VCT Universe. T&#224;i li&#7879;u t&#7921; &#273;&#7897;ng t&#7915; m&#227; ngu&#7891;n.</p>
+</footer>
+</div>
+</body>
+</html>
