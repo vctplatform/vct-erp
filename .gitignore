@@ -1,0 +1,14 @@
+# Only track vct-erp directory
+vct-website/
+vct-platform
+vct-platform/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
