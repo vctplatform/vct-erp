@@ -18,6 +18,18 @@ type JournalEntryRepository interface {
 	CreateItems(ctx context.Context, entryID string, items []JournalItem, createdAt time.Time, companyCode string, currencyCode string) error
 }
 
+// VoucherSequenceRepository allocates voucher numbers such as PT-0001/03-26.
+type VoucherSequenceRepository interface {
+	NextVoucherNumber(ctx context.Context, companyCode string, voucherType VoucherType, postingDate time.Time) (string, error)
+}
+
+// JournalEntryQueryRepository loads and mutates journal entries for privileged maintenance flows.
+type JournalEntryQueryRepository interface {
+	GetEntry(ctx context.Context, entryID string) (JournalEntry, error)
+	GetEntryForUpdate(ctx context.Context, entryID string) (JournalEntry, error)
+	MarkReversed(ctx context.Context, originalEntryID string, reversalEntryID string, reversedAt time.Time, reason string) error
+}
+
 // AccountBalanceRepository keeps the real-time balance table synchronized.
 type AccountBalanceRepository interface {
 	ApplyDeltas(ctx context.Context, deltas []AccountBalanceDelta, entryID string, updatedAt time.Time) error

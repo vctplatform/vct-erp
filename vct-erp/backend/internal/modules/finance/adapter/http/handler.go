@@ -4,11 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"io"
 	"net/http"
 	"strings"
 
 	financedomain "vct-platform/backend/internal/modules/finance/domain"
 	financeusecase "vct-platform/backend/internal/modules/finance/usecase"
+	ledgerdomain "vct-platform/backend/internal/modules/ledger/domain"
 )
 
 // CaptureService is the finance application boundary used by the HTTP adapter.
@@ -18,7 +20,7 @@ type CaptureService interface {
 
 // VoidService is the privileged finance boundary used by the void endpoint.
 type VoidService interface {
-	VoidEntry(ctx context.Context, entryID string) error
+	VoidEntry(ctx context.Context, entryID string, reason string, actorID string) (*financedomain.VoidEntryResult, error)
 }
 
 // Handler exposes HTTP endpoints for the finance module.
@@ -26,18 +28,23 @@ type Handler struct {
 	captureUC         CaptureService
 	voidUC            VoidService
 	idempotencyHeader string
+	actorHeader       string
 }
 
 // NewHandler constructs the finance HTTP adapter.
-func NewHandler(captureUC CaptureService, voidUC VoidService, idempotencyHeader string) *Handler {
+func NewHandler(captureUC CaptureService, voidUC VoidService, idempotencyHeader string, actorHeader string) *Handler {
 	if strings.TrimSpace(idempotencyHeader) == "" {
 		idempotencyHeader = "Idempotency-Key"
+	}
+	if strings.TrimSpace(actorHeader) == "" {
+		actorHeader = "X-Actor-ID"
 	}
 
 	return &Handler{
 		captureUC:         captureUC,
 		voidUC:            voidUC,
 		idempotencyHeader: idempotencyHeader,
+		actorHeader:       actorHeader,
 	}
 }
 
@@ -110,10 +117,31 @@ func (h *Handler) VoidJournalEntry(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := h.voidUC.VoidEntry(r.Context(), entryID); err != nil {
+	var req struct {
+		Reason string `json:"reason,omitempty"`
+	}
+	if r.Body != nil {
+		decoder := json.NewDecoder(r.Body)
+		decoder.DisallowUnknownFields()
+		if err := decoder.Decode(&req); err != nil && !errors.Is(err, io.EOF) {
+			writeJSON(w, http.StatusBadRequest, map[string]string{
+				"error":   "invalid_request",
+				"message": err.Error(),
+			})
+			return
+		}
+	}
+
+	result, err := h.voidUC.VoidEntry(r.Context(), entryID, strings.TrimSpace(req.Reason), strings.TrimSpace(r.Header.Get(h.actorHeader)))
+	if err != nil {
 		status := http.StatusInternalServerError
-		if errors.Is(err, financedomain.ErrUnsupportedOperation) {
+		switch {
+		case errors.Is(err, financedomain.ErrUnsupportedOperation):
 			status = http.StatusNotImplemented
+		case errors.Is(err, ledgerdomain.ErrJournalEntryNotFound):
+			status = http.StatusNotFound
+		case errors.Is(err, ledgerdomain.ErrEntryAlreadyReversed), errors.Is(err, ledgerdomain.ErrEntryNotPosted):
+			status = http.StatusConflict
 		}
 		writeJSON(w, status, map[string]string{
 			"error":   "finance_void_failed",
@@ -122,10 +150,7 @@ func (h *Handler) VoidJournalEntry(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusAccepted, map[string]string{
-		"status":   "accepted",
-		"entry_id": entryID,
-	})
+	writeJSON(w, http.StatusAccepted, result)
 }
 
 func writeJSON(w http.ResponseWriter, status int, payload any) {

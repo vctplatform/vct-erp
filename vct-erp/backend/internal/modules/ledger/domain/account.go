@@ -41,3 +41,20 @@ type Account struct {
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
+
+// ExpectedNormalSide returns the default normal balance direction for a chart-of-accounts type.
+func ExpectedNormalSide(accountType AccountType) Side {
+	switch accountType {
+	case AccountTypeAsset, AccountTypeExpense, AccountTypeContraLiability, AccountTypeContraEquity, AccountTypeContraRevenue:
+		return SideDebit
+	case AccountTypeLiability, AccountTypeEquity, AccountTypeRevenue, AccountTypeContraAsset, AccountTypeContraExpense:
+		return SideCredit
+	default:
+		return SideDebit
+	}
+}
+
+// HasExpectedNormalSide guards the master-data setup used by automated postings and VAS reports.
+func (a Account) HasExpectedNormalSide() bool {
+	return a.NormalSide == ExpectedNormalSide(a.Type)
+}

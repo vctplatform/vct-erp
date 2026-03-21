@@ -3,6 +3,8 @@ package postgres
 import (
 	"context"
 	"database/sql"
+	"encoding/json"
+	"errors"
 	"fmt"
 	"strings"
 	"time"
@@ -134,16 +136,54 @@ WHERE id IN (%s)`, dollarPlaceholders(1, len(ids)))
 	return result, nil
 }
 
+// NextVoucherNumber allocates the next voucher sequence for the month and voucher type.
+func (s *Store) NextVoucherNumber(ctx context.Context, companyCode string, voucherType domain.VoucherType, postingDate time.Time) (string, error) {
+	periodKey := postingDate.UTC().Format("2006-01")
+	now := time.Now().UTC()
+
+	var nextValue int
+	if err := s.current(ctx).QueryRowContext(ctx, `
+INSERT INTO voucher_sequences (
+    company_code,
+    voucher_type,
+    period_key,
+    last_value,
+    created_at,
+    updated_at
+)
+VALUES ($1, $2, $3, 1, $4, $4)
+ON CONFLICT (company_code, voucher_type, period_key)
+DO UPDATE SET
+    last_value = voucher_sequences.last_value + 1,
+    updated_at = EXCLUDED.updated_at
+RETURNING last_value`,
+		companyCode,
+		string(voucherType),
+		periodKey,
+		now,
+	).Scan(&nextValue); err != nil {
+		return "", fmt.Errorf("allocate voucher number: %w", err)
+	}
+
+	return fmt.Sprintf("%s-%04d/%s", voucherType, nextValue, postingDate.UTC().Format("01-06")), nil
+}
+
 // CreateEntry inserts the journal header.
 func (s *Store) CreateEntry(ctx context.Context, entry *domain.JournalEntry) error {
 	if entry == nil {
 		return fmt.Errorf("journal entry is required")
 	}
 
-	_, err := s.current(ctx).ExecContext(ctx, `
+	metadata, err := marshalJSON(entry.Metadata)
+	if err != nil {
+		return fmt.Errorf("marshal entry metadata: %w", err)
+	}
+
+	_, err = s.current(ctx).ExecContext(ctx, `
 INSERT INTO journal_entries (
     id,
     entry_no,
+    voucher_type,
     company_code,
     source_module,
     external_ref,
@@ -152,12 +192,16 @@ INSERT INTO journal_entries (
     posting_date,
     status,
     posted_at,
+    metadata,
+    reversal_of_entry_id,
+    void_reason,
     created_at,
     updated_at
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, CAST($12 AS JSONB), NULLIF($13, '')::uuid, NULLIF($14, ''), $15, $16)`,
 		entry.ID,
 		entry.ReferenceNo,
+		string(entry.VoucherType),
 		entry.CompanyCode,
 		entry.SourceModule,
 		entry.ExternalRef,
@@ -166,6 +210,9 @@ VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
 		entry.PostingDate.Format("2006-01-02"),
 		string(entry.Status),
 		entry.PostedAt,
+		metadata,
+		entry.ReversalOfEntryID,
+		entry.VoidReason,
 		entry.CreatedAt,
 		entry.UpdatedAt,
 	)
@@ -174,6 +221,16 @@ VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
 	}
 
 	return nil
+}
+
+// GetEntry loads a journal entry and its detail lines.
+func (s *Store) GetEntry(ctx context.Context, entryID string) (domain.JournalEntry, error) {
+	return s.getEntry(ctx, entryID, false)
+}
+
+// GetEntryForUpdate loads and locks a journal entry for a privileged mutation.
+func (s *Store) GetEntryForUpdate(ctx context.Context, entryID string) (domain.JournalEntry, error) {
+	return s.getEntry(ctx, entryID, true)
 }
 
 // CreateItems inserts the journal lines and lets PostgreSQL route them to the right partition by created_at.
@@ -210,6 +267,36 @@ VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
 		if err != nil {
 			return fmt.Errorf("insert journal item %d for %s: %w", item.LineNo, entryID, err)
 		}
+	}
+
+	return nil
+}
+
+// MarkReversed ties the original entry to its reversal after the reversal posting succeeds.
+func (s *Store) MarkReversed(ctx context.Context, originalEntryID string, reversalEntryID string, reversedAt time.Time, reason string) error {
+	result, err := s.current(ctx).ExecContext(ctx, `
+UPDATE journal_entries
+SET
+    status = 'reversed',
+    reversal_entry_id = $2,
+    reversed_at = $3,
+    void_reason = NULLIF($4, ''),
+    updated_at = $3
+WHERE id = $1
+  AND status = 'posted'
+  AND reversal_entry_id IS NULL`,
+		originalEntryID,
+		reversalEntryID,
+		reversedAt,
+		reason,
+	)
+	if err != nil {
+		return fmt.Errorf("mark journal entry %s reversed: %w", originalEntryID, err)
+	}
+
+	rowsAffected, _ := result.RowsAffected()
+	if rowsAffected == 0 {
+		return domain.ErrEntryAlreadyReversed
 	}
 
 	return nil
@@ -415,6 +502,146 @@ func (s *Store) current(ctx context.Context) queryable {
 	return s.db
 }
 
+func (s *Store) getEntry(ctx context.Context, entryID string, forUpdate bool) (domain.JournalEntry, error) {
+	var (
+		entry             domain.JournalEntry
+		status            string
+		voucherType       string
+		metadataRaw       []byte
+		reversalOfEntryID sql.NullString
+		reversalEntryID   sql.NullString
+		reversedAt        sql.NullTime
+		voidReason        sql.NullString
+		lockClause        string
+	)
+
+	if forUpdate {
+		lockClause = " FOR UPDATE"
+	}
+
+	err := s.current(ctx).QueryRowContext(ctx, `
+SELECT
+    id,
+    entry_no,
+    voucher_type,
+    company_code,
+    source_module,
+    external_ref,
+    description,
+    currency_code,
+    posting_date,
+    status,
+    posted_at,
+    COALESCE(metadata::text, '{}'),
+    reversal_of_entry_id,
+    reversal_entry_id,
+    reversed_at,
+    void_reason,
+    created_at,
+    updated_at
+FROM journal_entries
+WHERE id = $1`+lockClause,
+		entryID,
+	).Scan(
+		&entry.ID,
+		&entry.ReferenceNo,
+		&voucherType,
+		&entry.CompanyCode,
+		&entry.SourceModule,
+		&entry.ExternalRef,
+		&entry.Description,
+		&entry.CurrencyCode,
+		&entry.PostingDate,
+		&status,
+		&entry.PostedAt,
+		&metadataRaw,
+		&reversalOfEntryID,
+		&reversalEntryID,
+		&reversedAt,
+		&voidReason,
+		&entry.CreatedAt,
+		&entry.UpdatedAt,
+	)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return domain.JournalEntry{}, domain.ErrJournalEntryNotFound
+		}
+		return domain.JournalEntry{}, fmt.Errorf("query journal entry %s: %w", entryID, err)
+	}
+
+	entry.Status = domain.EntryStatus(status)
+	entry.VoucherType = domain.VoucherType(voucherType)
+	if len(metadataRaw) > 0 && string(metadataRaw) != "null" {
+		if err := json.Unmarshal(metadataRaw, &entry.Metadata); err != nil {
+			return domain.JournalEntry{}, fmt.Errorf("decode entry metadata %s: %w", entryID, err)
+		}
+	}
+	if reversalOfEntryID.Valid {
+		entry.ReversalOfEntryID = reversalOfEntryID.String
+	}
+	if reversalEntryID.Valid {
+		entry.ReversalEntryID = reversalEntryID.String
+	}
+	if reversedAt.Valid {
+		value := reversedAt.Time
+		entry.ReversedAt = &value
+	}
+	if voidReason.Valid {
+		entry.VoidReason = voidReason.String
+	}
+
+	rows, err := s.current(ctx).QueryContext(ctx, `
+SELECT
+    journal_entry_id,
+    line_no,
+    account_id,
+    side,
+    amount,
+    description
+FROM journal_items
+WHERE journal_entry_id = $1
+ORDER BY line_no, created_at`,
+		entryID,
+	)
+	if err != nil {
+		return domain.JournalEntry{}, fmt.Errorf("query journal items for %s: %w", entryID, err)
+	}
+	defer rows.Close()
+
+	entry.Items = make([]domain.JournalItem, 0, 4)
+	for rows.Next() {
+		var (
+			item      domain.JournalItem
+			side      string
+			amountRaw string
+		)
+		if err := rows.Scan(
+			&item.JournalEntryID,
+			&item.LineNo,
+			&item.AccountID,
+			&side,
+			&amountRaw,
+			&item.Description,
+		); err != nil {
+			return domain.JournalEntry{}, fmt.Errorf("scan journal item for %s: %w", entryID, err)
+		}
+
+		amount, err := domain.ParseMoney(amountRaw)
+		if err != nil {
+			return domain.JournalEntry{}, fmt.Errorf("parse journal item amount for %s: %w", entryID, err)
+		}
+		item.Side = domain.Side(side)
+		item.Amount = amount
+		entry.Items = append(entry.Items, item)
+	}
+
+	if err := rows.Err(); err != nil {
+		return domain.JournalEntry{}, fmt.Errorf("iterate journal items for %s: %w", entryID, err)
+	}
+
+	return entry, nil
+}
+
 func dollarPlaceholders(start int, count int) string {
 	values := make([]string, count)
 	for index := 0; index < count; index++ {
@@ -487,4 +714,16 @@ func scanOutboxEvent(row rowScanner) (domain.OutboxEvent, error) {
 	}
 
 	return event, nil
+}
+
+func marshalJSON(payload any) (string, error) {
+	if payload == nil {
+		return "{}", nil
+	}
+
+	raw, err := json.Marshal(payload)
+	if err != nil {
+		return "", err
+	}
+	return string(raw), nil
 }

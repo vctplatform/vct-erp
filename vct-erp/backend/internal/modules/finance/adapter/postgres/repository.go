@@ -211,7 +211,7 @@ INSERT INTO saas_revenue_schedules (
     created_at,
     updated_at
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+VALUES ($1, $2, $3, $4, $5, CAST($6 AS revenue_schedule_status), $7, $8)`,
 			schedule.ID,
 			schedule.ContractID,
 			schedule.SequenceNo,
@@ -334,7 +334,7 @@ INSERT INTO dojo_receivables (
     created_at,
     updated_at
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, NULLIF($13, '')::uuid, NULLIF($14, '')::uuid, $15, $16)`,
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, CAST($11 AS receivable_status), $12, NULLIF($13, '')::uuid, NULLIF($14, '')::uuid, $15, $16)`,
 		receivable.ID,
 		receivable.CompanyCode,
 		receivable.StudentRef,
@@ -438,8 +438,8 @@ UPDATE dojo_receivables
 SET
     amount_paid = amount_paid + CAST($2 AS NUMERIC(20, 4)),
     status = CASE
-        WHEN amount_paid + CAST($2 AS NUMERIC(20, 4)) >= amount_due THEN 'settled'
-        ELSE 'open'
+        WHEN amount_paid + CAST($2 AS NUMERIC(20, 4)) >= amount_due THEN CAST('settled' AS receivable_status)
+        ELSE CAST('open' AS receivable_status)
     END,
     settlement_entry_id = $3,
     updated_at = $4
@@ -475,7 +475,7 @@ INSERT INTO rental_deposits (
     created_at,
     updated_at
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, NULLIF($10, '')::uuid, NULLIF($11, '')::uuid, $12, $13, $14, $15)`,
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, CAST($9 AS deposit_status), NULLIF($10, '')::uuid, NULLIF($11, '')::uuid, $12, $13, $14, $15)`,
 		deposit.ID,
 		deposit.CompanyCode,
 		deposit.RentalOrderID,
@@ -565,22 +565,221 @@ WHERE company_code = $1 AND rental_order_id = $2`,
 	return deposit, nil
 }
 
-// MarkReleased marks a rental deposit as released.
-func (s *Store) MarkReleased(ctx context.Context, depositID string, releasedJournalEntryID string, releasedAt time.Time) error {
+// MarkDepositSettled marks a rental deposit as released, applied, or forfeited.
+func (s *Store) MarkDepositSettled(ctx context.Context, depositID string, status string, releasedJournalEntryID string, releasedAt time.Time) error {
 	_, err := s.current(ctx).ExecContext(ctx, `
 UPDATE rental_deposits
 SET
-    status = 'released',
-    released_entry_id = $2,
-    released_at = $3,
-    updated_at = $3
+    status = CAST($2 AS deposit_status),
+    released_entry_id = $3,
+    released_at = $4,
+    updated_at = $4
 WHERE id = $1`,
 		depositID,
+		status,
 		releasedJournalEntryID,
 		releasedAt,
 	)
 	if err != nil {
-		return fmt.Errorf("mark rental deposit %s released: %w", depositID, err)
+		return fmt.Errorf("mark rental deposit %s settled: %w", depositID, err)
+	}
+	return nil
+}
+
+// ListOpenStatementLines returns unmatched bank statement rows for reconciliation.
+func (s *Store) ListOpenStatementLines(ctx context.Context, companyCode string, bankAccountNo string, from time.Time, to time.Time, limit int) ([]financedomain.BankStatementLine, error) {
+	rows, err := s.current(ctx).QueryContext(ctx, `
+SELECT
+    id,
+    company_code,
+    bank_account_no,
+    external_line_id,
+    booking_date,
+    value_date,
+    reference_no,
+    description,
+    currency_code,
+    amount_signed,
+    status,
+    matched_entry_id,
+    matching_rule,
+    matched_at,
+    created_at,
+    updated_at
+FROM bank_statement_lines
+WHERE company_code = $1
+  AND bank_account_no = $2
+  AND booking_date BETWEEN $3 AND $4
+  AND status = 'open'
+ORDER BY booking_date, created_at
+LIMIT $5`,
+		companyCode,
+		bankAccountNo,
+		from.Format("2006-01-02"),
+		to.Format("2006-01-02"),
+		limit,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("query bank statement lines: %w", err)
+	}
+	defer rows.Close()
+
+	lines := make([]financedomain.BankStatementLine, 0, limit)
+	for rows.Next() {
+		var (
+			line           financedomain.BankStatementLine
+			amountRaw      string
+			valueDate      sql.NullTime
+			referenceNo    sql.NullString
+			description    sql.NullString
+			matchedEntryID sql.NullString
+			matchingRule   sql.NullString
+			matchedAt      sql.NullTime
+		)
+		if err := rows.Scan(
+			&line.ID,
+			&line.CompanyCode,
+			&line.BankAccountNo,
+			&line.ExternalLineID,
+			&line.BookingDate,
+			&valueDate,
+			&referenceNo,
+			&description,
+			&line.CurrencyCode,
+			&amountRaw,
+			&line.Status,
+			&matchedEntryID,
+			&matchingRule,
+			&matchedAt,
+			&line.CreatedAt,
+			&line.UpdatedAt,
+		); err != nil {
+			return nil, fmt.Errorf("scan bank statement line: %w", err)
+		}
+
+		amount, err := ledgerdomain.ParseMoney(amountRaw)
+		if err != nil {
+			return nil, fmt.Errorf("parse bank statement amount: %w", err)
+		}
+		line.Amount = amount
+		line.ReferenceNo = referenceNo.String
+		line.Description = description.String
+		line.MatchedEntryID = matchedEntryID.String
+		line.MatchingRule = matchingRule.String
+		if valueDate.Valid {
+			line.ValueDate = valueDate.Time
+		}
+		if matchedAt.Valid {
+			value := matchedAt.Time
+			line.MatchedAt = &value
+		}
+		lines = append(lines, line)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("iterate bank statement lines: %w", err)
+	}
+	return lines, nil
+}
+
+// ListOpenLedgerMovements returns unmatched journal movements for one bank ledger account.
+func (s *Store) ListOpenLedgerMovements(ctx context.Context, companyCode string, ledgerAccountID string, from time.Time, to time.Time, limit int) ([]financedomain.LedgerBankMovement, error) {
+	rows, err := s.current(ctx).QueryContext(ctx, `
+SELECT
+    je.id,
+    je.entry_no,
+    ji.account_id,
+    acc.code,
+    je.external_ref,
+    je.description,
+    je.currency_code,
+    je.posting_date,
+    ji.amount,
+    ji.side
+FROM journal_items AS ji
+INNER JOIN journal_entries AS je ON je.id = ji.journal_entry_id
+INNER JOIN accounts AS acc ON acc.id = ji.account_id
+LEFT JOIN bank_statement_lines AS bsl
+    ON bsl.matched_entry_id = je.id
+   AND bsl.status = 'matched'
+WHERE je.company_code = $1
+  AND ji.account_id = $2
+  AND je.status = 'posted'
+  AND je.posting_date BETWEEN $3 AND $4
+  AND bsl.id IS NULL
+ORDER BY je.posting_date, je.entry_no, ji.line_no
+LIMIT $5`,
+		companyCode,
+		ledgerAccountID,
+		from.Format("2006-01-02"),
+		to.Format("2006-01-02"),
+		limit,
+	)
+	if err != nil {
+		return nil, fmt.Errorf("query bank ledger movements: %w", err)
+	}
+	defer rows.Close()
+
+	movements := make([]financedomain.LedgerBankMovement, 0, limit)
+	for rows.Next() {
+		var (
+			movement    financedomain.LedgerBankMovement
+			externalRef sql.NullString
+			description sql.NullString
+			amountRaw   string
+			side        string
+		)
+		if err := rows.Scan(
+			&movement.JournalEntryID,
+			&movement.EntryNo,
+			&movement.AccountID,
+			&movement.AccountCode,
+			&externalRef,
+			&description,
+			&movement.CurrencyCode,
+			&movement.PostingDate,
+			&amountRaw,
+			&side,
+		); err != nil {
+			return nil, fmt.Errorf("scan bank ledger movement: %w", err)
+		}
+
+		amount, err := ledgerdomain.ParseMoney(amountRaw)
+		if err != nil {
+			return nil, fmt.Errorf("parse bank ledger amount: %w", err)
+		}
+		movement.Amount = amount
+		movement.Side = ledgerdomain.Side(side)
+		movement.ExternalRef = externalRef.String
+		movement.Description = description.String
+		movements = append(movements, movement)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, fmt.Errorf("iterate bank ledger movements: %w", err)
+	}
+	return movements, nil
+}
+
+// MarkStatementMatched attaches a bank statement line to its matched journal entry.
+func (s *Store) MarkStatementMatched(ctx context.Context, statementLineID string, journalEntryID string, matchingRule string, matchedAt time.Time) error {
+	_, err := s.current(ctx).ExecContext(ctx, `
+UPDATE bank_statement_lines
+SET
+    status = 'matched',
+    matched_entry_id = $2,
+    matching_rule = $3,
+    matched_at = $4,
+    updated_at = $4
+WHERE id = $1
+  AND status = 'open'`,
+		statementLineID,
+		journalEntryID,
+		matchingRule,
+		matchedAt,
+	)
+	if err != nil {
+		return fmt.Errorf("mark bank statement line %s matched: %w", statementLineID, err)
 	}
 	return nil
 }

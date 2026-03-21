@@ -7,6 +7,7 @@ import (
 	"time"
 
 	financedomain "vct-platform/backend/internal/modules/finance/domain"
+	ledgerdomain "vct-platform/backend/internal/modules/ledger/domain"
 	ledgerusecase "vct-platform/backend/internal/modules/ledger/usecase"
 	"vct-platform/backend/internal/shared/id"
 	"vct-platform/backend/internal/shared/repository"
@@ -40,7 +41,10 @@ func (s *RentalService) CaptureDeposit(ctx context.Context, req CaptureRentalDep
 		return nil, err
 	}
 
-	now := s.now().UTC()
+	now := req.HeldAt.UTC()
+	if now.IsZero() {
+		now = s.now().UTC()
+	}
 	deposit := financedomain.RentalDeposit{
 		ID:               id.NewUUID(),
 		CompanyCode:      strings.TrimSpace(req.CompanyCode),
@@ -65,6 +69,7 @@ func (s *RentalService) CaptureDeposit(ctx context.Context, req CaptureRentalDep
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
 		postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+			VoucherType:  "PT",
 			CompanyCode:  deposit.CompanyCode,
 			SourceModule: "rental",
 			ExternalRef:  firstNonEmpty(strings.TrimSpace(req.SourceRef), deposit.RentalOrderID),
@@ -73,6 +78,7 @@ func (s *RentalService) CaptureDeposit(ctx context.Context, req CaptureRentalDep
 			PostingDate:  now,
 			Metadata: map[string]any{
 				"business_line":   "rental",
+				"cost_center":     "rental",
 				"rental_order_id": deposit.RentalOrderID,
 				"deposit_id":      deposit.ID,
 				"customer_ref":    deposit.CustomerRef,
@@ -128,48 +134,83 @@ func (s *RentalService) ReleaseDeposit(ctx context.Context, req ReleaseRentalDep
 		return nil, financedomain.ErrDepositAlreadyReleased
 	}
 
-	releasedAt := s.now().UTC()
+	releasedAt := req.ReleasedAt.UTC()
+	if releasedAt.IsZero() {
+		releasedAt = s.now().UTC()
+	}
+	damageAmount := req.DamageAmount
+	if damageAmount.Sign() < 0 || damageAmount.Cmp(deposit.Amount) > 0 {
+		return nil, financedomain.ErrDamageAmountInvalid
+	}
+	if damageAmount.IsPositive() && strings.TrimSpace(req.DamageRevenueAccountID) == "" {
+		return nil, financedomain.ErrDamageAccountRequired
+	}
+
+	refundAmount := deposit.Amount.Sub(damageAmount)
+	status := "released"
+	if damageAmount.IsPositive() {
+		status = "applied"
+		if refundAmount.IsZero() {
+			status = "forfeited"
+		}
+	}
+
 	result := &ReleaseRentalDepositResult{
 		DepositID:     deposit.ID,
-		DepositStatus: "released",
+		DepositStatus: status,
 	}
 
 	err = s.txManager.WithinTransaction(ctx, repository.TxOptions{
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
+		items := make([]ledgerusecase.PostEntryItemRequest, 0, 3)
+		items = append(items, ledgerusecase.PostEntryItemRequest{
+			AccountID: deposit.HoldingAccountID,
+			Side:      "debit",
+			Amount:    deposit.Amount,
+		})
+		if refundAmount.IsPositive() {
+			cashAccountID := firstNonEmpty(strings.TrimSpace(req.CashAccountID), deposit.CashAccountID)
+			items = append(items, ledgerusecase.PostEntryItemRequest{
+				AccountID: cashAccountID,
+				Side:      "credit",
+				Amount:    refundAmount,
+			})
+		}
+		if damageAmount.IsPositive() {
+			items = append(items, ledgerusecase.PostEntryItemRequest{
+				AccountID: strings.TrimSpace(req.DamageRevenueAccountID),
+				Side:      "credit",
+				Amount:    damageAmount,
+			})
+		}
+
 		postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+			VoucherType:  "PC",
 			CompanyCode:  deposit.CompanyCode,
 			SourceModule: "rental",
 			ExternalRef:  firstNonEmpty(strings.TrimSpace(req.SourceRef), deposit.RentalOrderID),
-			Description:  fmt.Sprintf("Hoan tien coc don thue %s", deposit.RentalOrderID),
+			Description:  s.releaseDescription(deposit.RentalOrderID, damageAmount),
 			CurrencyCode: deposit.CurrencyCode,
 			PostingDate:  releasedAt,
 			Metadata: map[string]any{
 				"business_line":   "rental",
+				"cost_center":     "rental",
 				"rental_order_id": deposit.RentalOrderID,
 				"deposit_id":      deposit.ID,
 				"customer_ref":    deposit.CustomerRef,
+				"damage_amount":   damageAmount.String(),
+				"refund_amount":   refundAmount.String(),
 			},
-			Items: []ledgerusecase.PostEntryItemRequest{
-				{
-					AccountID: deposit.HoldingAccountID,
-					Side:      "debit",
-					Amount:    deposit.Amount,
-				},
-				{
-					AccountID: deposit.CashAccountID,
-					Side:      "credit",
-					Amount:    deposit.Amount,
-				},
-			},
+			Items: items,
 		})
 		if err != nil {
 			return fmt.Errorf("post rental deposit release: %w", err)
 		}
 
 		result.JournalEntryID = postResult.Entry.ID
-		if err := s.repo.MarkReleased(txCtx, deposit.ID, postResult.Entry.ID, releasedAt); err != nil {
-			return fmt.Errorf("mark rental deposit released: %w", err)
+		if err := s.repo.MarkDepositSettled(txCtx, deposit.ID, status, postResult.Entry.ID, releasedAt); err != nil {
+			return fmt.Errorf("mark rental deposit settled: %w", err)
 		}
 		return nil
 	})
@@ -178,6 +219,13 @@ func (s *RentalService) ReleaseDeposit(ctx context.Context, req ReleaseRentalDep
 	}
 
 	return result, nil
+}
+
+func (s *RentalService) releaseDescription(rentalOrderID string, damageAmount ledgerdomain.Money) string {
+	if damageAmount.IsZero() {
+		return fmt.Sprintf("Hoan tien coc don thue %s", rentalOrderID)
+	}
+	return fmt.Sprintf("Quyet toan tien coc don thue %s co khau tru hu hai", rentalOrderID)
 }
 
 func validateRentalCaptureRequest(req CaptureRentalDepositRequest) error {

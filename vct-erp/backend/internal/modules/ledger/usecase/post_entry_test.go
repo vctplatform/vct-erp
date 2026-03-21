@@ -2,30 +2,33 @@ package usecase
 
 import (
 	"context"
+	"database/sql"
 	"errors"
 	"testing"
 	"time"
 
 	"vct-platform/backend/internal/modules/ledger/domain"
 	"vct-platform/backend/internal/shared/repository"
+	"vct-platform/backend/internal/shared/sqltx"
 )
 
 func TestPostEntrySuccess(t *testing.T) {
 	now := time.Date(2026, 3, 21, 9, 30, 0, 0, time.UTC)
 	accountRepo := &fakeAccountRepo{
 		accounts: map[string]domain.Account{
-			"111": {ID: "111", CompanyCode: "VCT_GROUP", Code: "111", Name: "Cash", IsActive: true, IsPostable: true},
-			"511": {ID: "511", CompanyCode: "VCT_GROUP", Code: "511", Name: "Revenue", IsActive: true, IsPostable: true},
+			"111": {ID: "111", CompanyCode: "VCT_GROUP", Code: "1111", Name: "Cash", Type: domain.AccountTypeAsset, NormalSide: domain.SideDebit, IsActive: true, IsPostable: true},
+			"511": {ID: "511", CompanyCode: "VCT_GROUP", Code: "5113", Name: "Revenue", Type: domain.AccountTypeRevenue, NormalSide: domain.SideCredit, IsActive: true, IsPostable: true},
 		},
 	}
 	cache := &fakeCache{}
 	journalRepo := &fakeJournalRepo{}
+	voucherRepo := &fakeVoucherRepo{}
 	balanceRepo := &fakeBalanceRepo{}
 	outboxRepo := &fakeOutboxRepo{}
 	publisher := &fakePublisher{}
 	txManager := &fakeTxManager{}
 
-	uc := NewPostEntryUseCase(txManager, accountRepo, journalRepo, balanceRepo, outboxRepo, cache, 15*time.Minute, publisher, "ledger.events")
+	uc := NewPostEntryUseCase(txManager, accountRepo, journalRepo, voucherRepo, balanceRepo, outboxRepo, cache, 15*time.Minute, publisher, "ledger.events")
 	uc.now = func() time.Time { return now }
 
 	result, err := uc.PostEntry(context.Background(), PostEntryRequest{
@@ -85,6 +88,7 @@ func TestPostEntryRejectsUnbalancedEntry(t *testing.T) {
 		&fakeTxManager{},
 		&fakeAccountRepo{},
 		&fakeJournalRepo{},
+		nil,
 		&fakeBalanceRepo{},
 		&fakeOutboxRepo{},
 		nil,
@@ -116,11 +120,12 @@ func TestPostEntryDefersOutboxWhenPublishFails(t *testing.T) {
 		&fakeTxManager{},
 		&fakeAccountRepo{
 			accounts: map[string]domain.Account{
-				"111": {ID: "111", CompanyCode: "VCT_GROUP", Code: "111", Name: "Cash", IsActive: true, IsPostable: true},
-				"511": {ID: "511", CompanyCode: "VCT_GROUP", Code: "511", Name: "Revenue", IsActive: true, IsPostable: true},
+				"111": {ID: "111", CompanyCode: "VCT_GROUP", Code: "1111", Name: "Cash", Type: domain.AccountTypeAsset, NormalSide: domain.SideDebit, IsActive: true, IsPostable: true},
+				"511": {ID: "511", CompanyCode: "VCT_GROUP", Code: "5113", Name: "Revenue", Type: domain.AccountTypeRevenue, NormalSide: domain.SideCredit, IsActive: true, IsPostable: true},
 			},
 		},
 		&fakeJournalRepo{},
+		&fakeVoucherRepo{},
 		&fakeBalanceRepo{},
 		outboxRepo,
 		nil,
@@ -151,6 +156,56 @@ func TestPostEntryDefersOutboxWhenPublishFails(t *testing.T) {
 
 	if got := len(outboxRepo.published); got != 0 {
 		t.Fatalf("expected published marker to stay empty, got %d", got)
+	}
+}
+
+func TestPostEntryDefersOutboxInsideOuterTransaction(t *testing.T) {
+	now := time.Date(2026, 3, 21, 10, 30, 0, 0, time.UTC)
+	outboxRepo := &fakeOutboxRepo{}
+	publisher := &fakePublisher{}
+	uc := NewPostEntryUseCase(
+		&fakeTxManager{},
+		&fakeAccountRepo{
+			accounts: map[string]domain.Account{
+				"111": {ID: "111", CompanyCode: "VCT_GROUP", Code: "1111", Name: "Cash", Type: domain.AccountTypeAsset, NormalSide: domain.SideDebit, IsActive: true, IsPostable: true},
+				"511": {ID: "511", CompanyCode: "VCT_GROUP", Code: "5113", Name: "Revenue", Type: domain.AccountTypeRevenue, NormalSide: domain.SideCredit, IsActive: true, IsPostable: true},
+			},
+		},
+		&fakeJournalRepo{},
+		&fakeVoucherRepo{},
+		&fakeBalanceRepo{},
+		outboxRepo,
+		nil,
+		15*time.Minute,
+		publisher,
+		"ledger.events",
+	)
+	uc.now = func() time.Time { return now }
+
+	nestedCtx := sqltx.WithTx(context.Background(), &sql.Tx{})
+	result, err := uc.PostEntry(nestedCtx, PostEntryRequest{
+		CompanyCode:  "VCT_GROUP",
+		SourceModule: "saas",
+		Description:  "Nested transaction post",
+		CurrencyCode: "VND",
+		PostingDate:  now,
+		Items: []PostEntryItemRequest{
+			{AccountID: "111", Side: "debit", Amount: domain.MustParseMoney("1000.0000")},
+			{AccountID: "511", Side: "credit", Amount: domain.MustParseMoney("1000.0000")},
+		},
+	})
+	if err != nil {
+		t.Fatalf("PostEntry returned error: %v", err)
+	}
+
+	if !result.OutboxDeferred {
+		t.Fatal("expected nested transaction to defer outbox publication")
+	}
+	if got := len(publisher.events); got != 0 {
+		t.Fatalf("expected publisher to stay idle, got %d events", got)
+	}
+	if got := len(outboxRepo.published); got != 0 {
+		t.Fatalf("expected no published marker inside nested transaction, got %d", got)
 	}
 }
 
@@ -190,6 +245,12 @@ func (f *fakeJournalRepo) CreateEntry(_ context.Context, entry *domain.JournalEn
 func (f *fakeJournalRepo) CreateItems(_ context.Context, _ string, items []domain.JournalItem, _ time.Time, _ string, _ string) error {
 	f.items = append(f.items, items...)
 	return nil
+}
+
+type fakeVoucherRepo struct{}
+
+func (f *fakeVoucherRepo) NextVoucherNumber(_ context.Context, _ string, voucherType domain.VoucherType, postingDate time.Time) (string, error) {
+	return string(voucherType) + "-0001/" + postingDate.Format("01-06"), nil
 }
 
 type fakeBalanceRepo struct {

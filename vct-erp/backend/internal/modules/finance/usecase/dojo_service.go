@@ -68,6 +68,7 @@ func (s *DojoService) AssessMonthlyTuition(ctx context.Context, req AssessMonthl
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
 		postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+			VoucherType:  "PK",
 			CompanyCode:  receivable.CompanyCode,
 			SourceModule: "dojo",
 			ExternalRef:  firstNonEmpty(receivable.SourceRef, receivable.StudentRef),
@@ -76,6 +77,7 @@ func (s *DojoService) AssessMonthlyTuition(ctx context.Context, req AssessMonthl
 			PostingDate:  receivable.BillingMonth,
 			Metadata: map[string]any{
 				"business_line": "dojo",
+				"cost_center":   "dojo",
 				"student_ref":   receivable.StudentRef,
 				"billing_month": receivable.BillingMonth.Format("2006-01-02"),
 				"receivable_id": receivable.ID,
@@ -130,7 +132,10 @@ func (s *DojoService) CapturePayment(ctx context.Context, req CaptureDojoPayment
 		return nil, financedomain.ErrAmountExceedsBalance
 	}
 
-	paidAt := s.now().UTC()
+	paidAt := req.PaidAt.UTC()
+	if paidAt.IsZero() {
+		paidAt = s.now().UTC()
+	}
 	result := &CaptureDojoPaymentResult{
 		ReceivableID: receivable.ID,
 		Status:       "open",
@@ -140,6 +145,7 @@ func (s *DojoService) CapturePayment(ctx context.Context, req CaptureDojoPayment
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
 		postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+			VoucherType:  "PT",
 			CompanyCode:  receivable.CompanyCode,
 			SourceModule: "dojo",
 			ExternalRef:  firstNonEmpty(strings.TrimSpace(req.SourceRef), receivable.StudentRef),
@@ -148,6 +154,7 @@ func (s *DojoService) CapturePayment(ctx context.Context, req CaptureDojoPayment
 			PostingDate:  paidAt,
 			Metadata: map[string]any{
 				"business_line": "dojo",
+				"cost_center":   "dojo",
 				"student_ref":   receivable.StudentRef,
 				"billing_month": receivable.BillingMonth.Format("2006-01-02"),
 				"receivable_id": receivable.ID,

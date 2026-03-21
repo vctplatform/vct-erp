@@ -22,4 +22,8 @@ var (
 	ErrDepositNotFound           = errors.New("rental deposit not found")
 	ErrReceivableNotFound        = errors.New("dojo receivable not found")
 	ErrAmountExceedsBalance      = errors.New("amount exceeds remaining balance")
+	ErrLedgerAccountRequired     = errors.New("ledger account is required")
+	ErrBankAccountRequired       = errors.New("bank account number is required")
+	ErrDamageAccountRequired     = errors.New("damage revenue account is required")
+	ErrDamageAmountInvalid       = errors.New("damage amount must be between zero and deposit amount")
 )

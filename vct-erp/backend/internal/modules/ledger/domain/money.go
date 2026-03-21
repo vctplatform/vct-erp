@@ -97,6 +97,47 @@ func (m Money) Sub(other Money) Money {
 	return Money{scaled: difference}
 }
 
+// MulInt multiplies the money amount by an integer.
+func (m Money) MulInt(multiplier int) Money {
+	var product big.Int
+	product.Mul(&m.scaled, big.NewInt(int64(multiplier)))
+	return Money{scaled: product}
+}
+
+// DivInt divides the money amount by an integer using truncation toward zero at NUMERIC(20,4) scale.
+func (m Money) DivInt(divisor int) Money {
+	if divisor == 0 {
+		panic("divide money by zero")
+	}
+	var quotient big.Int
+	quotient.Quo(&m.scaled, big.NewInt(int64(divisor)))
+	return Money{scaled: quotient}
+}
+
+// MustMul is a convenience wrapper for integer multiplication in deterministic seeders and tests.
+func (m Money) MustMul(multiplier int) Money {
+	return m.MulInt(multiplier)
+}
+
+// MustDiv is a convenience wrapper for integer division in deterministic seeders and tests.
+func (m Money) MustDiv(divisor int) Money {
+	return m.DivInt(divisor)
+}
+
+// Neg returns the negated money amount.
+func (m Money) Neg() Money {
+	var negated big.Int
+	negated.Neg(&m.scaled)
+	return Money{scaled: negated}
+}
+
+// Abs returns the absolute money amount.
+func (m Money) Abs() Money {
+	var absolute big.Int
+	absolute.Abs(&m.scaled)
+	return Money{scaled: absolute}
+}
+
 // Equal compares two money values.
 func (m Money) Equal(other Money) bool {
 	return m.scaled.Cmp(&other.scaled) == 0

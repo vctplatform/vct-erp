@@ -27,7 +27,7 @@ func TestCaptureUseCaseReplaysCompletedResponse(t *testing.T) {
 			ResponsePayload: rawExpected,
 		},
 	}
-	uc := NewCaptureUseCase(repo, nil, nil, nil)
+	uc := NewCaptureUseCase(repo, nil, nil, nil, nil)
 
 	result, err := uc.Capture(context.Background(), financedomain.CaptureRequest{
 		IdempotencyKey: "idem-1",

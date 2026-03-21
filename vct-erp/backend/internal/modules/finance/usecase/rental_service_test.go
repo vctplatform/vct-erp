@@ -71,7 +71,7 @@ func (f *fakeRentalRepo) GetByRentalOrder(_ context.Context, _ string, _ string)
 	return f.current, nil
 }
 
-func (f *fakeRentalRepo) MarkReleased(_ context.Context, depositID string, _ string, _ time.Time) error {
+func (f *fakeRentalRepo) MarkDepositSettled(_ context.Context, depositID string, _ string, _ string, _ time.Time) error {
 	f.released = append(f.released, depositID)
 	return nil
 }

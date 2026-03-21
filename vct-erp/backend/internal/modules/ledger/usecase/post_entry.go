@@ -11,6 +11,7 @@ import (
 	"vct-platform/backend/internal/modules/ledger/domain"
 	"vct-platform/backend/internal/shared/id"
 	"vct-platform/backend/internal/shared/repository"
+	"vct-platform/backend/internal/shared/sqltx"
 )
 
 // PostEntryItemRequest models a single debit or credit line in the incoming request.
@@ -24,12 +25,15 @@ type PostEntryItemRequest struct {
 // PostEntryRequest carries the input needed to post a double-entry journal.
 type PostEntryRequest struct {
 	ReferenceNo  string                 `json:"reference_no,omitempty"`
+	VoucherType  string                 `json:"voucher_type,omitempty"`
 	CompanyCode  string                 `json:"company_code"`
 	SourceModule string                 `json:"source_module"`
 	ExternalRef  string                 `json:"external_ref,omitempty"`
 	Description  string                 `json:"description"`
 	CurrencyCode string                 `json:"currency_code"`
 	PostingDate  time.Time              `json:"posting_date"`
+	ReversalOfID string                 `json:"reversal_of_id,omitempty"`
+	VoidReason   string                 `json:"void_reason,omitempty"`
 	Metadata     map[string]any         `json:"metadata,omitempty"`
 	Items        []PostEntryItemRequest `json:"items"`
 }
@@ -52,6 +56,7 @@ type PostEntryUseCase struct {
 	txManager       domain.TransactionManager
 	accountRepo     domain.AccountCatalogRepository
 	journalRepo     domain.JournalEntryRepository
+	voucherRepo     domain.VoucherSequenceRepository
 	balanceRepo     domain.AccountBalanceRepository
 	outboxRepo      domain.OutboxRepository
 	accountCache    domain.ChartOfAccountsCache
@@ -66,6 +71,7 @@ func NewPostEntryUseCase(
 	txManager domain.TransactionManager,
 	accountRepo domain.AccountCatalogRepository,
 	journalRepo domain.JournalEntryRepository,
+	voucherRepo domain.VoucherSequenceRepository,
 	balanceRepo domain.AccountBalanceRepository,
 	outboxRepo domain.OutboxRepository,
 	accountCache domain.ChartOfAccountsCache,
@@ -77,6 +83,7 @@ func NewPostEntryUseCase(
 		txManager:       txManager,
 		accountRepo:     accountRepo,
 		journalRepo:     journalRepo,
+		voucherRepo:     voucherRepo,
 		balanceRepo:     balanceRepo,
 		outboxRepo:      outboxRepo,
 		accountCache:    accountCache,
@@ -114,6 +121,9 @@ func (uc *PostEntryUseCase) PostEntry(ctx context.Context, req PostEntryRequest)
 		if !account.IsPostable {
 			return nil, fmt.Errorf("%w: %s", domain.ErrAccountNotPostable, item.AccountID)
 		}
+		if !account.HasExpectedNormalSide() {
+			return nil, fmt.Errorf("%w: %s", domain.ErrInvalidAccountNature, account.Code)
+		}
 	}
 
 	now := uc.now().UTC()
@@ -122,30 +132,45 @@ func (uc *PostEntryUseCase) PostEntry(ctx context.Context, req PostEntryRequest)
 		postingDate = now
 	}
 
-	entry := domain.JournalEntry{
-		ID:           id.NewUUID(),
-		ReferenceNo:  uc.referenceNo(req.ReferenceNo, now),
-		CompanyCode:  strings.TrimSpace(req.CompanyCode),
-		SourceModule: strings.TrimSpace(req.SourceModule),
-		ExternalRef:  strings.TrimSpace(req.ExternalRef),
-		Description:  strings.TrimSpace(req.Description),
-		CurrencyCode: strings.ToUpper(strings.TrimSpace(req.CurrencyCode)),
-		PostingDate:  postingDate,
-		Status:       domain.EntryStatusPosted,
-		PostedAt:     now,
-		CreatedAt:    now,
-		UpdatedAt:    now,
-		Items:        preparedItems,
-	}
-
-	event, err := uc.buildOutboxEvent(entry, totals, req.Metadata, now)
+	voucherType, err := uc.normalizeVoucherType(req.VoucherType)
 	if err != nil {
-		return nil, fmt.Errorf("build outbox event: %w", err)
+		return nil, err
 	}
 
+	entry := domain.JournalEntry{
+		ID:                id.NewUUID(),
+		VoucherType:       voucherType,
+		CompanyCode:       strings.TrimSpace(req.CompanyCode),
+		SourceModule:      strings.TrimSpace(req.SourceModule),
+		ExternalRef:       strings.TrimSpace(req.ExternalRef),
+		Description:       strings.TrimSpace(req.Description),
+		CurrencyCode:      strings.ToUpper(strings.TrimSpace(req.CurrencyCode)),
+		PostingDate:       postingDate,
+		Status:            domain.EntryStatusPosted,
+		Metadata:          cloneMetadata(req.Metadata),
+		ReversalOfEntryID: strings.TrimSpace(req.ReversalOfID),
+		VoidReason:        strings.TrimSpace(req.VoidReason),
+		PostedAt:          now,
+		CreatedAt:         now,
+		UpdatedAt:         now,
+		Items:             preparedItems,
+	}
+
+	_, nestedTx := sqltx.FromContext(ctx)
+	var event domain.OutboxEvent
 	if err := uc.txManager.WithinTransaction(ctx, repository.TxOptions{
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
+		entry.ReferenceNo, err = uc.referenceNo(txCtx, req.ReferenceNo, entry.CompanyCode, entry.VoucherType, postingDate, now)
+		if err != nil {
+			return fmt.Errorf("allocate voucher number: %w", err)
+		}
+
+		event, err = uc.buildOutboxEvent(entry, totals, entry.Metadata, now)
+		if err != nil {
+			return fmt.Errorf("build outbox event: %w", err)
+		}
+
 		if err := uc.journalRepo.CreateEntry(txCtx, &entry); err != nil {
 			return fmt.Errorf("create journal entry: %w", err)
 		}
@@ -158,6 +183,7 @@ func (uc *PostEntryUseCase) PostEntry(ctx context.Context, req PostEntryRequest)
 			return fmt.Errorf("apply account balances: %w", err)
 		}
 
+		event.AggregateID = entry.ID
 		if err := uc.outboxRepo.Enqueue(txCtx, event); err != nil {
 			return fmt.Errorf("enqueue outbox event: %w", err)
 		}
@@ -172,7 +198,7 @@ func (uc *PostEntryUseCase) PostEntry(ctx context.Context, req PostEntryRequest)
 		Totals: totals,
 	}
 
-	if uc.eventPublisher == nil {
+	if uc.eventPublisher == nil || nestedTx {
 		result.OutboxDeferred = true
 		return result, nil
 	}
@@ -203,6 +229,11 @@ func (uc *PostEntryUseCase) validateRequest(req PostEntryRequest) error {
 	}
 	if strings.TrimSpace(req.Description) == "" {
 		return domain.ErrDescriptionRequired
+	}
+	if strings.TrimSpace(req.VoucherType) != "" {
+		if _, ok := domain.NormalizeVoucherType(strings.ToUpper(strings.TrimSpace(req.VoucherType))); !ok {
+			return domain.ErrUnsupportedVoucher
+		}
 	}
 	if len(req.Items) < 2 {
 		return domain.ErrEntryHasNoItems
@@ -323,11 +354,13 @@ func (uc *PostEntryUseCase) buildOutboxEvent(entry domain.JournalEntry, totals T
 	payload := map[string]any{
 		"entry_id":         entry.ID,
 		"reference_no":     entry.ReferenceNo,
+		"voucher_type":     entry.VoucherType,
 		"company_code":     entry.CompanyCode,
 		"source_module":    entry.SourceModule,
 		"external_ref":     entry.ExternalRef,
 		"currency_code":    entry.CurrencyCode,
 		"description":      entry.Description,
+		"reversal_of_id":   entry.ReversalOfEntryID,
 		"posting_date":     entry.PostingDate.Format(time.RFC3339),
 		"posted_at":        entry.PostedAt.Format(time.RFC3339Nano),
 		"total_debit":      totals.Debit.String(),
@@ -361,12 +394,19 @@ func (uc *PostEntryUseCase) streamKeyOrDefault() string {
 	return uc.streamKey
 }
 
-func (uc *PostEntryUseCase) referenceNo(referenceNo string, now time.Time) string {
+func (uc *PostEntryUseCase) referenceNo(ctx context.Context, referenceNo string, companyCode string, voucherType domain.VoucherType, postingDate time.Time, now time.Time) (string, error) {
 	if trimmed := strings.TrimSpace(referenceNo); trimmed != "" {
-		return trimmed
+		return trimmed, nil
+	}
+	if uc.voucherRepo == nil {
+		return fmt.Sprintf("%s-%s-%s", voucherType, postingDate.Format("0106"), now.Format("150405")), nil
 	}
 
-	return fmt.Sprintf("JE-%s-%s", now.Format("20060102-150405"), id.NewUUID()[:8])
+	number, err := uc.voucherRepo.NextVoucherNumber(ctx, companyCode, voucherType, postingDate)
+	if err != nil {
+		return "", err
+	}
+	return number, nil
 }
 
 func normalizeSide(value string) (domain.Side, error) {
@@ -437,12 +477,38 @@ func (uc *PostEntryUseCase) cacheTTLOrDefault() time.Duration {
 	return uc.accountCacheTTL
 }
 
+func (uc *PostEntryUseCase) normalizeVoucherType(value string) (domain.VoucherType, error) {
+	if strings.TrimSpace(value) == "" {
+		return domain.VoucherTypeGeneral, nil
+	}
+
+	voucherType, ok := domain.NormalizeVoucherType(strings.ToUpper(strings.TrimSpace(value)))
+	if !ok {
+		return "", domain.ErrUnsupportedVoucher
+	}
+	return voucherType, nil
+}
+
+func cloneMetadata(metadata map[string]any) map[string]any {
+	if len(metadata) == 0 {
+		return nil
+	}
+
+	cloned := make(map[string]any, len(metadata))
+	for key, value := range metadata {
+		cloned[key] = value
+	}
+	return cloned
+}
+
 // IsValidationError helps the HTTP layer map business-validation errors to 4xx responses.
 func IsValidationError(err error) bool {
 	return errors.Is(err, domain.ErrEntryHasNoItems) ||
 		errors.Is(err, domain.ErrEntryNotBalanced) ||
 		errors.Is(err, domain.ErrAmountMustBePositive) ||
+		errors.Is(err, domain.ErrInvalidAccountNature) ||
 		errors.Is(err, domain.ErrUnsupportedSide) ||
+		errors.Is(err, domain.ErrUnsupportedVoucher) ||
 		errors.Is(err, domain.ErrCompanyRequired) ||
 		errors.Is(err, domain.ErrCurrencyRequired) ||
 		errors.Is(err, domain.ErrSourceModuleRequired) ||

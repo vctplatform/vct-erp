@@ -18,6 +18,7 @@ type OutboxRelayWorker struct {
 	interval            time.Duration
 	retryDelay          time.Duration
 	staleClaimThreshold time.Duration
+	runTimeout          time.Duration
 	now                 func() time.Time
 }
 
@@ -30,6 +31,7 @@ func NewOutboxRelayWorker(
 	interval time.Duration,
 	retryDelay time.Duration,
 	staleClaimThreshold time.Duration,
+	runTimeout time.Duration,
 ) *OutboxRelayWorker {
 	if batchSize <= 0 {
 		batchSize = 100
@@ -43,6 +45,9 @@ func NewOutboxRelayWorker(
 	if staleClaimThreshold <= 0 {
 		staleClaimThreshold = 2 * time.Minute
 	}
+	if runTimeout <= 0 {
+		runTimeout = 20 * time.Second
+	}
 
 	return &OutboxRelayWorker{
 		repo:                repo,
@@ -52,6 +57,7 @@ func NewOutboxRelayWorker(
 		interval:            interval,
 		retryDelay:          retryDelay,
 		staleClaimThreshold: staleClaimThreshold,
+		runTimeout:          runTimeout,
 		now:                 time.Now,
 	}
 }
@@ -68,15 +74,18 @@ func (w *OutboxRelayWorker) Start(ctx context.Context) error {
 	ticker := time.NewTicker(w.interval)
 	defer ticker.Stop()
 
-	for {
-		if err := w.RunOnce(ctx); err != nil && ctx.Err() == nil {
-			log.Printf("outbox relay run failed: %v", err)
-		}
+	if err := w.runBatch(); err != nil && ctx.Err() == nil {
+		log.Printf("outbox relay run failed: %v", err)
+	}
 
+	for {
 		select {
 		case <-ctx.Done():
-			return ctx.Err()
+			return nil
 		case <-ticker.C:
+			if err := w.runBatch(); err != nil {
+				log.Printf("outbox relay run failed: %v", err)
+			}
 		}
 	}
 }
@@ -118,4 +127,14 @@ func (w *OutboxRelayWorker) workerIDOrDefault() string {
 		return "outbox-relay"
 	}
 	return w.workerID
+}
+
+func (w *OutboxRelayWorker) runBatch() error {
+	if w.runTimeout <= 0 {
+		return w.RunOnce(context.Background())
+	}
+
+	runCtx, cancel := context.WithTimeout(context.Background(), w.runTimeout)
+	defer cancel()
+	return w.RunOnce(runCtx)
 }

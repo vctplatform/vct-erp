@@ -32,6 +32,12 @@ type RentalAccountingService interface {
 	ReleaseDeposit(ctx context.Context, req ReleaseRentalDepositRequest) (*ReleaseRentalDepositResult, error)
 }
 
+// RetailAccountingService exposes the retail POS accounting operations used by the capture API.
+type RetailAccountingService interface {
+	CaptureSale(ctx context.Context, req CaptureRetailSaleRequest) (*CaptureRetailSaleResult, error)
+	CaptureRefund(ctx context.Context, req CaptureRetailRefundRequest) (*CaptureRetailRefundResult, error)
+}
+
 // CaptureAnnualContractRequest describes a prepaid SaaS contract that should be deferred then recognized monthly.
 type CaptureAnnualContractRequest struct {
 	CompanyCode                string             `json:"company_code"`
@@ -42,6 +48,7 @@ type CaptureAnnualContractRequest struct {
 	RecognizedRevenueAccountID string             `json:"recognized_revenue_account_id"`
 	CurrencyCode               string             `json:"currency_code"`
 	ServiceStartDate           time.Time          `json:"service_start_date"`
+	CapturedAt                 time.Time          `json:"captured_at,omitempty"`
 	TermMonths                 int                `json:"term_months"`
 	TotalAmount                ledgerdomain.Money `json:"total_amount"`
 	SourceRef                  string             `json:"source_ref,omitempty"`
@@ -93,6 +100,7 @@ type CaptureDojoPaymentRequest struct {
 	CompanyCode   string             `json:"company_code"`
 	StudentRef    string             `json:"student_ref"`
 	BillingMonth  time.Time          `json:"billing_month"`
+	PaidAt        time.Time          `json:"paid_at,omitempty"`
 	CashAccountID string             `json:"cash_account_id"`
 	CurrencyCode  string             `json:"currency_code"`
 	PaymentAmount ledgerdomain.Money `json:"payment_amount"`
@@ -106,11 +114,50 @@ type CaptureDojoPaymentResult struct {
 	Status         string `json:"status"`
 }
 
+// CaptureRetailSaleRequest records a POS sale.
+type CaptureRetailSaleRequest struct {
+	CompanyCode      string             `json:"company_code"`
+	OrderNo          string             `json:"order_no"`
+	CustomerRef      string             `json:"customer_ref,omitempty"`
+	OccurredAt       time.Time          `json:"occurred_at,omitempty"`
+	CashAccountID    string             `json:"cash_account_id"`
+	RevenueAccountID string             `json:"revenue_account_id"`
+	CurrencyCode     string             `json:"currency_code"`
+	Amount           ledgerdomain.Money `json:"amount"`
+	SourceRef        string             `json:"source_ref,omitempty"`
+}
+
+// CaptureRetailSaleResult reports the posted retail sale.
+type CaptureRetailSaleResult struct {
+	OrderNo        string `json:"order_no"`
+	JournalEntryID string `json:"journal_entry_id"`
+}
+
+// CaptureRetailRefundRequest records a POS refund as contra revenue.
+type CaptureRetailRefundRequest struct {
+	CompanyCode            string             `json:"company_code"`
+	OrderNo                string             `json:"order_no"`
+	CustomerRef            string             `json:"customer_ref,omitempty"`
+	RefundedAt             time.Time          `json:"refunded_at,omitempty"`
+	CashAccountID          string             `json:"cash_account_id"`
+	ContraRevenueAccountID string             `json:"contra_revenue_account_id"`
+	CurrencyCode           string             `json:"currency_code"`
+	Amount                 ledgerdomain.Money `json:"amount"`
+	SourceRef              string             `json:"source_ref,omitempty"`
+}
+
+// CaptureRetailRefundResult reports the posted retail refund.
+type CaptureRetailRefundResult struct {
+	OrderNo        string `json:"order_no"`
+	JournalEntryID string `json:"journal_entry_id"`
+}
+
 // CaptureRentalDepositRequest holds the data needed to lock a rental deposit.
 type CaptureRentalDepositRequest struct {
 	CompanyCode      string             `json:"company_code"`
 	RentalOrderID    string             `json:"rental_order_id"`
 	CustomerRef      string             `json:"customer_ref"`
+	HeldAt           time.Time          `json:"held_at,omitempty"`
 	CashAccountID    string             `json:"cash_account_id"`
 	HoldingAccountID string             `json:"holding_account_id"`
 	CurrencyCode     string             `json:"currency_code"`
@@ -127,9 +174,13 @@ type CaptureRentalDepositResult struct {
 
 // ReleaseRentalDepositRequest releases a held rental deposit.
 type ReleaseRentalDepositRequest struct {
-	CompanyCode   string `json:"company_code"`
-	RentalOrderID string `json:"rental_order_id"`
-	SourceRef     string `json:"source_ref,omitempty"`
+	CompanyCode            string             `json:"company_code"`
+	RentalOrderID          string             `json:"rental_order_id"`
+	ReleasedAt             time.Time          `json:"released_at,omitempty"`
+	CashAccountID          string             `json:"cash_account_id,omitempty"`
+	DamageAmount           ledgerdomain.Money `json:"damage_amount,omitempty"`
+	DamageRevenueAccountID string             `json:"damage_revenue_account_id,omitempty"`
+	SourceRef              string             `json:"source_ref,omitempty"`
 }
 
 // ReleaseRentalDepositResult reports the deposit release state.

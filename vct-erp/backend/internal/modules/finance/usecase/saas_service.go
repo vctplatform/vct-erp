@@ -47,6 +47,10 @@ func (s *SaaSService) CaptureAnnualContract(ctx context.Context, req CaptureAnnu
 	}
 
 	now := s.now().UTC()
+	capturedAt := req.CapturedAt.UTC()
+	if capturedAt.IsZero() {
+		capturedAt = now
+	}
 	contractID := id.NewUUID()
 	contract := financedomain.SaaSContract{
 		ID:                         contractID,
@@ -62,8 +66,8 @@ func (s *SaaSService) CaptureAnnualContract(ctx context.Context, req CaptureAnnu
 		TermMonths:                 req.TermMonths,
 		TotalAmount:                req.TotalAmount,
 		SourceRef:                  strings.TrimSpace(req.SourceRef),
-		CreatedAt:                  now,
-		UpdatedAt:                  now,
+		CreatedAt:                  capturedAt,
+		UpdatedAt:                  capturedAt,
 	}
 
 	schedules := make([]financedomain.RevenueSchedule, 0, req.TermMonths)
@@ -78,8 +82,8 @@ func (s *SaaSService) CaptureAnnualContract(ctx context.Context, req CaptureAnnu
 			ServiceMonth: serviceMonth,
 			Amount:       amount,
 			Status:       "scheduled",
-			CreatedAt:    now,
-			UpdatedAt:    now,
+			CreatedAt:    capturedAt,
+			UpdatedAt:    capturedAt,
 		})
 		monthlyAmountStrings = append(monthlyAmountStrings, amount.String())
 	}
@@ -94,14 +98,16 @@ func (s *SaaSService) CaptureAnnualContract(ctx context.Context, req CaptureAnnu
 		Isolation: repository.IsolationSerializable,
 	}, func(txCtx context.Context) error {
 		postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+			VoucherType:  "PT",
 			CompanyCode:  contract.CompanyCode,
 			SourceModule: "saas",
 			ExternalRef:  firstNonEmpty(contract.SourceRef, contract.ContractNo),
 			Description:  fmt.Sprintf("Nhan tien tra truoc hop dong SaaS %s", contract.ContractNo),
 			CurrencyCode: contract.CurrencyCode,
-			PostingDate:  now,
+			PostingDate:  capturedAt,
 			Metadata: map[string]any{
 				"business_line": "saas",
+				"cost_center":   "saas",
 				"contract_id":   contract.ID,
 				"contract_no":   contract.ContractNo,
 				"customer_ref":  contract.CustomerRef,
@@ -170,6 +176,7 @@ func (s *SaaSService) RecognizeDueRevenue(ctx context.Context, req RecognizeDueR
 			Isolation: repository.IsolationSerializable,
 		}, func(txCtx context.Context) error {
 			postResult, err := s.ledgerPoster.PostEntry(txCtx, ledgerusecase.PostEntryRequest{
+				VoucherType:  "PK",
 				CompanyCode:  schedule.CompanyCode,
 				SourceModule: "saas",
 				ExternalRef:  firstNonEmpty(schedule.ContractNo, schedule.ContractID),
@@ -178,6 +185,7 @@ func (s *SaaSService) RecognizeDueRevenue(ctx context.Context, req RecognizeDueR
 				PostingDate:  schedule.ServiceMonth,
 				Metadata: map[string]any{
 					"business_line": "saas",
+					"cost_center":   "saas",
 					"contract_id":   schedule.ContractID,
 					"schedule_id":   schedule.ScheduleID,
 					"service_month": schedule.ServiceMonth.Format("2006-01-02"),

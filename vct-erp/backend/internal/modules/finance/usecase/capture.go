@@ -20,6 +20,7 @@ type CaptureUseCase struct {
 	idempotencyRepo financedomain.IdempotencyRepository
 	saasService     SaaSAccountingService
 	dojoService     DojoAccountingService
+	retailService   RetailAccountingService
 	rentalService   RentalAccountingService
 	now             func() time.Time
 }
@@ -29,12 +30,14 @@ func NewCaptureUseCase(
 	idempotencyRepo financedomain.IdempotencyRepository,
 	saasService SaaSAccountingService,
 	dojoService DojoAccountingService,
+	retailService RetailAccountingService,
 	rentalService RentalAccountingService,
 ) *CaptureUseCase {
 	return &CaptureUseCase{
 		idempotencyRepo: idempotencyRepo,
 		saasService:     saasService,
 		dojoService:     dojoService,
+		retailService:   retailService,
 		rentalService:   rentalService,
 		now:             time.Now,
 	}
@@ -154,6 +157,32 @@ func (uc *CaptureUseCase) dispatch(ctx context.Context, req financedomain.Captur
 			return nil, err
 		}
 		return capturePayload(req.BusinessLine, req.Operation, result.ReceivableID, result)
+	case financedomain.OperationRetailCaptureSale:
+		if uc.retailService == nil {
+			return nil, financedomain.ErrUnsupportedOperation
+		}
+		var payload CaptureRetailSaleRequest
+		if err := decodePayload(req.Payload, &payload); err != nil {
+			return nil, err
+		}
+		result, err := uc.retailService.CaptureSale(ctx, payload)
+		if err != nil {
+			return nil, err
+		}
+		return capturePayload(req.BusinessLine, req.Operation, result.OrderNo, result)
+	case financedomain.OperationRetailCaptureRefund:
+		if uc.retailService == nil {
+			return nil, financedomain.ErrUnsupportedOperation
+		}
+		var payload CaptureRetailRefundRequest
+		if err := decodePayload(req.Payload, &payload); err != nil {
+			return nil, err
+		}
+		result, err := uc.retailService.CaptureRefund(ctx, payload)
+		if err != nil {
+			return nil, err
+		}
+		return capturePayload(req.BusinessLine, req.Operation, result.OrderNo, result)
 	case financedomain.OperationRentalCaptureDeposit:
 		if uc.rentalService == nil {
 			return nil, financedomain.ErrUnsupportedOperation
@@ -236,6 +265,8 @@ func operationBelongsToLine(line financedomain.BusinessLine, operation financedo
 		return operation == financedomain.OperationSaaSCaptureAnnualContract || operation == financedomain.OperationSaaSRecognizeDueRevenue
 	case financedomain.BusinessLineDojo:
 		return operation == financedomain.OperationDojoAssessMonthlyTuition || operation == financedomain.OperationDojoCapturePayment
+	case financedomain.BusinessLineRetail:
+		return operation == financedomain.OperationRetailCaptureSale || operation == financedomain.OperationRetailCaptureRefund
 	case financedomain.BusinessLineRental:
 		return operation == financedomain.OperationRentalCaptureDeposit || operation == financedomain.OperationRentalReleaseDeposit
 	default:

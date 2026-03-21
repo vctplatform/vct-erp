@@ -1,0 +1,12 @@
+2026-03-21 19:04:17.944 +07 [16640] LOG:  starting PostgreSQL 18.2 on x86_64-windows, compiled by msvc-19.44.35222, 64-bit
+2026-03-21 19:04:17.953 +07 [16640] LOG:  listening on IPv6 address "::1", port 55436
+2026-03-21 19:04:17.953 +07 [16640] LOG:  listening on IPv4 address "127.0.0.1", port 55436
+2026-03-21 19:04:18.089 +07 [31120] LOG:  database system was shut down at 2026-03-21 19:03:47 +07
+2026-03-21 19:04:18.112 +07 [16640] LOG:  database system is ready to accept connections
+2026-03-21 19:04:18.746 +07 [16640] LOG:  received fast shutdown request
+2026-03-21 19:04:18.751 +07 [16640] LOG:  aborting any active transactions
+2026-03-21 19:04:18.799 +07 [16640] LOG:  background worker "logical replication launcher" (PID 32540) exited with exit code 1
+2026-03-21 19:04:18.800 +07 [32440] LOG:  shutting down
+2026-03-21 19:04:18.801 +07 [32440] LOG:  checkpoint starting: shutdown immediate
+2026-03-21 19:04:18.819 +07 [32440] LOG:  checkpoint complete: wrote 0 buffers (0.0%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.005 s, sync=0.004 s, total=0.020 s; sync files=2, longest=0.002 s, average=0.002 s; distance=0 kB, estimate=0 kB; lsn=0/3543B50, redo lsn=0/3543B50
+2026-03-21 19:04:18.843 +07 [16640] LOG:  database system is shut down

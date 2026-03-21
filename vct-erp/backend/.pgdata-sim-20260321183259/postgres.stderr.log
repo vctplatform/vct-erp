@@ -1,0 +1,25 @@
+2026-03-21 18:33:30.229 +07 [14040] LOG:  starting PostgreSQL 18.2 on x86_64-windows, compiled by msvc-19.44.35222, 64-bit
+2026-03-21 18:33:30.238 +07 [14040] LOG:  listening on IPv6 address "::1", port 55433
+2026-03-21 18:33:30.239 +07 [14040] LOG:  listening on IPv4 address "127.0.0.1", port 55433
+2026-03-21 18:33:30.378 +07 [30712] LOG:  database system was shut down at 2026-03-21 18:33:09 +07
+2026-03-21 18:33:30.390 +07 [14040] LOG:  database system is ready to accept connections
+2026-03-21 18:34:15.942 +07 [27472] LOG:  could not receive data from client: An existing connection was forcibly closed by the remote host.
+	
+2026-03-21 18:34:16.003 +07 [14040] LOG:  client backend (PID 33364) was terminated by exception 0xC000013A
+2026-03-21 18:34:16.003 +07 [14040] DETAIL:  Failed process was running: 
+	INSERT INTO journal_items (
+	    journal_entry_id,
+	    line_no,
+	    company_code,
+	    account_id,
+	    side,
+	    amount,
+	    amount_signed,
+	    currency_code,
+	    description,
+	    created_at,
+	    updated_at
+	)
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+2026-03-21 18:34:16.003 +07 [14040] HINT:  See C include file "ntstatus.h" for a description of the hexadecimal value.
+2026-03-21 18:34:16.004 +07 [14040] LOG:  terminating any other active server processes

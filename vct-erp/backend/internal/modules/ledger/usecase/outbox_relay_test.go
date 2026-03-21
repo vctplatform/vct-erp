@@ -18,7 +18,7 @@ func TestOutboxRelayWorkerRunOnce(t *testing.T) {
 		},
 	}
 	publisher := &fakeOutboxPublisher{failEventID: "event-1"}
-	worker := NewOutboxRelayWorker(repo, publisher, "worker-1", 10, time.Second, time.Minute, time.Minute)
+	worker := NewOutboxRelayWorker(repo, publisher, "worker-1", 10, time.Second, time.Minute, time.Minute, 5*time.Second)
 	worker.now = func() time.Time { return now }
 
 	if err := worker.RunOnce(context.Background()); err != nil {

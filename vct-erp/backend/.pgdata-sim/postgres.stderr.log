@@ -1,0 +1,382 @@
+2026-03-21 18:15:50.456 +07 [34688] LOG:  starting PostgreSQL 18.2 on x86_64-windows, compiled by msvc-19.44.35222, 64-bit
+2026-03-21 18:15:50.468 +07 [34688] LOG:  listening on IPv6 address "::1", port 55432
+2026-03-21 18:15:50.468 +07 [34688] LOG:  listening on IPv4 address "127.0.0.1", port 55432
+2026-03-21 18:15:50.588 +07 [4960] LOG:  database system was interrupted; last known up at 2026-03-21 18:12:50 +07
+2026-03-21 18:15:51.380 +07 [27328] FATAL:  the database system is starting up
+2026-03-21 18:15:51.788 +07 [4960] LOG:  database system was not properly shut down; automatic recovery in progress
+2026-03-21 18:15:51.799 +07 [4960] LOG:  redo starts at 0/17F18C0
+2026-03-21 18:15:52.534 +07 [26668] FATAL:  the database system is starting up
+2026-03-21 18:15:52.544 +07 [4960] LOG:  invalid record length at 0/25F7270: expected at least 24, got 0
+2026-03-21 18:15:52.544 +07 [4960] LOG:  redo done at 0/25F7248 system usage: CPU: user: 0.04 s, system: 0.35 s, elapsed: 0.74 s
+2026-03-21 18:15:52.547 +07 [33256] LOG:  checkpoint starting: end-of-recovery immediate wait
+2026-03-21 18:15:53.615 +07 [33256] LOG:  checkpoint complete: wrote 1991 buffers (12.2%), wrote 3 SLRU buffers; 0 WAL file(s) added, 0 removed, 1 recycled; write=0.491 s, sync=0.526 s, total=1.068 s; sync files=571, longest=0.034 s, average=0.001 s; distance=14358 kB, estimate=14358 kB; lsn=0/25F7270, redo lsn=0/25F7270
+2026-03-21 18:15:54.208 +07 [32752] FATAL:  the database system is starting up
+2026-03-21 18:15:54.299 +07 [34688] LOG:  database system is ready to accept connections
+2026-03-21 18:15:55.591 +07 [33256] LOG:  checkpoint starting: immediate force wait
+2026-03-21 18:15:55.599 +07 [33256] LOG:  checkpoint complete: wrote 1 buffers (0.0%), wrote 0 SLRU buffers; 0 WAL file(s) added, 0 removed, 0 recycled; write=0.001 s, sync=0.001 s, total=0.008 s; sync files=1, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=12922 kB; lsn=0/25F7818, redo lsn=0/25F77C0
+2026-03-21 18:16:00.600 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:00.600 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:05.607 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:05.607 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:10.622 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:10.622 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:15.630 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:15.630 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:20.634 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:20.634 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:25.647 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:25.647 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:30.668 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:30.668 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:35.683 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:35.683 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:40.697 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:40.697 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:45.719 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:45.719 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:50.730 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:50.730 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:16:55.741 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:16:55.741 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:00.753 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:00.753 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:05.762 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:05.762 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:10.769 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:10.769 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:15.778 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:15.778 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:20.785 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:20.785 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:25.792 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:25.792 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:30.803 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:30.803 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:35.809 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:35.809 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:40.826 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:40.826 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:45.832 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:45.832 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:50.843 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:50.843 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:17:54.384 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:17:55.852 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:17:55.852 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:00.866 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:00.866 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:05.883 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:05.883 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:10.899 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:10.899 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:15.915 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:15.915 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:20.936 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:20.936 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:25.983 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:25.983 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:31.023 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:31.023 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:36.047 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:36.047 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:41.048 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:41.048 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:46.063 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:46.063 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:51.084 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:51.084 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:18:56.098 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:18:56.098 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:01.119 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:01.119 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:06.145 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:06.145 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:11.165 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:11.165 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:16.173 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:16.173 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:21.186 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:21.186 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:24.405 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:19:26.197 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:26.197 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:31.220 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:31.220 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:36.238 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:36.238 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:41.252 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:41.252 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:46.262 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:46.262 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:51.277 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:51.277 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:19:56.283 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:19:56.283 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:01.307 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:01.307 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:06.331 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:06.331 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:11.350 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:11.350 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:16.361 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:16.361 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:21.375 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:21.375 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:26.387 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:26.387 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:31.394 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:31.394 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:36.408 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:36.408 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:41.427 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:41.427 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:46.447 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:46.447 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:51.463 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:51.463 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:20:54.411 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:20:56.476 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:20:56.476 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:01.487 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:01.487 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:06.511 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:06.511 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:11.520 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:11.520 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:16.537 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:16.537 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:21.553 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:21.553 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:26.567 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:26.567 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:31.578 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:31.578 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:36.598 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:36.598 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:41.616 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:41.616 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:46.624 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:46.624 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:51.629 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:51.629 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:21:56.640 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:21:56.640 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:01.653 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:01.653 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:06.665 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:06.665 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:11.673 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:11.673 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:16.691 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:16.691 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:21.707 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:21.707 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:24.436 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:22:26.726 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:26.726 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:31.750 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:31.750 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:36.771 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:36.771 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:41.795 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:41.795 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:46.800 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:46.800 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:51.811 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:51.811 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:22:56.823 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:22:56.823 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:01.862 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:01.862 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:06.870 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:06.870 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:11.874 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:11.874 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:16.883 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:16.883 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:21.892 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:21.892 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:26.902 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:26.902 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:31.911 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:31.911 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:36.921 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:36.921 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:41.929 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:41.929 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:46.941 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:46.941 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:51.956 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:51.956 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:23:54.468 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:23:56.973 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:23:56.973 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:02.002 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:02.002 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:07.034 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:07.034 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:12.118 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:12.118 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:17.151 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:17.151 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:22.178 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:22.178 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:27.197 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:27.197 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:32.219 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:32.219 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:37.233 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:37.233 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:42.258 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:42.258 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:47.273 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:47.273 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:52.290 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:52.290 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:24:57.305 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:24:57.305 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:02.324 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:02.324 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:07.339 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:07.339 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:12.356 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:12.356 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:17.374 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:17.374 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:22.390 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:22.390 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:24.501 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:25:27.408 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:27.408 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:32.424 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:32.424 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:37.429 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:37.429 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:42.439 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:42.439 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:47.453 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:47.453 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:52.469 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:52.469 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:25:57.472 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:25:57.472 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:02.494 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:02.494 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:07.498 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:07.498 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:12.520 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:12.520 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:17.532 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:17.532 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:22.544 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:22.544 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:27.548 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:27.548 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:32.567 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:32.567 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:37.583 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:37.583 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:42.592 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:42.592 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:47.600 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:47.600 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:52.609 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:52.609 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:26:54.520 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:26:57.633 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:26:57.633 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:02.642 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:02.642 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:07.657 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:07.657 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:12.668 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:12.668 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:17.680 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:17.680 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:22.691 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:22.691 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:27.716 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:27.716 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:32.726 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:32.726 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:37.728 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:37.728 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:42.736 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:42.736 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:47.754 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:47.754 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:52.766 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:52.766 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:27:57.857 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:27:57.857 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:02.874 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:02.874 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:07.887 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:07.887 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:12.893 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:12.893 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:17.910 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:17.910 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:22.928 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:22.928 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:24.555 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:28:27.957 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:27.957 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:32.970 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:32.970 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:37.986 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:37.986 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:43.009 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:43.009 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:48.018 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:48.018 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:53.035 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:53.035 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:28:58.052 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:28:58.052 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:03.077 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:03.077 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:08.111 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:08.111 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:13.126 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:13.126 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:18.141 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:18.141 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:23.152 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:23.152 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:24.568 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:29:28.163 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:28.163 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:33.177 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:33.177 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:38.193 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:38.193 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:43.217 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:43.217 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:48.257 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:48.257 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:53.339 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:53.339 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:29:58.638 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:29:58.638 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:03.722 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:03.722 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:08.732 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:08.732 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:13.781 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:13.781 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:18.784 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:18.784 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:23.804 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:23.804 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:24.738 +07 [5504] WARNING:  autovacuum worker took too long to start; canceled
+2026-03-21 18:30:28.815 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:28.815 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:33.835 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:33.835 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:38.851 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:38.851 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:43.855 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:43.855 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);
+2026-03-21 18:30:48.865 +07 [26792] LOG:  still waiting for backend with PID 28476 to accept ProcSignalBarrier
+2026-03-21 18:30:48.865 +07 [26792] STATEMENT:  DROP DATABASE IF EXISTS vct_ledger WITH (FORCE);

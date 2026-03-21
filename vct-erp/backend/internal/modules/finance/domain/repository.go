@@ -34,7 +34,19 @@ type DojoReceivableRepository interface {
 type RentalDepositRepository interface {
 	CreateDeposit(ctx context.Context, deposit RentalDeposit) error
 	GetByRentalOrder(ctx context.Context, companyCode string, rentalOrderID string) (RentalDeposit, error)
-	MarkReleased(ctx context.Context, depositID string, releasedJournalEntryID string, releasedAt time.Time) error
+	MarkDepositSettled(ctx context.Context, depositID string, status string, settledJournalEntryID string, settledAt time.Time) error
+}
+
+// BankReconciliationRepository persists imported statement lines and their matching decisions.
+type BankReconciliationRepository interface {
+	ListOpenStatementLines(ctx context.Context, companyCode string, bankAccountNo string, from time.Time, to time.Time, limit int) ([]BankStatementLine, error)
+	ListOpenLedgerMovements(ctx context.Context, companyCode string, ledgerAccountID string, from time.Time, to time.Time, limit int) ([]LedgerBankMovement, error)
+	MarkStatementMatched(ctx context.Context, statementLineID string, journalEntryID string, matchingRule string, matchedAt time.Time) error
+}
+
+// VoidAuditRepository stores inspection-grade before/after snapshots outside PostgreSQL.
+type VoidAuditRepository interface {
+	RecordVoid(ctx context.Context, audit VoidAuditLog) error
 }
 
 // TxManager coordinates finance business writes with the ledger transaction.

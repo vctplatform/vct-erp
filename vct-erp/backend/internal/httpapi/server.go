@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"time"
 
+	analyticshhttp "vct-platform/backend/internal/modules/analytics/adapter/http"
 	financehttp "vct-platform/backend/internal/modules/finance/adapter/http"
 	"vct-platform/backend/internal/modules/ledger/domain"
 	"vct-platform/backend/internal/modules/ledger/usecase"
@@ -23,7 +24,10 @@ type Dependencies struct {
 	PostEntryUC       PostEntryService
 	FinanceCaptureUC  financehttp.CaptureService
 	FinanceVoidUC     financehttp.VoidService
+	AnalyticsRevenue  analyticshhttp.RevenueStreamService
+	AnalyticsRunway   analyticshhttp.CashRunwayService
 	AppRoleHeader     string
+	AppActorHeader    string
 	IdempotencyHeader string
 }
 
@@ -33,6 +37,7 @@ type Server struct {
 	handler       http.Handler
 	postEntryUC   PostEntryService
 	financeHandle *financehttp.Handler
+	analytics     *analyticshhttp.Handler
 }
 
 // New constructs the HTTP server with health and posting endpoints.
@@ -44,12 +49,16 @@ func New(deps Dependencies) *Server {
 			deps.FinanceCaptureUC,
 			deps.FinanceVoidUC,
 			deps.IdempotencyHeader,
+			deps.AppActorHeader,
 		),
+		analytics: analyticshhttp.NewHandler(deps.AnalyticsRevenue, deps.AnalyticsRunway),
 	}
 
 	server.mux.HandleFunc("/healthz", server.handleHealth)
 	server.mux.HandleFunc("/api/v1/ledger/journal-entries", server.handleJournalEntries)
 	server.mux.HandleFunc("/v1/finance/capture", server.financeHandle.Capture)
+	server.mux.HandleFunc("/v1/analytics/revenue-stream", server.analytics.RevenueStream)
+	server.mux.HandleFunc("/v1/analytics/cash-runway", server.analytics.CashRunway)
 	server.mux.Handle(
 		"/v1/finance/journal-entries/",
 		sharedmiddleware.RequireRoles("chief_accountant")(
