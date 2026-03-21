@@ -68,6 +68,14 @@ func (c *Client) Set(ctx context.Context, key string, value []byte, ttl time.Dur
 	return c.inner.Set(ctx, key, value, ttl).Err()
 }
 
+// Delete removes a value from Redis.
+func (c *Client) Delete(ctx context.Context, key string) error {
+	if c == nil || c.inner == nil {
+		return fmt.Errorf("redis client is not configured")
+	}
+	return c.inner.Del(ctx, key).Err()
+}
+
 // XAdd appends an event into a Redis stream.
 func (c *Client) XAdd(ctx context.Context, stream string, values map[string]string) (string, error) {
 	if c == nil || c.inner == nil {
@@ -83,4 +91,63 @@ func (c *Client) XAdd(ctx context.Context, stream string, values map[string]stri
 		Stream: stream,
 		Values: payload,
 	}).Result()
+}
+
+// Publish sends a payload to a Redis pub/sub channel.
+func (c *Client) Publish(ctx context.Context, channel string, payload []byte) error {
+	if c == nil || c.inner == nil {
+		return fmt.Errorf("redis client is not configured")
+	}
+	return c.inner.Publish(ctx, channel, payload).Err()
+}
+
+// PubSubMessage is a transport-agnostic Redis pub/sub message.
+type PubSubMessage struct {
+	Channel string
+	Payload string
+}
+
+// Subscription wraps a Redis pub/sub subscription.
+type Subscription struct {
+	inner *redis.PubSub
+}
+
+// Subscribe creates a pub/sub subscription on the given channel.
+func (c *Client) Subscribe(ctx context.Context, channel string) (*Subscription, error) {
+	if c == nil || c.inner == nil {
+		return nil, fmt.Errorf("redis client is not configured")
+	}
+
+	pubsub := c.inner.Subscribe(ctx, channel)
+	if _, err := pubsub.Receive(ctx); err != nil {
+		_ = pubsub.Close()
+		return nil, err
+	}
+
+	return &Subscription{inner: pubsub}, nil
+}
+
+// ReceiveMessage blocks until the next pub/sub message arrives.
+func (s *Subscription) ReceiveMessage(ctx context.Context) (PubSubMessage, error) {
+	if s == nil || s.inner == nil {
+		return PubSubMessage{}, fmt.Errorf("redis subscription is not configured")
+	}
+
+	message, err := s.inner.ReceiveMessage(ctx)
+	if err != nil {
+		return PubSubMessage{}, err
+	}
+
+	return PubSubMessage{
+		Channel: message.Channel,
+		Payload: message.Payload,
+	}, nil
+}
+
+// Close terminates the underlying pub/sub subscription.
+func (s *Subscription) Close() error {
+	if s == nil || s.inner == nil {
+		return nil
+	}
+	return s.inner.Close()
 }

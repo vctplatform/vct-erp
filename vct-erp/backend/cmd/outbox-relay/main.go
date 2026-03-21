@@ -10,6 +10,7 @@ import (
 	"vct-platform/backend/internal/config"
 	infraPostgres "vct-platform/backend/internal/infra/postgres"
 	infraRedis "vct-platform/backend/internal/infra/redisclient"
+	analyticsrealtime "vct-platform/backend/internal/modules/analytics/adapter/realtime"
 	ledgeroutbox "vct-platform/backend/internal/modules/ledger/adapter/outbox"
 	ledgerpg "vct-platform/backend/internal/modules/ledger/adapter/postgres"
 	ledgerusecase "vct-platform/backend/internal/modules/ledger/usecase"
@@ -37,7 +38,9 @@ func main() {
 	defer redisClient.Close()
 
 	ledgerStore := ledgerpg.NewStore(db)
-	publisher := ledgeroutbox.NewRedisStreamPublisher(redisClient)
+	streamPublisher := ledgeroutbox.NewRedisStreamPublisher(redisClient)
+	dashboardPublisher := analyticsrealtime.NewRedisDashboardEventPublisher(redisClient, cfg.FinanceEventsChannel)
+	publisher := ledgeroutbox.NewMultiPublisher(streamPublisher, dashboardPublisher)
 	worker := ledgerusecase.NewOutboxRelayWorker(
 		ledgerStore,
 		publisher,

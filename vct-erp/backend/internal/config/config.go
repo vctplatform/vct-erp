@@ -20,6 +20,7 @@ type Config struct {
 	HTTPWriteTimeout      time.Duration
 	HTTPIdleTimeout       time.Duration
 	HTTPShutdownTimeout   time.Duration
+	CORSAllowedOrigins    []string
 	DatabaseDSN           string
 	DBMaxOpenConns        int
 	DBMaxIdleConns        int
@@ -32,6 +33,8 @@ type Config struct {
 	AppActorHeader        string
 	IdempotencyHeader     string
 	RedisStreamKey        string
+	DashboardCacheTTL     time.Duration
+	FinanceEventsChannel  string
 	AccountCacheTTL       time.Duration
 	MongoURI              string
 	MongoDatabase         string
@@ -53,11 +56,16 @@ func Load() (Config, error) {
 
 	cfg.AppEnv = envOrDefault("APP_ENV", "development")
 	cfg.HTTPAddr = envOrDefault("HTTP_ADDR", ":8080")
+	cfg.CORSAllowedOrigins = parseCSVEnv("CORS_ALLOWED_ORIGINS", []string{
+		"http://localhost:3000",
+		"http://127.0.0.1:3000",
+	})
 	cfg.DatabaseDSN = envOrDefault("DB_DSN", "postgres://postgres:postgres@localhost:5432/vct_ledger?sslmode=disable")
 	cfg.AppRoleHeader = envOrDefault("APP_ROLE_HEADER", "X-App-Role")
 	cfg.AppActorHeader = envOrDefault("APP_ACTOR_HEADER", "X-Actor-ID")
 	cfg.IdempotencyHeader = envOrDefault("IDEMPOTENCY_HEADER", "Idempotency-Key")
 	cfg.RedisStreamKey = envOrDefault("REDIS_STREAM_KEY", "ledger.events")
+	cfg.FinanceEventsChannel = envOrDefault("FINANCE_EVENTS_CHANNEL", "finance.dashboard.events")
 	cfg.MongoURI = envOrDefault("MONGO_URI", "mongodb://localhost:27017")
 	cfg.MongoDatabase = envOrDefault("MONGO_DATABASE", "vct_finance")
 	cfg.MongoAuditCollection = envOrDefault("MONGO_AUDIT_COLLECTION", "ledger_void_audit")
@@ -92,6 +100,9 @@ func Load() (Config, error) {
 		return Config{}, err
 	}
 	if cfg.AccountCacheTTL, err = parseDurationEnv("ACCOUNT_CACHE_TTL", 15*time.Minute); err != nil {
+		return Config{}, err
+	}
+	if cfg.DashboardCacheTTL, err = parseDurationEnv("DASHBOARD_CACHE_TTL", 60*time.Second); err != nil {
 		return Config{}, err
 	}
 	if cfg.OutboxRelayInterval, err = parseDurationEnv("OUTBOX_RELAY_INTERVAL", 5*time.Second); err != nil {
@@ -237,4 +248,24 @@ func parseIntEnv(key string, fallback int) (int, error) {
 		return 0, fmt.Errorf("parse %s: %w", key, err)
 	}
 	return value, nil
+}
+
+func parseCSVEnv(key string, fallback []string) []string {
+	raw := strings.TrimSpace(envOrDefault(key, ""))
+	if raw == "" {
+		return append([]string(nil), fallback...)
+	}
+
+	parts := strings.Split(raw, ",")
+	values := make([]string, 0, len(parts))
+	for _, part := range parts {
+		trimmed := strings.TrimSpace(part)
+		if trimmed != "" {
+			values = append(values, trimmed)
+		}
+	}
+	if len(values) == 0 {
+		return append([]string(nil), fallback...)
+	}
+	return values
 }

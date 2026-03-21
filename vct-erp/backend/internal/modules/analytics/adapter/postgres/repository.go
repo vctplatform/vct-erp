@@ -36,7 +36,7 @@ WITH revenue_source AS (
     INNER JOIN journal_items AS ji ON ji.journal_entry_id = je.id
     INNER JOIN accounts AS a ON a.id = ji.account_id
     WHERE je.company_code = $1
-      AND je.status = 'posted'
+      AND je.status IN ('posted', 'reversed')
       AND je.posting_date BETWEEN $2 AND $3
       AND (
           a.code LIKE '511%' OR
@@ -95,12 +95,9 @@ ORDER BY cost_center`,
 func (r *Repository) CashRunway(ctx context.Context, companyCode string, asOf time.Time, months int) (analyticsdomain.CashRunway, error) {
 	var currentCashRaw string
 	if err := r.db.QueryRowContext(ctx, `
-SELECT COALESCE(SUM(ab.net_balance), 0)
-FROM account_balances AS ab
-INNER JOIN accounts AS a
-    ON a.id = ab.account_id
-WHERE ab.company_code = $1
-  AND (a.code LIKE '111%' OR a.code LIKE '112%')`,
+SELECT current_cash
+FROM v_cash_runway_metrics
+WHERE company_code = $1`,
 		companyCode,
 	).Scan(&currentCashRaw); err != nil {
 		return analyticsdomain.CashRunway{}, fmt.Errorf("query current cash: %w", err)
@@ -111,47 +108,20 @@ WHERE ab.company_code = $1
 	}
 
 	startMonth := time.Date(asOf.Year(), asOf.Month(), 1, 0, 0, 0, 0, time.UTC)
-	burnRows, err := r.db.QueryContext(ctx, `
-WITH monthly_burn AS (
-    SELECT
-        date_trunc('month', je.posting_date)::date AS month_start,
-        SUM(CASE WHEN ji.side = 'debit' THEN ji.amount ELSE 0 END) AS burn_amount
-    FROM journal_entries AS je
-    INNER JOIN journal_items AS ji ON ji.journal_entry_id = je.id
-    INNER JOIN accounts AS a ON a.id = ji.account_id
-    WHERE je.company_code = $1
-      AND je.status = 'posted'
-      AND je.posting_date >= ($2::date - INTERVAL '3 months')
-      AND je.posting_date < $2::date
-      AND (
-          a.code LIKE '632%' OR
-          a.code LIKE '635%' OR
-          a.code LIKE '641%' OR
-          a.code LIKE '642%' OR
-          a.code LIKE '811%' OR
-          a.code LIKE '821%'
-      )
-    GROUP BY date_trunc('month', je.posting_date)::date
-)
-SELECT COALESCE(CAST(AVG(burn_amount) AS NUMERIC(20, 4)), 0::NUMERIC(20, 4)) FROM monthly_burn`,
+	var burnRaw string
+	if err := r.db.QueryRowContext(ctx, `
+SELECT average_monthly_burn
+FROM v_cash_runway_metrics
+WHERE company_code = $1`,
 		companyCode,
-		startMonth.Format("2006-01-02"),
-	)
-	if err != nil {
+	).Scan(&burnRaw); err != nil {
 		return analyticsdomain.CashRunway{}, fmt.Errorf("query average burn: %w", err)
 	}
-	defer burnRows.Close()
 
 	averageBurn := ledgerdomain.MustParseMoney("0.0000")
-	if burnRows.Next() {
-		var burnRaw string
-		if err := burnRows.Scan(&burnRaw); err != nil {
-			return analyticsdomain.CashRunway{}, fmt.Errorf("scan average burn: %w", err)
-		}
-		averageBurn, err = ledgerdomain.ParseMoney(burnRaw)
-		if err != nil {
-			return analyticsdomain.CashRunway{}, fmt.Errorf("parse average burn: %w", err)
-		}
+	averageBurn, err = ledgerdomain.ParseMoney(burnRaw)
+	if err != nil {
+		return analyticsdomain.CashRunway{}, fmt.Errorf("parse average burn: %w", err)
 	}
 
 	rows, err := r.db.QueryContext(ctx, `

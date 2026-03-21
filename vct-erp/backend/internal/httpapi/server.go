@@ -21,14 +21,23 @@ type PostEntryService interface {
 
 // Dependencies holds the HTTP-facing application services.
 type Dependencies struct {
-	PostEntryUC       PostEntryService
-	FinanceCaptureUC  financehttp.CaptureService
-	FinanceVoidUC     financehttp.VoidService
-	AnalyticsRevenue  analyticshhttp.RevenueStreamService
-	AnalyticsRunway   analyticshhttp.CashRunwayService
-	AppRoleHeader     string
-	AppActorHeader    string
-	IdempotencyHeader string
+	PostEntryUC        PostEntryService
+	FinanceCaptureUC   financehttp.CaptureService
+	FinanceVoidUC      financehttp.VoidService
+	AnalyticsRevenue   analyticshhttp.RevenueStreamService
+	AnalyticsRunway    analyticshhttp.CashRunwayService
+	AnalyticsSummary   analyticshhttp.FinanceSummaryService
+	AnalyticsSegments  analyticshhttp.SegmentService
+	AnalyticsCashflow  analyticshhttp.DashboardCashRunwayService
+	AnalyticsDashboard analyticshhttp.DashboardService
+	AnalyticsCards     analyticshhttp.DashboardCardsService
+	AnalyticsMix       analyticshhttp.DashboardSegmentsService
+	AnalyticsChart     analyticshhttp.DashboardCashflowService
+	FinanceRealtime    http.Handler
+	CORSAllowedOrigins []string
+	AppRoleHeader      string
+	AppActorHeader     string
+	IdempotencyHeader  string
 }
 
 // Server wires the HTTP routes for the core ledger module.
@@ -51,7 +60,18 @@ func New(deps Dependencies) *Server {
 			deps.IdempotencyHeader,
 			deps.AppActorHeader,
 		),
-		analytics: analyticshhttp.NewHandler(deps.AnalyticsRevenue, deps.AnalyticsRunway),
+		analytics: analyticshhttp.NewHandler(
+			deps.AnalyticsRevenue,
+			deps.AnalyticsRunway,
+			deps.AnalyticsSummary,
+			deps.AnalyticsSegments,
+			deps.AnalyticsCashflow,
+			deps.AnalyticsDashboard,
+			deps.AnalyticsCards,
+			deps.AnalyticsMix,
+			deps.AnalyticsChart,
+			deps.AppActorHeader,
+		),
 	}
 
 	server.mux.HandleFunc("/healthz", server.handleHealth)
@@ -60,13 +80,52 @@ func New(deps Dependencies) *Server {
 	server.mux.HandleFunc("/v1/analytics/revenue-stream", server.analytics.RevenueStream)
 	server.mux.HandleFunc("/v1/analytics/cash-runway", server.analytics.CashRunway)
 	server.mux.Handle(
+		"/api/v1/finance/dashboard",
+		sharedmiddleware.RequireRoles("cfo", "ceo", "system_admin")(
+			http.HandlerFunc(server.analytics.Dashboard),
+		),
+	)
+	server.mux.Handle(
+		"/api/v1/finance/summary",
+		sharedmiddleware.RequireRoles("cfo", "ceo", "system_admin")(
+			http.HandlerFunc(server.analytics.Summary),
+		),
+	)
+	server.mux.Handle(
+		"/api/v1/finance/cash-runway",
+		sharedmiddleware.RequireRoles("cfo", "ceo", "system_admin")(
+			http.HandlerFunc(server.analytics.FinanceCashRunway),
+		),
+	)
+	server.mux.Handle(
+		"/api/v1/finance/segments",
+		sharedmiddleware.RequireRoles("cfo", "ceo", "system_admin")(
+			http.HandlerFunc(server.analytics.Segments),
+		),
+	)
+	server.mux.Handle(
+		"/api/v1/finance/dashboard/mock",
+		sharedmiddleware.RequireRoles("cfo", "ceo", "system_admin")(
+			http.HandlerFunc(server.analytics.DashboardMock),
+		),
+	)
+	server.mux.Handle(
 		"/v1/finance/journal-entries/",
 		sharedmiddleware.RequireRoles("chief_accountant")(
 			http.HandlerFunc(server.financeHandle.VoidJournalEntry),
 		),
 	)
+	if deps.FinanceRealtime != nil {
+		server.mux.Handle("/ws/v1/finance/live", deps.FinanceRealtime)
+	}
 	server.handler = sharedmiddleware.SecurityHeaders(
-		sharedmiddleware.WithRoleFromHeader(roleHeaderOrDefault(deps.AppRoleHeader))(server.mux),
+		sharedmiddleware.CORS(deps.CORSAllowedOrigins, []string{
+			roleHeaderOrDefault(deps.AppRoleHeader),
+			actorHeaderOrDefault(deps.AppActorHeader),
+			idempotencyHeaderOrDefault(deps.IdempotencyHeader),
+		})(
+			sharedmiddleware.WithRoleFromHeader(roleHeaderOrDefault(deps.AppRoleHeader))(server.mux),
+		),
 	)
 	return server
 }
@@ -141,6 +200,20 @@ func writeJSON(w http.ResponseWriter, status int, payload any) {
 func roleHeaderOrDefault(header string) string {
 	if header == "" {
 		return "X-App-Role"
+	}
+	return header
+}
+
+func actorHeaderOrDefault(header string) string {
+	if header == "" {
+		return "X-Actor-ID"
+	}
+	return header
+}
+
+func idempotencyHeaderOrDefault(header string) string {
+	if header == "" {
+		return "Idempotency-Key"
 	}
 	return header
 }

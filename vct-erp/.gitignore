@@ -1,0 +1,7 @@
+.agents/.bin/
+backend/.api*.log
+backend/.gomodcache/
+backend/.gomodcache-runtime/
+backend/finance-api.exe
+frontend/.next/
+frontend/node_modules/

@@ -12,7 +12,7 @@ type roleContextKey struct{}
 func WithRoleFromHeader(headerName string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			role := strings.TrimSpace(r.Header.Get(headerName))
+			role := strings.ToLower(strings.TrimSpace(r.Header.Get(headerName)))
 			if role == "" {
 				next.ServeHTTP(w, r)
 				return
@@ -35,14 +35,15 @@ func RequireRoles(roles ...string) func(http.Handler) http.Handler {
 	allowed := make(map[string]struct{}, len(roles))
 	for _, role := range roles {
 		if trimmed := strings.TrimSpace(role); trimmed != "" {
-			allowed[trimmed] = struct{}{}
+			allowed[strings.ToLower(trimmed)] = struct{}{}
 		}
 	}
 
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			role := RoleFromContext(r.Context())
+			role := strings.ToLower(RoleFromContext(r.Context()))
 			if _, ok := allowed[role]; !ok {
+				w.Header().Set("Content-Type", "application/json; charset=utf-8")
 				http.Error(w, `{"error":"forbidden","message":"insufficient permissions"}`, http.StatusForbidden)
 				return
 			}

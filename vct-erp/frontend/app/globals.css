@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --color-canvas: #edf3fb;
+  --color-canvas-soft: #f7f9fc;
+  --color-panel: #ffffff;
+  --color-panel-soft: rgba(255, 255, 255, 0.78);
+  --color-ink: #0f2242;
+  --color-ink-soft: #5b6780;
+  --color-border: rgba(16, 36, 70, 0.12);
+
+  --color-navy-700: #173b70;
+  --color-navy-800: #102446;
+  --color-navy-900: #0a1832;
+  --color-emerald-500: #10b981;
+  --color-rose-500: #e11d48;
+  --color-amber-500: #f59e0b;
+  --color-sky-500: #0ea5e9;
+
+  --radius-card: 1.5rem;
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+}
+
+.dark {
+  color-scheme: dark;
+  --color-canvas: #07111f;
+  --color-canvas-soft: #0d1a2c;
+  --color-panel: rgba(11, 22, 42, 0.9);
+  --color-panel-soft: rgba(13, 26, 44, 0.76);
+  --color-ink: #edf4ff;
+  --color-ink-soft: #93a4c2;
+  --color-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: rgba(23, 59, 112, 0.18);
+}

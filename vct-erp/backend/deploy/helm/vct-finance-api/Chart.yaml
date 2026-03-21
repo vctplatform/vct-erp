@@ -1,0 +1,6 @@
+apiVersion: v2
+name: vct-finance-api
+description: VCT finance API with live dashboard and websocket support
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
