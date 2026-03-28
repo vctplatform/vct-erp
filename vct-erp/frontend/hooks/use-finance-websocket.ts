@@ -3,7 +3,6 @@
 import {
   startTransition,
   useEffect,
-  useEffectEvent,
   useRef,
   useState,
 } from "react";
@@ -21,15 +20,18 @@ export function useFinanceWebSocket(
 ) {
   const [isConnected, setIsConnected] = useState(false);
   const reconnectRef = useRef<number | null>(null);
-  const onTransaction = useEffectEvent((event: FinanceRealtimeEvent) => {
-    options.onTransaction?.(event);
-  });
+  const onTransactionRef = useRef(options.onTransaction);
+
+  useEffect(() => {
+    onTransactionRef.current = options.onTransaction;
+  }, [options.onTransaction]);
 
   useEffect(() => {
     if (!url || options.enabled === false) {
       return;
     }
 
+    const socketURL = url;
     let socket: WebSocket | null = null;
     let cancelled = false;
 
@@ -38,7 +40,7 @@ export function useFinanceWebSocket(
         return;
       }
 
-      socket = new WebSocket(url);
+      socket = new WebSocket(socketURL);
 
       socket.addEventListener("open", () => {
         startTransition(() => setIsConnected(true));
@@ -55,7 +57,7 @@ export function useFinanceWebSocket(
         try {
           const payload = JSON.parse(message.data) as FinanceRealtimeEvent;
           if (payload.event === "NEW_TRANSACTION") {
-            startTransition(() => onTransaction(payload));
+            startTransition(() => onTransactionRef.current?.(payload));
           }
         } catch {
           // Ignore malformed realtime payloads and wait for the next frame.

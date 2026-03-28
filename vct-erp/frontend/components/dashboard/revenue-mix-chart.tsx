@@ -3,26 +3,39 @@
 import { useDeferredValue } from "react";
 import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 
+import { useLocale } from "@/components/i18n/locale-provider";
 import { Card } from "@/components/ui/card";
 import type { FinancePieSlice } from "@/lib/contracts/finance";
 import { formatCompactCurrency } from "@/lib/formatters";
+import { translateFinanceSegment } from "@/lib/i18n/finance";
 
 type RevenueMixChartProps = {
   data: FinancePieSlice[];
 };
 
 export function RevenueMixChart({ data }: RevenueMixChartProps) {
+  const { locale } = useLocale();
   const deferredData = useDeferredValue(data);
+  const copy =
+    locale === "vi"
+      ? {
+          kicker: "Cơ cấu doanh thu",
+          title: "Phân bổ doanh thu theo mảng",
+        }
+      : {
+          kicker: "Revenue Mix",
+          title: "Revenue Composition by Segment",
+        };
 
   return (
     <Card className="p-5">
       <div className="mb-5 flex items-center justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.24em] text-[var(--color-ink-soft)]">
-            Revenue Mix
+            {copy.kicker}
           </p>
           <h2 className="mt-2 text-xl font-semibold text-[var(--color-ink)]">
-            Co cau doanh thu
+            {copy.title}
           </h2>
         </div>
       </div>
@@ -44,7 +57,15 @@ export function RevenueMixChart({ data }: RevenueMixChartProps) {
                 ))}
               </Pie>
               <Tooltip
-                formatter={(value: number) => formatCompactCurrency(value)}
+                formatter={(value) =>
+                  formatCompactCurrency(
+                    Number(Array.isArray(value) ? value[0] : value ?? 0),
+                    locale,
+                  )
+                }
+                labelFormatter={(value) =>
+                  translateFinanceSegment(String(value), locale) ?? String(value)
+                }
               />
             </PieChart>
           </ResponsiveContainer>
@@ -63,11 +84,11 @@ export function RevenueMixChart({ data }: RevenueMixChartProps) {
                     style={{ backgroundColor: slice.color }}
                   />
                   <span className="font-medium text-[var(--color-ink)]">
-                    {slice.label}
+                    {translateFinanceSegment(slice.label, locale)}
                   </span>
                 </div>
                 <span className="font-mono text-sm text-[var(--color-ink-soft)]">
-                  {formatCompactCurrency(slice.value)}
+                  {formatCompactCurrency(slice.value, locale)}
                 </span>
               </div>
             </div>

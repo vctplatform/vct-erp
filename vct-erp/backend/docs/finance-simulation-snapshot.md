@@ -48,7 +48,7 @@ Company: `VCT_SIM`
 | --- | --- |
 | dojo | 453695518.0000 |
 | rental | 7273189.1900 |
-| retail | 208451930.0000 |
+| retail | 216480430.0000 |
 | saas | 6006316003.0000 |
 
 ## Cash Runway Snapshot

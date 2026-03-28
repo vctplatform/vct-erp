@@ -3,6 +3,7 @@ import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 
 import { Providers } from "@/app/providers";
 import "@/app/globals.css";
+import { getServerLocale } from "@/lib/i18n/server";
 import { cn } from "@/lib/utils";
 
 const sans = IBM_Plex_Sans({
@@ -21,13 +22,15 @@ export const metadata: Metadata = {
   description: "Real-time financial dashboard for VCT Group executives.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getServerLocale();
+
   return (
-    <html lang="vi" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
           sans.variable,
@@ -35,7 +38,7 @@ export default function RootLayout({
           "min-h-screen bg-[radial-gradient(circle_at_top,_rgba(24,59,112,0.16),_transparent_48%),linear-gradient(180deg,_var(--color-canvas),_var(--color-canvas-soft))] font-sans text-[var(--color-ink)] antialiased",
         )}
       >
-        <Providers>{children}</Providers>
+        <Providers locale={locale}>{children}</Providers>
       </body>
     </html>
   );

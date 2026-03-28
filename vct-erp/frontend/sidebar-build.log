@@ -1,0 +1,25 @@
+
+> vct-command-center@0.1.0 build
+> next build
+
+   ▲ Next.js 15.5.14
+   - Experiments (use with caution):
+     ✓ reactCompiler
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.8min
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/10) ...
+   Generating static pages (2/10) 
+   Generating static pages (4/10) 
+   Generating static pages (7/10) 
+ ✓ Generating static pages (10/10)
+   Finalizing page optimization ...
+   Collecting build traces ...
+[Error: ENOENT: no such file or directory, open 'd:\VCT PLATFORM\vct-erp\frontend\.next\server\app\api\locale\route.js.nft.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'd:\\VCT PLATFORM\\vct-erp\\frontend\\.next\\server\\app\\api\\locale\\route.js.nft.json'
+}

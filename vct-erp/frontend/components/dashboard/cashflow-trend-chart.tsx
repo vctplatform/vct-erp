@@ -12,9 +12,11 @@ import {
   YAxis,
 } from "recharts";
 
+import { useLocale } from "@/components/i18n/locale-provider";
 import { Card } from "@/components/ui/card";
 import type { FinanceMultiLineChart } from "@/lib/contracts/finance";
 import { formatCompactCurrency } from "@/lib/formatters";
+import { translateFinanceSeriesLabel } from "@/lib/i18n/finance";
 
 type CashflowTrendChartProps = {
   chart: FinanceMultiLineChart;
@@ -31,17 +33,28 @@ function toChartRows(chart: FinanceMultiLineChart) {
 }
 
 export function CashflowTrendChart({ chart }: CashflowTrendChartProps) {
+  const { locale } = useLocale();
   const deferredChart = useDeferredValue(chart);
   const rows = toChartRows(deferredChart);
+  const copy =
+    locale === "vi"
+      ? {
+          kicker: "Xu hướng dòng tiền",
+          title: "Dòng tiền 6 tháng",
+        }
+      : {
+          kicker: "Cashflow Trend",
+          title: "6-Month Cashflow",
+        };
 
   return (
     <Card className="p-5">
       <div className="mb-5">
         <p className="text-xs font-medium uppercase tracking-[0.24em] text-[var(--color-ink-soft)]">
-          Cashflow Trend
+          {copy.kicker}
         </p>
         <h2 className="mt-2 text-xl font-semibold text-[var(--color-ink)]">
-          Dòng tien 6 thang
+          {copy.title}
         </h2>
       </div>
 
@@ -57,7 +70,12 @@ export function CashflowTrendChart({ chart }: CashflowTrendChartProps) {
               width={72}
             />
             <Tooltip
-              formatter={(value: number) => formatCompactCurrency(value)}
+              formatter={(value) =>
+                formatCompactCurrency(
+                  Number(Array.isArray(value) ? value[0] : value ?? 0),
+                  locale,
+                )
+              }
             />
             <Legend />
             {deferredChart.series.map((series) => (
@@ -65,6 +83,7 @@ export function CashflowTrendChart({ chart }: CashflowTrendChartProps) {
                 key={series.key}
                 type="monotone"
                 dataKey={series.key}
+                name={translateFinanceSeriesLabel(series.key, series.label, locale)}
                 stroke={series.color}
                 strokeWidth={3}
                 dot={false}

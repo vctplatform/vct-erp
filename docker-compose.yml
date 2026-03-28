@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  # ── Go Backend CMS ──
+  cms-backend:
+    build:
+      context: ./cms-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - JWT_SECRET=${JWT_SECRET:-vct-cms-production-secret-change-me}
+      - CORS_ORIGINS=http://localhost:3000,https://vct-platform.github.io
+    volumes:
+      - ./vct-website:/app/vct-website  # Mount website repo for Git-sync
+    restart: unless-stopped
+
+  # ── Next.js Dashboard ──
+  cms-frontend:
+    build:
+      context: ./cms-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_API_URL=http://cms-backend:8080/api/v1
+    depends_on:
+      - cms-backend
+    restart: unless-stopped

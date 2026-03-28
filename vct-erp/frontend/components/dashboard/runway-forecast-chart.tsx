@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 
+import { useLocale } from "@/components/i18n/locale-provider";
 import { Card } from "@/components/ui/card";
 import type { FinanceRunwayPoint } from "@/lib/contracts/finance";
 import { formatCompactCurrency } from "@/lib/formatters";
@@ -20,17 +21,28 @@ type RunwayForecastChartProps = {
 };
 
 export function RunwayForecastChart({ data }: RunwayForecastChartProps) {
+  const { locale } = useLocale();
   const deferredData = useDeferredValue(data);
+  const copy =
+    locale === "vi"
+      ? {
+          kicker: "Dự báo runway",
+          title: "Dự báo dòng tiền",
+        }
+      : {
+          kicker: "Runway Forecast",
+          title: "Cash Projection",
+        };
 
   return (
     <Card className="p-5">
       <div className="mb-5 flex items-center justify-between">
         <div>
           <p className="text-xs font-medium uppercase tracking-[0.24em] text-[var(--color-ink-soft)]">
-            Runway Forecast
+            {copy.kicker}
           </p>
           <h2 className="mt-2 text-xl font-semibold text-[var(--color-ink)]">
-            Du bao dong tien
+            {copy.title}
           </h2>
         </div>
       </div>
@@ -47,7 +59,12 @@ export function RunwayForecastChart({ data }: RunwayForecastChartProps) {
               width={72}
             />
             <Tooltip
-              formatter={(value: number) => formatCompactCurrency(value)}
+              formatter={(value) =>
+                formatCompactCurrency(
+                  Number(Array.isArray(value) ? value[0] : value ?? 0),
+                  locale,
+                )
+              }
             />
             <Bar
               dataKey="projected_ending"

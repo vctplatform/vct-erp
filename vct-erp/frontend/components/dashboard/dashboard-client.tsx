@@ -1,13 +1,12 @@
 "use client";
 
 import { startTransition } from "react";
+import dynamic from "next/dynamic";
 import { Activity, RadioTower } from "lucide-react";
 import { toast } from "sonner";
 
-import { CashflowTrendChart } from "@/components/dashboard/cashflow-trend-chart";
+import { useLocale } from "@/components/i18n/locale-provider";
 import { KpiCardGrid } from "@/components/dashboard/kpi-card-grid";
-import { RevenueMixChart } from "@/components/dashboard/revenue-mix-chart";
-import { RunwayForecastChart } from "@/components/dashboard/runway-forecast-chart";
 import { useFinanceDashboard } from "@/hooks/use-finance-dashboard";
 import { useFinanceWebSocket } from "@/hooks/use-finance-websocket";
 import type {
@@ -15,11 +14,55 @@ import type {
   FinanceRealtimeEvent,
 } from "@/lib/contracts/finance";
 import { formatCurrency } from "@/lib/formatters";
+import { getFinanceLocaleCode } from "@/lib/i18n/finance";
 import { useFinanceDashboardStore } from "@/lib/store/finance-dashboard-store";
 
 type DashboardClientProps = {
   initialData: FinanceDashboardSnapshot;
 };
+
+function chartLoadingCard(heightClass = "h-80") {
+  return (
+    <div className="rounded-[1.5rem] border border-[var(--color-border)] bg-[var(--color-panel)] p-5">
+      <div
+        className={`${heightClass} animate-pulse rounded-[1.25rem] bg-[var(--color-canvas-soft)]`}
+      />
+    </div>
+  );
+}
+
+const RevenueMixChart = dynamic(
+  () =>
+    import("@/components/dashboard/revenue-mix-chart").then((module) => ({
+      default: module.RevenueMixChart,
+    })),
+  {
+    ssr: false,
+    loading: () => chartLoadingCard("h-72"),
+  },
+);
+
+const CashflowTrendChart = dynamic(
+  () =>
+    import("@/components/dashboard/cashflow-trend-chart").then((module) => ({
+      default: module.CashflowTrendChart,
+    })),
+  {
+    ssr: false,
+    loading: () => chartLoadingCard(),
+  },
+);
+
+const RunwayForecastChart = dynamic(
+  () =>
+    import("@/components/dashboard/runway-forecast-chart").then((module) => ({
+      default: module.RunwayForecastChart,
+    })),
+  {
+    ssr: false,
+    loading: () => chartLoadingCard(),
+  },
+);
 
 function resolveFinanceWsUrl() {
   if (typeof window === "undefined") {
@@ -44,18 +87,43 @@ function resolveFinanceWsUrl() {
 }
 
 export function DashboardClient({ initialData }: DashboardClientProps) {
+  const { locale } = useLocale();
   const { snapshot, error, mutate, isValidating } =
     useFinanceDashboard(initialData);
   const applyRealtimeEvent = useFinanceDashboardStore(
     (state) => state.applyRealtimeEvent,
   );
   const wsUrl = resolveFinanceWsUrl();
+  const copy =
+    locale === "vi"
+      ? {
+          newRevenue: "Doanh thu mới",
+          signalFeed: "Dòng tín hiệu tài chính",
+          lastSnapshot: "Ảnh chụp gần nhất",
+          realtimeLive: "Realtime trực tiếp",
+          pollingFallback: "Rơi về polling",
+          syncing: "Đang đồng bộ...",
+          dataReady: "Dữ liệu sẵn sàng",
+          syncError:
+            "Không thể đồng bộ dashboard live. Frontend đang hiển thị snapshot gần nhất.",
+        }
+      : {
+          newRevenue: "New revenue",
+          signalFeed: "Financial Signal Feed",
+          lastSnapshot: "Last snapshot",
+          realtimeLive: "Realtime live",
+          pollingFallback: "Polling fallback",
+          syncing: "Syncing...",
+          dataReady: "Data ready",
+          syncError:
+            "Unable to sync the live dashboard. The frontend is showing the latest snapshot.",
+        };
 
   const realtime = useFinanceWebSocket(wsUrl, {
     enabled: snapshot.recommended_refresh === "websocket",
     onTransaction: (event: FinanceRealtimeEvent) => {
       toast.success(
-        `Doanh thu moi: +${formatCurrency(event.amount)} (${event.segment})`,
+        `${copy.newRevenue}: +${formatCurrency(event.amount, locale)} (${event.segment})`,
       );
 
       startTransition(() => {
@@ -75,10 +143,13 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
           </span>
           <div>
             <p className="text-sm font-medium text-[var(--color-ink)]">
-              Financial signal feed
+              {copy.signalFeed}
             </p>
             <p className="text-sm text-[var(--color-ink-soft)]">
-              Last snapshot {new Date(snapshot.generated_at).toLocaleString("vi-VN")}
+              {copy.lastSnapshot}{" "}
+              {new Date(snapshot.generated_at).toLocaleString(
+                getFinanceLocaleCode(locale),
+              )}
             </p>
           </div>
         </div>
@@ -90,17 +161,17 @@ export function DashboardClient({ initialData }: DashboardClientProps) {
                 realtime.isConnected ? "text-emerald-500" : "text-rose-500"
               }`}
             />
-            {realtime.isConnected ? "Realtime live" : "Polling fallback"}
+            {realtime.isConnected ? copy.realtimeLive : copy.pollingFallback}
           </span>
           <span className="rounded-full border border-[var(--color-border)] px-3 py-2 text-[var(--color-ink-soft)]">
-            {isValidating ? "Syncing..." : "Data ready"}
+            {isValidating ? copy.syncing : copy.dataReady}
           </span>
         </div>
       </div>
 
       {error ? (
         <div className="rounded-[1.35rem] border border-rose-500/25 bg-rose-500/10 px-4 py-4 text-sm text-rose-700 dark:text-rose-200">
-          Khong the dong bo live dashboard. Frontend dang hien thi snapshot gan nhat.
+          {copy.syncError}
         </div>
       ) : null}
 

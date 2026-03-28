@@ -1,0 +1,50 @@
+
+> vct-command-center@0.1.0 dev
+> next dev --port 3000 --hostname 127.0.0.1 --port 3002
+
+   ▲ Next.js 15.5.14
+   - Local:        http://127.0.0.1:3002
+   - Network:      http://127.0.0.1:3002
+   - Experiments (use with caution):
+     ⨯ reactCompiler
+
+ ✓ Starting...
+ ✓ Ready in 21.2s
+ ○ Compiling /segments ...
+ ✓ Compiled /segments in 18.5s (1787 modules)
+ ✓ Compiled in 168ms (806 modules)
+ ✓ Compiled in 304ms (806 modules)
+ ✓ Compiled in 338ms (806 modules)
+ ✓ Compiled in 353ms (806 modules)
+ ✓ Compiled in 261ms (806 modules)
+ ✓ Compiled in 298ms (806 modules)
+ ✓ Compiled in 192ms (806 modules)
+ ✓ Compiled in 206ms (806 modules)
+ ✓ Compiled in 230ms (806 modules)
+ ✓ Compiled in 207ms (806 modules)
+ ✓ Compiled in 141ms (806 modules)
+ ✓ Compiled in 176ms (806 modules)
+ ✓ Compiled in 271ms (806 modules)
+ ✓ Compiled in 167ms (806 modules)
+ ✓ Compiled in 283ms (806 modules)
+ ✓ Compiled in 187ms (806 modules)
+ ✓ Compiled in 201ms (806 modules)
+ ✓ Compiled in 167ms (806 modules)
+ ✓ Compiled in 287ms (806 modules)
+ ✓ Compiled in 502ms (806 modules)
+ ○ Compiling /ledger ...
+ ✓ Compiled /ledger in 1677ms (1775 modules)
+ GET /segments 200 in 3470ms
+ GET /ledger 200 in 4212ms
+ GET / 200 in 29417ms
+ ✓ Compiled in 490ms (806 modules)
+ GET /segments 200 in 691ms
+ GET /ledger 200 in 457ms
+ GET / 200 in 26719ms
+ HEAD / 200 in 264ms
+ HEAD /segments 200 in 149ms
+ ○ Compiling /api/finance/dashboard ...
+ ✓ Compiled /api/finance/dashboard in 728ms (1792 modules)
+ HEAD /ledger 200 in 1127ms
+ HEAD /api/finance/dashboard 200 in 1791ms
+ GET /api/finance/dashboard 200 in 781ms
