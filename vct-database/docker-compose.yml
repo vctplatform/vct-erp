@@ -69,16 +69,17 @@ services:
     image: postgres:18.3-alpine
     container_name: vct_migrate
     volumes:
-      - ./migrations:/migrations
-      - ./seeds:/seeds
+      - ./scripts/migrate.sh:/migrate.sh:ro
+      - ./migrations:/migrations:ro
+      - ./seeds:/seeds:ro
     environment:
-      PGPASSWORD: ${DB_PASSWORD:-vct_secure_password_123!}
-    command: >
-      sh -c '
-        echo "⏳ Đang chạy v3.0 core_store Master Migration..." &&
-        psql -h postgres -U vct_user -d vct_platform -f /migrations/migrate_v3_all.sql &&
-        echo "✅ VCT DATABASE v3.0 MIGRATION COMPLETE!"
-      '
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: vct_platform
+      DB_USER: vct_user
+      DB_PASSWORD: ${DB_PASSWORD:-vct_secure_password_123!}
+      MIGRATION_DIR: /migrations
+    entrypoint: ["/bin/sh", "/migrate.sh"]
     depends_on:
       postgres:
         condition: service_healthy
@@ -86,6 +87,36 @@ services:
       - vct_global_net
     profiles:
       - tools
+
+  # ── Database Backup (daily at 2 AM) ────────────────────────
+  db-backup:
+    image: postgres:18.3-alpine
+    container_name: vct_db_backup
+    volumes:
+      - ./scripts/backup.sh:/backup.sh:ro
+      - ./scripts/backup-verify.sh:/backup-verify.sh:ro
+      - backup_data:/backups
+    environment:
+      DB_HOST: postgres
+      DB_PORT: "5432"
+      DB_NAME: vct_platform
+      DB_USER: vct_user
+      DB_PASSWORD: ${DB_PASSWORD:-vct_secure_password_123!}
+      BACKUP_DIR: /backups
+      RETAIN_DAILY: "7"
+      RETAIN_WEEKLY: "4"
+    entrypoint: >
+      /bin/sh -c "
+        chmod +x /backup.sh /backup-verify.sh &&
+        echo '0 2 * * * /backup.sh >> /var/log/backup.log 2>&1 && /backup-verify.sh >> /var/log/backup.log 2>&1' | crontab - &&
+        crond -f
+      "
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - vct_global_net
+    restart: unless-stopped
 
 networks:
   vct_global_net:
@@ -95,3 +126,4 @@ networks:
 volumes:
   postgres_data:
   wal_archive:
+  backup_data:
