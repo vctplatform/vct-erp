@@ -1,0 +1,150 @@
+{
+  "_description": "Template thông báo trong hệ thống — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "notification_templates": [
+    {
+      "code": "registration_submitted",
+      "type": "info",
+      "category": "registration",
+      "title_template": "Đăng ký thi đấu đã được gửi",
+      "body_template": "Đoàn {{team_name}} đã gửi đăng ký cho VĐV {{athlete_name}} tại nội dung {{event_name}}. Vui lòng chờ duyệt.",
+      "recipients": ["delegate", "btc"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "registration_approved",
+      "type": "success",
+      "category": "registration",
+      "title_template": "Đăng ký đã được duyệt",
+      "body_template": "Đăng ký của VĐV {{athlete_name}} tại nội dung {{event_name}} đã được Ban tổ chức phê duyệt.",
+      "recipients": ["delegate", "athlete"],
+      "channels": ["in_app", "email", "push"]
+    },
+    {
+      "code": "registration_rejected",
+      "type": "warning",
+      "category": "registration",
+      "title_template": "Đăng ký bị từ chối",
+      "body_template": "Đăng ký của VĐV {{athlete_name}} tại nội dung {{event_name}} đã bị từ chối. Lý do: {{reason}}.",
+      "recipients": ["delegate"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "weigh_in_reminder",
+      "type": "info",
+      "category": "weigh_in",
+      "title_template": "Nhắc nhở cân kỹ thuật",
+      "body_template": "VĐV {{athlete_name}} cần đến cân kỹ thuật vào {{time}} ngày {{date}} tại {{location}}.",
+      "recipients": ["delegate", "athlete"],
+      "channels": ["in_app", "push"]
+    },
+    {
+      "code": "weigh_in_result",
+      "type": "info",
+      "category": "weigh_in",
+      "title_template": "Kết quả cân kỹ thuật",
+      "body_template": "VĐV {{athlete_name}} — Cân nặng: {{weight}}kg — Kết quả: {{result}}.",
+      "recipients": ["delegate", "btc"],
+      "channels": ["in_app"]
+    },
+    {
+      "code": "schedule_published",
+      "type": "info",
+      "category": "schedule",
+      "title_template": "Lịch thi đấu đã công bố",
+      "body_template": "Lịch thi đấu ngày {{date}} đã được Ban tổ chức công bố. Vui lòng kiểm tra lịch của đoàn mình.",
+      "recipients": ["delegate", "referee", "athlete"],
+      "channels": ["in_app", "push"]
+    },
+    {
+      "code": "match_upcoming",
+      "type": "info",
+      "category": "match",
+      "title_template": "Trận đấu sắp diễn ra",
+      "body_template": "Trận {{match_name}} sẽ diễn ra lúc {{time}} tại {{arena}}. VĐV chuẩn bị!",
+      "recipients": ["delegate", "athlete", "referee"],
+      "channels": ["in_app", "push"]
+    },
+    {
+      "code": "match_result",
+      "type": "info",
+      "category": "match",
+      "title_template": "Kết quả trận đấu",
+      "body_template": "{{match_name}}: {{winner_name}} ({{winner_team}}) thắng {{result_detail}}.",
+      "recipients": ["delegate", "athlete"],
+      "channels": ["in_app"]
+    },
+    {
+      "code": "form_score_published",
+      "type": "info",
+      "category": "form",
+      "title_template": "Điểm quyền thuật đã công bố",
+      "body_template": "VĐV {{athlete_name}} — Nội dung: {{form_name}} — Điểm TB: {{avg_score}} — Xếp hạng: {{rank}}.",
+      "recipients": ["delegate", "athlete"],
+      "channels": ["in_app"]
+    },
+    {
+      "code": "appeal_submitted",
+      "type": "warning",
+      "category": "appeal",
+      "title_template": "Khiếu nại mới",
+      "body_template": "Đoàn {{team_name}} đã gửi {{appeal_type}}: {{reason}}.",
+      "recipients": ["btc", "federation_admin"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "appeal_resolved",
+      "type": "info",
+      "category": "appeal",
+      "title_template": "Khiếu nại đã giải quyết",
+      "body_template": "{{appeal_type}} của Đoàn {{team_name}} đã được xử lý. Kết luận: {{conclusion}}.",
+      "recipients": ["delegate"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "discipline_action",
+      "type": "error",
+      "category": "discipline",
+      "title_template": "Quyết định kỷ luật",
+      "body_template": "{{subject_name}} bị xử lý kỷ luật: {{sanction_type}}. Lý do: {{reason}}.",
+      "recipients": ["delegate", "athlete", "federation_admin"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "certification_issued",
+      "type": "success",
+      "category": "certification",
+      "title_template": "Chứng chỉ đã cấp",
+      "body_template": "{{holder_name}} đã được cấp {{cert_type}}: {{cert_number}}. Hiệu lực: {{valid_from}} — {{valid_until}}.",
+      "recipients": ["athlete", "coach", "province_admin"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "certification_expiring",
+      "type": "warning",
+      "category": "certification",
+      "title_template": "Chứng chỉ sắp hết hạn",
+      "body_template": "Chứng chỉ {{cert_type}} ({{cert_number}}) của {{holder_name}} sẽ hết hạn vào {{valid_until}}. Vui lòng gia hạn.",
+      "recipients": ["athlete", "coach", "province_admin"],
+      "channels": ["in_app", "email"]
+    },
+    {
+      "code": "tournament_announcement",
+      "type": "info",
+      "category": "tournament",
+      "title_template": "Thông báo giải đấu",
+      "body_template": "{{tournament_name}} sẽ diễn ra từ {{start_date}} đến {{end_date}} tại {{venue}}. Hạn đăng ký: {{deadline}}.",
+      "recipients": ["province_admin", "delegate", "coach"],
+      "channels": ["in_app", "email", "push"]
+    },
+    {
+      "code": "system_maintenance",
+      "type": "info",
+      "category": "system",
+      "title_template": "Bảo trì hệ thống",
+      "body_template": "Hệ thống sẽ bảo trì từ {{start_time}} đến {{end_time}}. Xin lỗi về sự bất tiện.",
+      "recipients": ["all"],
+      "channels": ["in_app", "push"]
+    }
+  ]
+}

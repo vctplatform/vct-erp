@@ -1,0 +1,105 @@
+{
+  "_description": "Danh mục loại vi phạm kỷ luật — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "violation_types": [
+    {
+      "code": "weight_fraud",
+      "name_vi": "Khai gian cân nặng",
+      "name_en": "Weight Fraud",
+      "severity": "high",
+      "applicable_to": ["athlete"],
+      "default_sanctions": ["suspension", "fine"],
+      "description": "VĐV cố tình khai sai hoặc gian lận cân nặng để thi đấu sai hạng cân"
+    },
+    {
+      "code": "unsportsmanlike",
+      "name_vi": "Hành vi phi thể thao",
+      "name_en": "Unsportsmanlike Conduct",
+      "severity": "medium",
+      "applicable_to": ["athlete", "coach"],
+      "default_sanctions": ["warning", "suspension"],
+      "description": "Hành vi thiếu fair-play, khiêu khích, cố tình chơi xấu"
+    },
+    {
+      "code": "doping",
+      "name_vi": "Sử dụng doping",
+      "name_en": "Doping Violation",
+      "severity": "critical",
+      "applicable_to": ["athlete"],
+      "default_sanctions": ["ban", "result_annulment"],
+      "description": "Sử dụng chất cấm theo danh mục WADA/quy định LĐ"
+    },
+    {
+      "code": "competition_rule_violation",
+      "name_vi": "Vi phạm quy chế thi đấu",
+      "name_en": "Competition Rule Violation",
+      "severity": "medium",
+      "applicable_to": ["athlete", "coach", "delegate"],
+      "default_sanctions": ["warning", "fine"],
+      "description": "Vi phạm điều lệ, quy chế, thể lệ giải đấu"
+    },
+    {
+      "code": "admin_breach",
+      "name_vi": "Vi phạm hành chính",
+      "name_en": "Administrative Breach",
+      "severity": "low",
+      "applicable_to": ["club", "province_unit"],
+      "default_sanctions": ["warning", "fine"],
+      "description": "Không nộp báo cáo, không đóng phí đúng hạn, vi phạm thủ tục hành chính"
+    },
+    {
+      "code": "referee_abuse",
+      "name_vi": "Xúc phạm trọng tài",
+      "name_en": "Referee Abuse",
+      "severity": "high",
+      "applicable_to": ["athlete", "coach", "delegate"],
+      "default_sanctions": ["suspension", "fine"],
+      "description": "Lăng mạ, đe dọa, tấn công trọng tài hoặc giám sát"
+    },
+    {
+      "code": "age_fraud",
+      "name_vi": "Khai gian tuổi",
+      "name_en": "Age Fraud",
+      "severity": "high",
+      "applicable_to": ["athlete"],
+      "default_sanctions": ["ban", "result_annulment"],
+      "description": "Khai sai tuổi để thi đấu sai nhóm lứa tuổi"
+    },
+    {
+      "code": "document_forgery",
+      "name_vi": "Giả mạo giấy tờ",
+      "name_en": "Document Forgery",
+      "severity": "critical",
+      "applicable_to": ["athlete", "coach", "club"],
+      "default_sanctions": ["ban", "legal_referral"],
+      "description": "Sử dụng giấy tờ giả, chứng chỉ giả, giấy khám sức khỏe giả"
+    },
+    {
+      "code": "match_fixing",
+      "name_vi": "Dàn xếp kết quả",
+      "name_en": "Match Fixing",
+      "severity": "critical",
+      "applicable_to": ["athlete", "coach", "referee"],
+      "default_sanctions": ["ban", "legal_referral"],
+      "description": "Thỏa thuận, mua bán, dàn xếp kết quả thi đấu"
+    },
+    {
+      "code": "safety_violation",
+      "name_vi": "Vi phạm an toàn",
+      "name_en": "Safety Violation",
+      "severity": "high",
+      "applicable_to": ["club", "event_organizer"],
+      "default_sanctions": ["suspension", "fine"],
+      "description": "Không đảm bảo an toàn tập luyện/thi đấu: thiếu bảo hộ, cơ sở vật chất không đạt chuẩn"
+    }
+  ],
+  "sanction_types": [
+    {"code": "warning",          "name_vi": "Cảnh cáo",              "name_en": "Warning",           "description": "Nhắc nhở chính thức bằng văn bản"},
+    {"code": "fine",             "name_vi": "Phạt tiền",             "name_en": "Fine",              "description": "Phạt tiền theo mức quy định"},
+    {"code": "suspension",       "name_vi": "Đình chỉ thi đấu",     "name_en": "Suspension",        "description": "Cấm thi đấu có thời hạn"},
+    {"code": "ban",              "name_vi": "Cấm vĩnh viễn",        "name_en": "Permanent Ban",     "description": "Cấm tham gia mọi hoạt động vĩnh viễn"},
+    {"code": "result_annulment", "name_vi": "Hủy kết quả",          "name_en": "Result Annulment",  "description": "Hủy bỏ toàn bộ kết quả thi đấu liên quan"},
+    {"code": "probation",        "name_vi": "Quản chế",             "name_en": "Probation",         "description": "Cho phép hoạt động nhưng dưới giám sát"},
+    {"code": "legal_referral",   "name_vi": "Chuyển cơ quan pháp luật", "name_en": "Legal Referral", "description": "Chuyển hồ sơ sang cơ quan pháp luật xử lý"}
+  ]
+}

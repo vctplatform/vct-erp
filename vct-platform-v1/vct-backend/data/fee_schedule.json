@@ -1,0 +1,76 @@
+{
+  "_description": "Biểu phí chuẩn Liên đoàn VCT — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "_currency": "VND",
+  "_effective_date": "2026-01-01",
+
+  "tournament_fees": {
+    "_description": "Phí đăng ký thi đấu",
+    "by_level": [
+      {"level": "quoc_gia",  "name": "Giải Quốc gia",    "fee_per_athlete": 500000,   "fee_per_team": 5000000,  "deposit": 10000000},
+      {"level": "khu_vuc",   "name": "Giải Khu vực",      "fee_per_athlete": 300000,   "fee_per_team": 3000000,  "deposit": 5000000},
+      {"level": "tinh",      "name": "Giải Tỉnh/TP",      "fee_per_athlete": 200000,   "fee_per_team": 2000000,  "deposit": 3000000},
+      {"level": "huyen",     "name": "Giải Huyện/Quận",    "fee_per_athlete": 100000,   "fee_per_team": 1000000,  "deposit": 0},
+      {"level": "clb",       "name": "Giải CLB / Giao hữu","fee_per_athlete": 50000,   "fee_per_team": 500000,   "deposit": 0}
+    ],
+    "discounts": [
+      {"code": "early_bird",   "name": "Đăng ký sớm (trước 30 ngày)", "discount_pct": 10},
+      {"code": "bulk_10",      "name": "Đăng ký ≥10 VĐV",             "discount_pct": 5},
+      {"code": "host_province","name": "Đoàn tỉnh đăng cai",          "discount_pct": 20}
+    ]
+  },
+
+  "certification_fees": {
+    "_description": "Phí cấp/gia hạn chứng chỉ",
+    "coach": [
+      {"grade": "cap_1",     "name": "HLV Cấp 1",       "issue_fee": 1000000, "renewal_fee": 500000,  "validity_years": 4},
+      {"grade": "cap_quoc_gia","name": "HLV Quốc gia",  "issue_fee": 2000000, "renewal_fee": 1000000, "validity_years": 4}
+    ],
+    "referee": [
+      {"grade": "cap_2",     "name": "Trọng tài Cấp 2",  "issue_fee": 800000,  "renewal_fee": 400000,  "validity_years": 3},
+      {"grade": "cap_1",     "name": "Trọng tài Cấp 1",  "issue_fee": 1500000, "renewal_fee": 750000,  "validity_years": 3},
+      {"grade": "quoc_gia",  "name": "Trọng tài Quốc gia","issue_fee": 3000000,"renewal_fee": 1500000, "validity_years": 3}
+    ],
+    "belt_rank": [
+      {"grade": "color_belt", "name": "Thi lên đai màu",      "exam_fee": 200000,  "cert_fee": 100000},
+      {"grade": "black_1_3",  "name": "Thi Huyền đai 1-3 đẳng","exam_fee": 500000, "cert_fee": 300000},
+      {"grade": "black_4_6",  "name": "Thi Huyền đai 4-6 đẳng","exam_fee": 1000000,"cert_fee": 500000},
+      {"grade": "black_7_9",  "name": "Phong đẳng 7-9 đẳng",   "exam_fee": 0,      "cert_fee": 1000000}
+    ],
+    "club": [
+      {"grade": "C", "name": "CLB Hạng C",  "issue_fee": 1000000, "renewal_fee": 500000,  "validity_years": 3},
+      {"grade": "B", "name": "CLB Hạng B",  "issue_fee": 2000000, "renewal_fee": 1000000, "validity_years": 3},
+      {"grade": "A", "name": "CLB Hạng A",  "issue_fee": 3000000, "renewal_fee": 1500000, "validity_years": 3}
+    ]
+  },
+
+  "membership_fees": {
+    "_description": "Hội phí thường niên",
+    "individual": [
+      {"type": "vdv",    "name": "Vận động viên",  "annual_fee": 200000},
+      {"type": "hlv",    "name": "Huấn luyện viên", "annual_fee": 500000},
+      {"type": "tt",     "name": "Trọng tài",       "annual_fee": 500000},
+      {"type": "hoi_vien","name": "Hội viên",        "annual_fee": 100000}
+    ],
+    "organization": [
+      {"type": "clb_small",  "name": "CLB < 30 hội viên",    "annual_fee": 2000000},
+      {"type": "clb_medium", "name": "CLB 30-100 hội viên",  "annual_fee": 3000000},
+      {"type": "clb_large",  "name": "CLB > 100 hội viên",   "annual_fee": 5000000},
+      {"type": "ld_tinh",    "name": "LĐ cấp tỉnh/TP",       "annual_fee": 10000000}
+    ]
+  },
+
+  "event_fees": {
+    "_description": "Phí tổ chức sự kiện",
+    "referee_allowance": {
+      "chief_referee_per_day": 500000,
+      "referee_per_day": 300000,
+      "judge_per_session": 200000
+    },
+    "medical": {
+      "doctor_per_day": 500000,
+      "ambulance_standby_per_day": 2000000,
+      "doping_test_per_sample": 3000000
+    }
+  }
+}

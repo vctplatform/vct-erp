@@ -1,0 +1,50 @@
+xml
+<global_constraints>
+  <objective>Total Token Optimization and Maximum Coding Performance</objective>
+  <rule id="no_yapping">
+    - DO NOT generate extensive markdown explanations, greetings, or fluff.
+    - Assume the user/agent is highly technical. Focus immediately on the problem.
+    - Output ONLY the target code, file modifications, or requested JSON responses.
+  </rule>
+  <rule id="structured_communication">
+    - Cross-agent communication via `inbox/` and `outbox/` MUST be highly restricted to structured code, YAML, JSON, or minimal bullet-points.
+    - No "I am starting your task", "Here is what you asked for".
+  </rule>
+  <rule id="autonomous_execution">
+    - AI roles like Project Managers MUST map to working engineers who produce technical artifacts (Code/Infrastructure).
+    - Do not invent busywork (delegation meta-documents). Build components immediately.
+  </rule>
+  <rule id="mandatory_tech_stack">
+    - ALL new and existing projects within the vctplatform ecosystem MUST strictly compile against the following technology stack. Tell agents to check versions closely.
+    - **WEB FRONTEND**: TypeScript 6.0.2, React 19.2 (Vite preferred for SPAs unless SSR is needed), TailwindCSS v4.2.
+    - **MOBILE FRONTEND**: React Native 0.84 (Expo / NativeWind supported for Tailwind integration).
+    - **BACKEND**: Golang 1.26. Frameworks like Gin-Gonic are approved.
+    - **DATABASE**: PostgreSQL 18.3. Use driver pgx/v5 or latest GORM.
+    - **PRIMARY KEYS**: ALWAYS use UUID v7 (time-ordered UUIDs) for primary keys for improved index clustering and performance. NEVER use UUID v4.
+    - Do NOT use alternative stacks (no Python/Node backends, no Vue/Angular) unless explicitly ordered.
+  </rule>
+  <rule id="cloud_decoupling_strict">
+    - **MANDATORY 3-TIER ARCHITECTURE SEPARATION**: Understand that in production, the Database, Backend APIs, and Frontend Web/Mobile will be distributed across entirely separate Cloud Servers.
+    - **Golden Rule 1**: ZERO Hardcoding. ALL connections between Frontend -> Backend (`VITE_API_URL`, `EXPO_PUBLIC_API_URL`) and Backend -> Database (`DATABASE_URL`) MUST be purely via Environment Variables.
+    - **Golden Rule 2**: No Monolithic leakage. The Golang backend MUST NOT serve HTML files or static assets. It strictly speaks JSON APIs. The Frontend strictly consumes APIs.
+    - **Golden Rule 3**: The local `docker-compose.yml` is for DEVELOPMENT ONLY. Do NOT design code that relies on Docker's internal networking for production.
+  </rule>
+  <rule id="enterprise_engineering_blueprint">
+    - **CLEAN ARCHITECTURE**: All Golang backend code MUST be distinctly layered: HTTP Handlers (Delivery) -> Services (Business Logic) -> Repositories (Data Access). NO SQL queries inside Handlers. No business logic in Repositories.
+    - **STATE & FETCHING**: Frontend (React/RN) MUST use TanStack Query for data fetching and caching. MUST use Zustand for lightweight global state (e.g. Identity Context). Do NOT use Redux.
+    - **STANDARDIZED API INTERFACES**: All backend errors MUST return a consistent JSON schema: `{ "success": false, "error": { "code": "...", "message": "...", "trace_id": "uuid" } }`.
+    - **OBSERVABILITY**: Every frontend request MUST attach `X-Request-ID` (UUID) to headers. Backend MUST capture this ID and inject it into all slog/zap logs along the trace path.
+    - **ZERO TRUST AUTH**: Access Control must rely on Access Tokens + Refresh Tokens (HttpOnly Cookie for web, Secure Storage for mobile). Identity roles driven by Persona RBAC.
+  </rule>
+  <rule id="enterprise_micro_architecture_guidelines">
+    - **FRONTEND RULES**: Strictly use Feature-Sliced Design (`features/auth/components`). Absolutely NO `any` types in TS. Use `clsx` + `tailwind-merge` for composing generic Tailwind UI pieces. Rely on React Compiler (19) paradigms over excessive custom memos.
+    - **BACKEND RULES**: ALL DB/Service functions must take `ctx context.Context` as the first argument for tracing/timeout propagation. Implement Graceful Shutdowns. Inject DB dependencies (never use global vars). NEVER query databases inside `for` loops (Prevent N+1, use `.Preload()`).
+    - **DATABASE RULES**: SQL Migrations are IMMUTABLE. Never edit existing `.up.sql` files, always append a new one. All multi-table updates MUST reside in strict `db.Transaction(...)` logic. ALWAYS use Soft Deletes (`deleted_at`) for primary entities; Hard Delete is only for junction tables.
+  </rule>
+  <rule id="deployment_and_operations">
+    - **SECRETS**: NEVER hardcode API Keys, DB Passwords, or JWT Secrets. MUST use `.env`. NEVER commit `.env` to Git.
+    - **LOCALIZATION (i18n)**: Absolute ban on hardcoded text strings in UI components (e.g. `<div>Đăng Nhập</div>`). MUST use an i18n translation engine/wrapper.
+    - **TESTING LAWS**: All core financial/identity logic in Backend MUST be fully Unit Tested.
+    - **CI/CD DEPLOYMENT**: Agents must design the project so it can be deployed headless via GitHub Actions. Zero manual SSH execution should be assumed for production environments.
+  </rule>
+</global_constraints>

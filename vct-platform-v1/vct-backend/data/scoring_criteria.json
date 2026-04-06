@@ -1,0 +1,150 @@
+{
+  "_description": "Tiêu chí chấm điểm quyền thuật Võ cổ truyền — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "_source": "Quy chế thi đấu LĐ VCT Việt Nam",
+
+  "form_scoring": {
+    "max_score": 10.0,
+    "passing_score": 5.0,
+    "decimal_places": 2,
+    "num_judges": 5,
+    "drop_highest": true,
+    "drop_lowest": true,
+
+    "criteria": [
+      {
+        "code": "ky_thuat",
+        "name": "Kỹ thuật",
+        "weight_pct": 40,
+        "description": "Độ chính xác, hiệu quả của các chiêu thức",
+        "sub_criteria": [
+          {"code": "chinh_xac", "name": "Độ chính xác chiêu thức", "weight_pct": 40, "description": "Đúng kỹ thuật, đúng quỹ đạo, đúng mục tiêu"},
+          {"code": "luc_do", "name": "Lực đòn / Phát lực", "weight_pct": 30, "description": "Phát lực đúng cách, mạnh mẽ, dứt khoát"},
+          {"code": "toc_do", "name": "Tốc độ thực hiện", "weight_pct": 30, "description": "Nhanh nhẹn, linh hoạt, phù hợp tiết tấu bài quyền"}
+        ]
+      },
+      {
+        "code": "bieu_dien",
+        "name": "Biểu diễn / Biểu cảm",
+        "weight_pct": 30,
+        "description": "Thần thái, khí thế, cảm xúc khi biểu diễn",
+        "sub_criteria": [
+          {"code": "than_phap", "name": "Thần pháp / Khí thế", "weight_pct": 40, "description": "Ánh mắt, thần thái, uy phong"},
+          {"code": "nhip_dieu", "name": "Nhịp điệu / Tiết tấu", "weight_pct": 30, "description": "Nhanh - chậm luân phiên hợp lý, có cao trào"},
+          {"code": "phong_cach", "name": "Phong cách môn phái", "weight_pct": 30, "description": "Thể hiện rõ nét đặc trưng của dòng võ"}
+        ]
+      },
+      {
+        "code": "the_tan",
+        "name": "Thế tấn / Bộ pháp",
+        "weight_pct": 15,
+        "description": "Các thế tấn cơ bản và di chuyển",
+        "sub_criteria": [
+          {"code": "vung_chai", "name": "Vững chãi, chính xác", "weight_pct": 50, "description": "Tấn đúng, vững, không lệch"},
+          {"code": "chuyen_tan", "name": "Chuyển tấn mượt mà", "weight_pct": 50, "description": "Di chuyển linh hoạt, không gượng ép"}
+        ]
+      },
+      {
+        "code": "thoi_gian",
+        "name": "Thời gian",
+        "weight_pct": 15,
+        "description": "Hoàn thành bài quyền trong thời gian quy định",
+        "sub_criteria": [
+          {"code": "phu_hop", "name": "Phù hợp thời gian", "weight_pct": 100, "description": "Không quá nhanh, không quá chậm"}
+        ]
+      }
+    ],
+
+    "time_limits": {
+      "quyen_tay_khong": {"min_seconds": 60, "max_seconds": 180, "standard_seconds": 120},
+      "binh_khi":        {"min_seconds": 60, "max_seconds": 180, "standard_seconds": 120},
+      "song_luyen":      {"min_seconds": 60, "max_seconds": 150, "standard_seconds": 90},
+      "dong_doi":        {"min_seconds": 90, "max_seconds": 240, "standard_seconds": 150}
+    }
+  },
+
+  "deductions": {
+    "_description": "Mức trừ điểm cho các lỗi thường gặp",
+    "categories": [
+      {
+        "code": "loi_ky_thuat",
+        "name": "Lỗi kỹ thuật",
+        "items": [
+          {"code": "sai_dong_tac",     "name": "Sai động tác",          "deduction": -0.3, "description": "Thực hiện sai kỹ thuật so với bài gốc"},
+          {"code": "thieu_dong_tac",   "name": "Thiếu động tác",       "deduction": -0.5, "description": "Bỏ sót động tác trong bài"},
+          {"code": "them_dong_tac",    "name": "Thêm động tác",        "deduction": -0.3, "description": "Thêm chiêu thức không có trong bài gốc"},
+          {"code": "sai_thu_tu",       "name": "Sai thứ tự",           "deduction": -0.5, "description": "Đảo thứ tự các chiêu thức"},
+          {"code": "yeu_luc",          "name": "Yếu lực / Không phát lực", "deduction": -0.2, "description": "Đòn đánh không có lực, mềm yếu"},
+          {"code": "cham_nhip",        "name": "Chậm nhịp rõ rệt",     "deduction": -0.2, "description": "Ngập ngừng, dừng lại giữa bài"}
+        ]
+      },
+      {
+        "code": "loi_the_tan",
+        "name": "Lỗi thế tấn",
+        "items": [
+          {"code": "mat_thang_bang",   "name": "Mất thăng bằng",       "deduction": -0.5, "description": "Loạng choạng, gần ngã"},
+          {"code": "nga",              "name": "Ngã",                   "deduction": -1.0, "description": "Ngã xuống sàn"},
+          {"code": "tan_khong_vung",   "name": "Tấn không vững",       "deduction": -0.3, "description": "Thế tấn không đúng chuẩn, lung lay"},
+          {"code": "vuot_pham_vi",     "name": "Vượt phạm vi thi đấu", "deduction": -0.3, "description": "Bước ra ngoài vùng thi đấu quy định"}
+        ]
+      },
+      {
+        "code": "loi_thoi_gian",
+        "name": "Lỗi thời gian",
+        "items": [
+          {"code": "vuot_tg_5s",       "name": "Vượt thời gian ≤5s",   "deduction": -0.3, "description": "Quá giờ dưới 5 giây"},
+          {"code": "vuot_tg_10s",      "name": "Vượt thời gian 5-10s", "deduction": -0.5, "description": "Quá giờ từ 5-10 giây"},
+          {"code": "vuot_tg_10s_plus", "name": "Vượt thời gian >10s",  "deduction": -1.0, "description": "Quá giờ trên 10 giây"},
+          {"code": "qua_nhanh",        "name": "Hoàn thành quá nhanh", "deduction": -0.3, "description": "Kết thúc trước thời gian tối thiểu"}
+        ]
+      },
+      {
+        "code": "loi_binh_khi",
+        "name": "Lỗi binh khí (bổ sung cho nội dung vũ khí)",
+        "items": [
+          {"code": "rong_vu_khi",      "name": "Rớt / buông vũ khí",   "deduction": -1.0, "description": "Vũ khí rơi khỏi tay"},
+          {"code": "gay_vu_khi",       "name": "Gãy vũ khí",           "deduction": -0.5, "description": "Vũ khí bị gãy do thao tác sai (không tính lỗi thiết bị)"},
+          {"code": "sai_huong_vu_khi", "name": "Sai hướng vũ khí",     "deduction": -0.3, "description": "Hướng đánh / chặt không đúng quỹ đạo"}
+        ]
+      },
+      {
+        "code": "loi_song_luyen",
+        "name": "Lỗi song luyện (bổ sung cho nội dung đôi)",
+        "items": [
+          {"code": "mat_phoi_hop",     "name": "Mất phối hợp",         "deduction": -0.5, "description": "Hai VĐV không đồng bộ, lệch nhịp"},
+          {"code": "thieu_tiep_xuc",   "name": "Thiếu tiếp xúc",       "deduction": -0.3, "description": "Đòn đánh quá xa, không thực tế"},
+          {"code": "va_cham_that",     "name": "Va chạm thật / chấn thương", "deduction": -1.0, "description": "Đánh trúng gây chấn thương đối tác"}
+        ]
+      }
+    ]
+  },
+
+  "combat_scoring": {
+    "_description": "Hệ thống tính điểm đối kháng",
+    "round_duration_seconds": 120,
+    "num_rounds": 3,
+    "break_seconds": 60,
+    "points": {
+      "don_tay":       {"name": "Đòn tay trúng đích",     "points": 1, "description": "Đấm/đánh tay trúng vùng hợp lệ"},
+      "don_chan":       {"name": "Đòn chân trúng đích",    "points": 2, "description": "Đá trúng vùng hợp lệ"},
+      "quay_hau":      {"name": "Đòn quay hậu trúng đích","points": 3, "description": "Đòn xoay người đá trúng"}, 
+      "vat_nga":       {"name": "Vật ngã đối phương",      "points": 2, "description": "Quật ngã đối phương hợp lệ"},
+      "canh_cao_doi":  {"name": "Cảnh cáo đối phương",     "points": 1, "description": "Đối phương bị cảnh cáo → cộng điểm"}
+    },
+    "fouls": {
+      "danh_vung_cam": {"name": "Đánh vùng cấm",         "penalty": "canh_cao", "description": "Tấn công mắt, hạ bộ, sau gáy, cổ"},
+      "danh_nga":      {"name": "Đánh khi ngã",           "penalty": "canh_cao", "description": "Tấn công khi đối phương đã ngã"},
+      "giu_danh":      {"name": "Giữ và đánh",            "penalty": "canh_cao", "description": "Ôm giữ rồi tấn công"},
+      "can_gau":       {"name": "Cắn / Gầu",              "penalty": "truc_tiep_loai", "description": "Cắn hoặc tấn công kiểu phi thể thao nghiêm trọng"},
+      "thieu_tich_cuc":"Thiếu tích cực kéo dài"
+    },
+    "win_conditions": [
+      {"code": "thang_diem", "name": "Thắng điểm", "description": "VĐV có tổng điểm cao hơn sau 3 hiệp"},
+      {"code": "ko",         "name": "Knock-out",  "description": "Đối phương không thể tiếp tục (ngất, từ chối)"},
+      {"code": "tko",        "name": "TKO",        "description": "Trọng tài dừng trận vì chênh lệch quá lớn hoặc chấn thương"},
+      {"code": "bo_cuoc",    "name": "Bỏ cuộc",    "description": "VĐV hoặc HLV xin dừng trận"},
+      {"code": "loai",       "name": "Thắng do đối phương bị loại", "description": "Đối phương bị 3 cảnh cáo → loại trực tiếp"},
+      {"code": "trong_luong","name": "Thắng trọng lượng", "description": "Hòa điểm → VĐV nhẹ cân hơn thắng"}
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "_description": "Tiêu chuẩn trang thiết bị thi đấu & tập luyện Võ cổ truyền — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+
+  "arena_standards": {
+    "doi_khang": {
+      "name": "Sàn đối kháng",
+      "dimensions": {"width_m": 8, "height_m": 8, "safety_zone_m": 2},
+      "surface": "Thảm mềm EVA hoặc Tatami, dày ≥ 3cm",
+      "markings": {
+        "center_circle_m": 1,
+        "boundary_color": "đỏ",
+        "corner_colors": ["đỏ", "xanh"]
+      },
+      "required_equipment": [
+        "Đồng hồ thi đấu điện tử",
+        "Bảng điểm điện tử",
+        "Còi trọng tài",
+        "Cờ đỏ - xanh cho trọng tài biên",
+        "Ghế trọng tài chính (nâng cao)",
+        "Túi cứu thương",
+        "Cáng y tế"
+      ]
+    },
+    "quyen": {
+      "name": "Sàn quyền thuật",
+      "dimensions": {"width_m": 10, "height_m": 10, "safety_zone_m": 1.5},
+      "surface": "Thảm mềm EVA hoặc sàn gỗ phẳng",
+      "markings": {
+        "boundary_color": "vàng",
+        "center_mark": true
+      },
+      "required_equipment": [
+        "Bảng chấm điểm điện tử (5-7 giám khảo)",
+        "Đồng hồ bấm giờ",
+        "Hệ thống âm thanh (cho nhạc nền nếu cần)",
+        "Bảng LED hiển thị điểm"
+      ]
+    }
+  },
+
+  "protective_gear": {
+    "_description": "Bảo hộ bắt buộc theo nội dung thi đấu",
+    "doi_khang": {
+      "required": [
+        {"code": "giap_than",    "name": "Giáp thân",           "description": "Giáp bảo vệ ngực, bụng, lưng. Màu đỏ hoặc xanh theo góc"},
+        {"code": "giap_dau",     "name": "Nón bảo hộ đầu",     "description": "Nón bảo vệ đầu có kính trong suốt (bắt buộc cho thiếu niên)"},
+        {"code": "gang_tay",     "name": "Găng tay",            "description": "Găng tay mở ngón, lót xốp bảo vệ. 8-10oz"},
+        {"code": "bao_ho_ha_bo", "name": "Bảo hộ hạ bộ",       "description": "Bắt buộc cho nam. Cup nhựa cứng"},
+        {"code": "bao_ho_ong",   "name": "Bảo hộ ống chân",    "description": "Ống đệm bảo vệ ống chân và mu bàn chân"},
+        {"code": "bao_ho_rang",  "name": "Miếng bảo vệ răng",  "description": "Bảo vệ răng, khuyến khích sử dụng"}
+      ],
+      "optional": [
+        {"code": "bang_co_tay", "name": "Băng cổ tay",          "description": "Băng đàn hồi quấn cổ tay"},
+        {"code": "bang_co_chan","name": "Băng cổ chân",          "description": "Băng đàn hồi bảo vệ cổ chân"}
+      ]
+    },
+    "quyen": {
+      "required": [],
+      "notes": "Nội dung quyền thuật không yêu cầu bảo hộ. VĐV mặc võ phục chính thức."
+    }
+  },
+
+  "weapon_specifications": {
+    "_description": "Kích thước, trọng lượng vũ khí thi đấu theo lứa tuổi",
+    "roi_con": {
+      "name": "Roi / Côn",
+      "material": "Gỗ cứng (lim, sến), mây, hoặc composite",
+      "by_age": [
+        {"age_group": "thieu_nhi",  "length_cm": "120-140", "diameter_cm": "2.0-2.5", "weight_g": "350-500"},
+        {"age_group": "thieu_nien", "length_cm": "140-160", "diameter_cm": "2.5-3.0", "weight_g": "500-700"},
+        {"age_group": "thanh_nien", "length_cm": "160-180", "diameter_cm": "2.5-3.5", "weight_g": "600-900"}
+      ]
+    },
+    "kiem": {
+      "name": "Kiếm",
+      "material": "Kim loại (không sắc bén), lưỡi dẻo hoặc cứng",
+      "by_age": [
+        {"age_group": "thieu_nhi",  "length_cm": "55-65",  "weight_g": "250-400"},
+        {"age_group": "thieu_nien", "length_cm": "65-75",  "weight_g": "400-600"},
+        {"age_group": "thanh_nien", "length_cm": "75-90",  "weight_g": "500-800"}
+      ]
+    },
+    "dao": {
+      "name": "Đao",
+      "material": "Kim loại (không sắc bén), cán gỗ hoặc nhựa",
+      "by_age": [
+        {"age_group": "thieu_nhi",  "length_cm": "50-60",  "weight_g": "300-500"},
+        {"age_group": "thieu_nien", "length_cm": "60-70",  "weight_g": "500-700"},
+        {"age_group": "thanh_nien", "length_cm": "70-85",  "weight_g": "600-1000"}
+      ]
+    },
+    "thuong": {
+      "name": "Thương",
+      "material": "Cán gỗ/mây, đầu kim loại tù (không sắc)",
+      "by_age": [
+        {"age_group": "thieu_nhi",  "length_cm": "150-170", "weight_g": "500-700"},
+        {"age_group": "thieu_nien", "length_cm": "170-200", "weight_g": "700-1000"},
+        {"age_group": "thanh_nien", "length_cm": "200-240", "weight_g": "800-1200"}
+      ]
+    },
+    "con_nhi_khuc": {
+      "name": "Côn nhị khúc",
+      "material": "Gỗ cứng hoặc xốp mềm (thi đấu dùng xốp)",
+      "by_age": [
+        {"age_group": "thieu_nien", "length_each_cm": "25-30", "chain_cm": "10-12", "weight_g": "200-350"},
+        {"age_group": "thanh_nien", "length_each_cm": "30-35", "chain_cm": "12-15", "weight_g": "300-500"}
+      ]
+    }
+  },
+
+  "vo_phuc": {
+    "_description": "Quy cách võ phục thi đấu",
+    "quyen": {
+      "ao": "Áo dài tay, cổ đứng hoặc cổ Tàu, vải mềm, thoáng. Có thể thêu hoa văn truyền thống",
+      "quan": "Quần rộng, chun ở bụng, thoải mái di chuyển",
+      "dai": "Đai theo cấp bậc, thắt nút chuẩn",
+      "colors": ["trắng", "đen", "đỏ", "xanh dương", "vàng"],
+      "notes": "Không chấp nhận võ phục rách, bẩn, sờn"
+    },
+    "doi_khang": {
+      "ao": "Áo ngắn tay hoặc sát nách, vải co giãn. Mặc trong giáp",
+      "quan": "Quần đấu rộng, bền, co giãn",
+      "dai": "Đai theo cấp bậc",
+      "colors_red": "Góc đỏ: giáp đỏ + quần đỏ hoặc trắng",
+      "colors_blue": "Góc xanh: giáp xanh + quần xanh hoặc trắng"
+    }
+  }
+}

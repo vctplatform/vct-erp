@@ -1,0 +1,54 @@
+{
+  "_description": "Template email cho các sự kiện hệ thống — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "email_templates": [
+    {
+      "code": "welcome",
+      "subject": "Chào mừng đến với VCT Platform",
+      "category": "account",
+      "body_html": "<h2>Xin chào {{full_name}},</h2><p>Chào mừng bạn đến với <strong>VCT Platform</strong> — Nền tảng Quản lý Võ Cổ Truyền Việt Nam.</p><p>Tài khoản của bạn đã được tạo thành công với vai trò: <strong>{{role_name}}</strong>.</p><p>Đăng nhập tại: <a href='{{login_url}}'>{{login_url}}</a></p><hr><p>Trân trọng,<br>Ban Quản trị VCT Platform</p>"
+    },
+    {
+      "code": "verify_email",
+      "subject": "Xác nhận địa chỉ email — VCT Platform",
+      "category": "account",
+      "body_html": "<h2>Xin chào {{full_name}},</h2><p>Vui lòng xác nhận email của bạn bằng cách nhấn vào liên kết bên dưới:</p><p><a href='{{verify_url}}' style='padding:12px 24px;background:#2563eb;color:white;text-decoration:none;border-radius:6px;'>Xác nhận Email</a></p><p>Liên kết có hiệu lực trong 24 giờ.</p><hr><p>VCT Platform</p>"
+    },
+    {
+      "code": "reset_password",
+      "subject": "Đặt lại mật khẩu — VCT Platform",
+      "category": "account",
+      "body_html": "<h2>Xin chào {{full_name}},</h2><p>Bạn đã yêu cầu đặt lại mật khẩu. Nhấn vào liên kết bên dưới:</p><p><a href='{{reset_url}}' style='padding:12px 24px;background:#dc2626;color:white;text-decoration:none;border-radius:6px;'>Đặt lại mật khẩu</a></p><p>Liên kết có hiệu lực trong 1 giờ. Nếu bạn không yêu cầu, vui lòng bỏ qua email này.</p><hr><p>VCT Platform</p>"
+    },
+    {
+      "code": "tournament_invitation",
+      "subject": "Thư mời tham dự {{tournament_name}}",
+      "category": "tournament",
+      "body_html": "<h2>Kính gửi {{recipient_name}},</h2><p>Liên đoàn Võ thuật cổ truyền Việt Nam trân trọng kính mời {{organization_name}} tham dự:</p><h3>{{tournament_name}}</h3><ul><li>Thời gian: {{start_date}} — {{end_date}}</li><li>Địa điểm: {{venue}}, {{location}}</li><li>Hạn đăng ký: {{deadline}}</li></ul><p>Vui lòng đăng ký trực tuyến tại: <a href='{{registration_url}}'>{{registration_url}}</a></p><hr><p>Trân trọng,<br>{{organizer_name}}</p>"
+    },
+    {
+      "code": "registration_confirmation",
+      "subject": "Xác nhận đăng ký — {{tournament_name}}",
+      "category": "tournament",
+      "body_html": "<h2>Kính gửi {{delegate_name}},</h2><p>Đăng ký của Đoàn {{team_name}} đã được ghi nhận:</p><ul><li>Số VĐV: {{athlete_count}}</li><li>Nội dung đăng ký: {{events_summary}}</li><li>Trạng thái: Chờ phê duyệt</li></ul><p>Ban tổ chức sẽ phản hồi trong vòng 3 ngày làm việc.</p><hr><p>Ban Tổ chức {{tournament_name}}</p>"
+    },
+    {
+      "code": "certification_issued",
+      "subject": "Chứng chỉ {{cert_type}} — {{cert_number}}",
+      "category": "certification",
+      "body_html": "<h2>Kính gửi {{holder_name}},</h2><p>Chúc mừng! Bạn đã được cấp chứng chỉ:</p><ul><li>Loại: {{cert_type}}</li><li>Số: {{cert_number}}</li><li>Cấp bậc: {{grade}}</li><li>Hiệu lực: {{valid_from}} — {{valid_until}}</li><li>Mã xác minh: {{verify_code}}</li></ul><p>Xác minh chứng chỉ tại: <a href='{{verify_url}}'>{{verify_url}}</a></p><hr><p>Liên đoàn VCT Việt Nam</p>"
+    },
+    {
+      "code": "discipline_notice",
+      "subject": "Thông báo kỷ luật — {{case_number}}",
+      "category": "discipline",
+      "body_html": "<h2>Kính gửi {{subject_name}},</h2><p>Ban Kỷ luật Liên đoàn VCT Việt Nam thông báo:</p><ul><li>Số vụ: {{case_number}}</li><li>Vi phạm: {{violation_type}}</li><li>Hình thức xử lý: {{sanction_type}}</li><li>Lý do: {{reason}}</li></ul><p>Bạn có quyền khiếu nại trong vòng 15 ngày kể từ ngày nhận thông báo này.</p><hr><p>Ban Kỷ luật — LĐ VCT Việt Nam</p>"
+    },
+    {
+      "code": "monthly_report",
+      "subject": "Báo cáo tháng {{month}}/{{year}} — {{province_name}}",
+      "category": "report",
+      "body_html": "<h2>Kính gửi {{leader_name}},</h2><p>Tổng hợp hoạt động tháng {{month}}/{{year}} của {{province_name}}:</p><ul><li>CLB hoạt động: {{active_clubs}}</li><li>Hội viên: {{total_members}}</li><li>Giải đấu: {{tournaments_count}}</li><li>Chứng chỉ cấp mới: {{new_certs}}</li></ul><p>Chi tiết tại: <a href='{{report_url}}'>Dashboard</a></p><hr><p>VCT Platform</p>"
+    }
+  ]
+}

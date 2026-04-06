@@ -1,0 +1,37 @@
+{
+  "_description": "Danh sách quốc gia có phong trào Võ cổ truyền / Vovinam — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+
+  "countries": [
+    {"code": "VN", "name_vi": "Việt Nam",       "name_en": "Vietnam",        "region": "asia",    "has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+84"},
+    {"code": "FR", "name_vi": "Pháp",            "name_en": "France",         "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+33"},
+    {"code": "DZ", "name_vi": "Algeria",         "name_en": "Algeria",        "region": "africa",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+213"},
+    {"code": "RU", "name_vi": "Nga",             "name_en": "Russia",         "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+7"},
+    {"code": "KR", "name_vi": "Hàn Quốc",       "name_en": "South Korea",    "region": "asia",    "has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+82"},
+    {"code": "JP", "name_vi": "Nhật Bản",        "name_en": "Japan",          "region": "asia",    "has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+81"},
+    {"code": "DE", "name_vi": "Đức",             "name_en": "Germany",        "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+49"},
+    {"code": "IT", "name_vi": "Ý",               "name_en": "Italy",          "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+39"},
+    {"code": "ES", "name_vi": "Tây Ban Nha",     "name_en": "Spain",          "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+34"},
+    {"code": "BE", "name_vi": "Bỉ",              "name_en": "Belgium",        "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+32"},
+    {"code": "PL", "name_vi": "Ba Lan",          "name_en": "Poland",         "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+48"},
+    {"code": "RO", "name_vi": "Romania",         "name_en": "Romania",        "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+40"},
+    {"code": "IN", "name_vi": "Ấn Độ",           "name_en": "India",          "region": "asia",    "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+91"},
+    {"code": "AU", "name_vi": "Úc",              "name_en": "Australia",      "region": "oceania", "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+61"},
+    {"code": "US", "name_vi": "Hoa Kỳ",          "name_en": "United States",  "region": "americas","has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+1"},
+    {"code": "CA", "name_vi": "Canada",          "name_en": "Canada",         "region": "americas","has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+1"},
+    {"code": "KH", "name_vi": "Campuchia",       "name_en": "Cambodia",       "region": "asia",    "has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+855"},
+    {"code": "LA", "name_vi": "Lào",             "name_en": "Laos",           "region": "asia",    "has_federation": true,  "vovinam": true, "vct": true,  "phone_code": "+856"},
+    {"code": "TH", "name_vi": "Thái Lan",        "name_en": "Thailand",       "region": "asia",    "has_federation": false, "vovinam": true, "vct": false, "phone_code": "+66"},
+    {"code": "MM", "name_vi": "Myanmar",         "name_en": "Myanmar",        "region": "asia",    "has_federation": false, "vovinam": false,"vct": true,  "phone_code": "+95"},
+    {"code": "SN", "name_vi": "Senegal",         "name_en": "Senegal",        "region": "africa",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+221"},
+    {"code": "MA", "name_vi": "Morocco",         "name_en": "Morocco",        "region": "africa",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+212"},
+    {"code": "IR", "name_vi": "Iran",            "name_en": "Iran",           "region": "asia",    "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+98"},
+    {"code": "UZ", "name_vi": "Uzbekistan",      "name_en": "Uzbekistan",     "region": "asia",    "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+998"},
+    {"code": "CZ", "name_vi": "Séc",             "name_en": "Czech Republic", "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+420"},
+    {"code": "CH", "name_vi": "Thụy Sĩ",        "name_en": "Switzerland",    "region": "europe",  "has_federation": true,  "vovinam": true, "vct": false, "phone_code": "+41"},
+    {"code": "GB", "name_vi": "Anh",             "name_en": "United Kingdom", "region": "europe",  "has_federation": false, "vovinam": true, "vct": false, "phone_code": "+44"},
+    {"code": "CN", "name_vi": "Trung Quốc",      "name_en": "China",          "region": "asia",    "has_federation": false, "vovinam": false,"vct": true,  "phone_code": "+86"},
+    {"code": "TW", "name_vi": "Đài Loan",        "name_en": "Taiwan",         "region": "asia",    "has_federation": false, "vovinam": true, "vct": true,  "phone_code": "+886"},
+    {"code": "PH", "name_vi": "Philippines",     "name_en": "Philippines",    "region": "asia",    "has_federation": false, "vovinam": true, "vct": false, "phone_code": "+63"}
+  ]
+}

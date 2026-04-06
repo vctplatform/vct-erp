@@ -1,0 +1,105 @@
+{
+  "_description": "Lịch sử giải đấu mẫu — 3 giải đã kết thúc — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "tournaments": [
+    {
+      "id": "HIST-2024",
+      "code": "VCT-2024",
+      "name": "Giải Vô Địch Võ Cổ Truyền Toàn Quốc 2024",
+      "level": "quoc_gia",
+      "start_date": "2024-08-10",
+      "end_date": "2024-08-15",
+      "location": "Nghệ An",
+      "venue": "Nhà thi đấu TP Vinh",
+      "organizer": "Liên đoàn Võ thuật cổ truyền Việt Nam",
+      "status": "ket_thuc",
+      "stats": {
+        "total_teams": 28,
+        "total_athletes": 450,
+        "total_events": 20,
+        "total_matches": 180,
+        "total_arenas": 4
+      },
+      "medal_table": [
+        {"rank": 1, "province": "TP.HCM",      "gold": 8, "silver": 5, "bronze": 7, "total": 20},
+        {"rank": 2, "province": "Quảng Ngãi",    "gold": 6, "silver": 7, "bronze": 4, "total": 17},
+        {"rank": 3, "province": "Hà Nội",        "gold": 5, "silver": 4, "bronze": 6, "total": 15},
+        {"rank": 4, "province": "Thanh Hóa",     "gold": 3, "silver": 3, "bronze": 5, "total": 11},
+        {"rank": 5, "province": "Nghệ An",       "gold": 3, "silver": 2, "bronze": 4, "total": 9},
+        {"rank": 6, "province": "Đà Nẵng",       "gold": 2, "silver": 3, "bronze": 3, "total": 8},
+        {"rank": 7, "province": "Đồng Nai",      "gold": 2, "silver": 2, "bronze": 4, "total": 8},
+        {"rank": 8, "province": "Khánh Hòa",     "gold": 1, "silver": 3, "bronze": 3, "total": 7},
+        {"rank": 9, "province": "Huế",            "gold": 1, "silver": 2, "bronze": 3, "total": 6},
+        {"rank": 10, "province": "Cần Thơ",       "gold": 1, "silver": 1, "bronze": 2, "total": 4}
+      ],
+      "notable_results": [
+        {"event": "Nam 55kg", "gold": "Phạm Hoàng Nam", "province": "Quảng Ngãi", "score": "Thắng điểm 5-3"},
+        {"event": "Nữ 48kg", "gold": "Phan Ngọc Mai", "province": "TP.HCM", "score": "Thắng điểm 4-2"},
+        {"event": "Ngọc Trản Quyền", "gold": "Lê Thu Hương", "province": "Hà Nội", "score": "9.12 điểm"},
+        {"event": "Lão Mai Quyền", "gold": "Lý Quốc Huy", "province": "TP.HCM", "score": "9.05 điểm"},
+        {"event": "Roi Thuận", "gold": "Cao Đức Vinh", "province": "Quảng Ngãi", "score": "8.98 điểm"}
+      ]
+    },
+    {
+      "id": "HIST-2025",
+      "code": "VCT-2025",
+      "name": "Giải Vô Địch Võ Cổ Truyền Toàn Quốc 2025",
+      "level": "quoc_gia",
+      "start_date": "2025-09-05",
+      "end_date": "2025-09-10",
+      "location": "TP. Hồ Chí Minh",
+      "venue": "Nhà thi đấu Phú Thọ",
+      "organizer": "Liên đoàn Võ thuật cổ truyền Việt Nam",
+      "status": "ket_thuc",
+      "stats": {
+        "total_teams": 32,
+        "total_athletes": 520,
+        "total_events": 22,
+        "total_matches": 210,
+        "total_arenas": 5
+      },
+      "medal_table": [
+        {"rank": 1, "province": "Quảng Ngãi",   "gold": 9, "silver": 6, "bronze": 5, "total": 20},
+        {"rank": 2, "province": "TP.HCM",       "gold": 7, "silver": 8, "bronze": 6, "total": 21},
+        {"rank": 3, "province": "Hà Nội",        "gold": 5, "silver": 5, "bronze": 7, "total": 17},
+        {"rank": 4, "province": "Đồng Nai",      "gold": 4, "silver": 3, "bronze": 5, "total": 12},
+        {"rank": 5, "province": "Đà Nẵng",       "gold": 3, "silver": 4, "bronze": 3, "total": 10}
+      ],
+      "notable_results": [
+        {"event": "Nam 60kg", "gold": "Nguyễn Đức Mạnh", "province": "Quảng Ngãi", "score": "Thắng KO hiệp 2"},
+        {"event": "Đồng đội quyền nữ", "gold": "Đoàn HCM", "province": "TP.HCM", "score": "9.25 điểm"},
+        {"event": "Song luyện vũ khí", "gold": "Cặp Quảng Ngãi", "province": "Quảng Ngãi", "score": "9.18 điểm"}
+      ]
+    },
+    {
+      "id": "HIST-KVII-2025",
+      "code": "KV7-2025",
+      "name": "Giải Khu vực VII - Miền Trung Tây Nguyên 2025",
+      "level": "khu_vuc",
+      "start_date": "2025-05-20",
+      "end_date": "2025-05-23",
+      "location": "Đà Nẵng",
+      "venue": "Cung thể thao Tiên Sơn",
+      "organizer": "LĐ VCT Đà Nẵng",
+      "status": "ket_thuc",
+      "stats": {
+        "total_teams": 11,
+        "total_athletes": 180,
+        "total_events": 16,
+        "total_matches": 85,
+        "total_arenas": 3
+      },
+      "medal_table": [
+        {"rank": 1, "province": "Quảng Ngãi",   "gold": 7, "silver": 4, "bronze": 3, "total": 14},
+        {"rank": 2, "province": "Đà Nẵng",       "gold": 4, "silver": 5, "bronze": 4, "total": 13},
+        {"rank": 3, "province": "Khánh Hòa",     "gold": 3, "silver": 2, "bronze": 5, "total": 10},
+        {"rank": 4, "province": "Đắk Lắk",       "gold": 2, "silver": 3, "bronze": 2, "total": 7},
+        {"rank": 5, "province": "Huế",            "gold": 2, "silver": 1, "bronze": 3, "total": 6}
+      ],
+      "notable_results": [
+        {"event": "Nam 55kg", "gold": "Cao Minh Quân", "province": "Quảng Ngãi", "score": "Thắng điểm 6-2"},
+        {"event": "Ngọc Trản Quyền", "gold": "Võ Ngọc Diễm", "province": "Khánh Hòa", "score": "8.95 điểm"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "_description": "Danh mục bài quyền, binh khí, song luyện chuẩn Võ cổ truyền Việt Nam — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "_updated_at": "2026-03-13",
+  "_source": "Liên đoàn Võ thuật Cổ truyền Việt Nam — Giải Vô địch Quốc gia 2025",
+
+  "regulated_10": {
+    "_description": "10 bài võ quy định thi đấu chính thức — Giải VĐQG Võ cổ truyền (áp dụng từ 2024)",
+    "quyen_tay_khong": [
+      {"code": "hung_ke",   "name": "Hùng Kê Quyền",         "origin": "Bình Định", "difficulty": 6, "description": "Quyền mô phỏng gà chọi — nhanh nhẹn, linh hoạt. Tương truyền do Đông Định Vương Nguyễn Lữ sáng tạo."},
+      {"code": "lao_ho",    "name": "Lão Hổ Thượng Sơn",      "origin": "Bình Định", "difficulty": 7, "description": "Hổ già lên núi — quyền pháp mạnh mẽ, oai phong, đòi hỏi nội lực thâm hậu."},
+      {"code": "lao_mai",   "name": "Lão Mai Quyền",           "origin": "Bình Định", "difficulty": 6, "description": "Mô phỏng cây mai già cằn cỗi — phòng thủ chặt, phản công bất ngờ."},
+      {"code": "ngoc_tran", "name": "Ngọc Trản Quyền",         "origin": "Bình Định", "difficulty": 5, "description": "Bài quyền chén ngọc — một trong tứ trụ quyền pháp Bình Định."}
+    ],
+    "binh_khi": [
+      {"code": "phong_hoa_dao",      "name": "Phong Hoa Đao",         "weapon": "dao",    "origin": "Bình Định", "difficulty": 6, "description": "Đao pháp hoa gió — nhẹ nhàng mà mãnh liệt."},
+      {"code": "song_tuyet_kiem",    "name": "Song Tuyết Kiếm",       "weapon": "kiem",   "origin": "Bình Định", "difficulty": 7, "description": "Song kiếm tuyết trắng — kiếm pháp đôi nổi tiếng."},
+      {"code": "doc_lu_thuong",      "name": "Độc Lư Thương",         "weapon": "thuong", "origin": "Bình Định", "difficulty": 7, "description": "Thương pháp lò hương — đâm, quét, gạt uyển chuyển."},
+      {"code": "thanh_long_doc_kiem","name": "Thanh Long Độc Kiếm",   "weapon": "kiem",   "origin": "Bình Định", "difficulty": 6, "description": "Kiếm rồng xanh — kiếm pháp đơn mạnh mẽ."},
+      {"code": "sieu_xung_thien",   "name": "Siêu Xung Thiên",       "weapon": "roi",    "origin": "Bình Định", "difficulty": 7, "description": "Côn pháp xung trời — roi Bình Định nổi tiếng bậc nhất."},
+      {"code": "thai_son_con",      "name": "Thái Sơn Côn",           "weapon": "roi",    "origin": "Bình Định", "difficulty": 6, "description": "Côn pháp núi Thái — vững chãi, trầm ổn."}
+    ]
+  },
+
+  "categories": {
+    "quyen_tay_khong": {
+      "name": "Quyền tay không",
+      "description": "Các bài quyền không sử dụng vũ khí",
+      "forms": [
+        {"code": "ngoc_tran",      "name": "Ngọc Trản Quyền",              "origin": "Bình Định",   "difficulty": 5, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Một trong tứ trụ quyền pháp Bình Định — bài quyền chén ngọc"},
+        {"code": "lao_mai",        "name": "Lão Mai Quyền",                "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Bài quyền mô phỏng cây mai già cằn cỗi — phòng thủ chặt, phản công bất ngờ"},
+        {"code": "hung_ke",        "name": "Hùng Kê Quyền",                "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Quyền gà chọi — tương truyền do Đông Định Vương Nguyễn Lữ sáng tạo"},
+        {"code": "lao_ho",         "name": "Lão Hổ Thượng Sơn Quyền",     "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Hổ già lên núi — quyền pháp mạnh mẽ, oai phong"},
+        {"code": "tu_hai",         "name": "Tứ Hải Quyền",                 "origin": "Bình Định",   "difficulty": 5, "gender": "both", "type": "ca_nhan", "description": "Bài quyền bốn phương — khí phách hào sảng"},
+        {"code": "bach_hac",       "name": "Bạch Hạc Lượng Xí Quyền",     "origin": "Nam Bộ",      "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Hạc trắng sải cánh — uyển chuyển, nhẹ nhàng"},
+        {"code": "ngu_mon",        "name": "Ngũ Môn Quyền",                "origin": "Tổng hợp",    "difficulty": 5, "gender": "both", "type": "ca_nhan", "description": "Năm cửa — tổng hợp ngũ hành Kim Mộc Thủy Hỏa Thổ"},
+        {"code": "tu_linh",        "name": "Tứ Linh Quyền",                "origin": "Tổng hợp",    "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Long - Lân - Quy - Phụng — bài quyền tứ linh vật"},
+        {"code": "nhat_lo_mai",    "name": "Nhất Lộ Mai Hoa Quyền",       "origin": "Bắc Bộ",      "difficulty": 5, "gender": "both", "type": "ca_nhan", "description": "Bài quyền hoa mai đường thứ nhất"},
+        {"code": "tu_tru",         "name": "Tứ Trụ Quyền",                 "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Bốn trụ cột — nền tảng Bình Định"},
+        {"code": "hanh_quyen",     "name": "Hành Quyền",                   "origin": "Tổng hợp",    "difficulty": 3, "gender": "both", "type": "ca_nhan", "description": "Quyền đi bước — bài quyền cơ bản nhập môn"},
+        {"code": "than_dong",      "name": "Thần Đồng Quyền",              "origin": "Trung Bộ",    "difficulty": 4, "gender": "both", "type": "ca_nhan", "description": "Bài quyền dành cho trẻ em có năng khiếu"},
+        {"code": "kim_nguu",       "name": "Kim Ngưu Quyền",               "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Quyền trâu vàng — sức mạnh trầm hùng, bền bỉ"},
+        {"code": "tien_ong",       "name": "Tiên Ông Quyền",               "origin": "Bắc Bộ",      "difficulty": 5, "gender": "both", "type": "ca_nhan", "description": "Bài quyền thần tiên — uyển chuyển, phiêu dật"},
+        {"code": "bach_hac_son",   "name": "Bạch Hạc Sơn Quyền",           "origin": "Tổng hợp",    "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Hạc trắng trên núi — kết hợp cương nhu"},
+        {"code": "yen_phi",        "name": "Yến Phi Quyền",                 "origin": "Bình Định",   "difficulty": 5, "gender": "nu",   "type": "ca_nhan", "description": "Chim yến bay — bài quyền nhẹ nhàng, nhanh nhẹn, phù hợp nữ"},
+        {"code": "ngu_hinh",       "name": "Ngũ Hình Quyền",                "origin": "Tổng hợp",    "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Quyền năm hình — Long, Hổ, Xà, Hạc, Báo"},
+        {"code": "thap_bat_la_han","name": "Thập Bát La Hán Quyền",         "origin": "Bắc Bộ",      "difficulty": 8, "gender": "both", "type": "ca_nhan", "description": "18 vị La Hán — bài quyền cao cấp, đa chiêu thức"}
+      ]
+    },
+    "binh_khi": {
+      "name": "Binh khí",
+      "description": "Các bài vũ khí truyền thống — Thập Bát Ban Binh Khí",
+      "forms": [
+        {"code": "sieu_xung_thien",   "name": "Siêu Xung Thiên",            "weapon": "roi",      "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Côn pháp xung trời — roi Bình Định nổi tiếng bậc nhất"},
+        {"code": "thai_son_con",      "name": "Thái Sơn Côn",                "weapon": "roi",      "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Côn pháp núi Thái — vững chãi, trầm ổn"},
+        {"code": "phong_hoa_dao",     "name": "Phong Hoa Đao",               "weapon": "dao",      "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Đao pháp hoa gió — nhẹ nhàng mà mãnh liệt"},
+        {"code": "thanh_long_doc_kiem","name": "Thanh Long Độc Kiếm",        "weapon": "kiem",     "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Kiếm rồng xanh — kiếm đơn mạnh mẽ"},
+        {"code": "song_tuyet_kiem",   "name": "Song Tuyết Kiếm",             "weapon": "kiem",     "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Song kiếm tuyết trắng — kiếm pháp đôi nổi tiếng"},
+        {"code": "doc_lu_thuong",     "name": "Độc Lư Thương",               "weapon": "thuong",   "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "regulated": true, "description": "Thương pháp lò hương — đâm, quét, gạt uyển chuyển"},
+        {"code": "roi_thuan",         "name": "Roi Thuận Truyền",            "weapon": "roi",      "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Bài côn pháp nổi tiếng Bình Định — truyền thống"},
+        {"code": "roi_mua",           "name": "Roi Múa",                     "weapon": "roi",      "origin": "Tổng hợp",    "difficulty": 4, "gender": "both", "type": "ca_nhan", "description": "Bài côn cơ bản — nhập môn côn pháp"},
+        {"code": "bat_quai_con",      "name": "Bát Quái Côn",                "weapon": "con",      "origin": "Tổng hợp",    "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Bài côn bát quái — tám hướng luân chuyển"},
+        {"code": "don_kiem",          "name": "Đơn Kiếm",                    "weapon": "kiem",     "origin": "Tổng hợp",    "difficulty": 5, "gender": "both", "type": "ca_nhan", "description": "Bài kiếm đơn cơ bản"},
+        {"code": "song_kiem",         "name": "Song Kiếm",                   "weapon": "kiem",     "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Bài song kiếm nâng cao"},
+        {"code": "tu_linh_dao",       "name": "Tứ Linh Đao",                 "weapon": "dao",      "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Bài đao pháp Tứ Linh"},
+        {"code": "song_dao",          "name": "Song Đao Phá Trận",           "weapon": "dao",      "origin": "Nam Bộ",      "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Bài song đao nâng cao — phá trận"},
+        {"code": "thuong_phap",       "name": "Thương Pháp",                 "weapon": "thuong",   "origin": "Bình Định",   "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Bài thương truyền thống"},
+        {"code": "dai_dao",           "name": "Đại Đao",                     "weapon": "dao",      "origin": "Bình Định",   "difficulty": 8, "gender": "nam",  "type": "ca_nhan", "description": "Bài đại đao — yêu cầu sức mạnh, khí lực"},
+        {"code": "con_nhi_khuc",      "name": "Côn Nhị Khúc",                "weapon": "nhi_khuc", "origin": "Tổng hợp",    "difficulty": 6, "gender": "both", "type": "ca_nhan", "description": "Bài côn nhị khúc hiện đại"},
+        {"code": "gio_mau",           "name": "Xà Mâu",                      "weapon": "xa_mau",   "origin": "Bình Định",   "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Trường binh hình rắn — đâm, quật, gạt"},
+        {"code": "dinh_ba",           "name": "Đinh Ba (Sỏa)",                "weapon": "dinh_ba",  "origin": "Nam Bộ",      "difficulty": 7, "gender": "both", "type": "ca_nhan", "description": "Ba mũi nhọn — đánh, gạt, đỡ linh hoạt"},
+        {"code": "phu",               "name": "Phủ (Búa)",                    "weapon": "phu",      "origin": "Tổng hợp",    "difficulty": 7, "gender": "nam",  "type": "ca_nhan", "description": "Búa chiến — sức mạnh, bổ, đập"},
+        {"code": "chuy",              "name": "Chùy Pháp",                    "weapon": "chuy",     "origin": "Tổng hợp",    "difficulty": 7, "gender": "nam",  "type": "ca_nhan", "description": "Chùy sắt — đòi hỏi thể lực tốt"}
+      ]
+    },
+    "song_luyen": {
+      "name": "Song luyện / Đối luyện",
+      "description": "Các bài tập đối kháng có bài bản giữa 2 người",
+      "forms": [
+        {"code": "sl_tay_khong",       "name": "Song luyện tay không",        "difficulty": 5, "gender": "both", "type": "doi", "description": "Đối luyện hai người không vũ khí — công thủ luân phiên"},
+        {"code": "sl_vu_khi",          "name": "Song luyện vũ khí",           "difficulty": 7, "gender": "both", "type": "doi", "description": "Đối luyện hai người có vũ khí"},
+        {"code": "sl_con_vs_dao",      "name": "Đối luyện Côn vs Đao",        "difficulty": 7, "gender": "both", "type": "doi", "description": "Côn chống đao — bài đối luyện kinh điển"},
+        {"code": "sl_kiem_vs_thuong",   "name": "Đối luyện Kiếm vs Thương",   "difficulty": 8, "gender": "both", "type": "doi", "description": "Kiếm chống thương — bài nâng cao"},
+        {"code": "sl_tay_vs_dao",      "name": "Đối luyện Tay không vs Đao",  "difficulty": 6, "gender": "both", "type": "doi", "description": "Tay không chống vũ khí — kỹ thuật né tránh, bắt đòn"},
+        {"code": "sl_roi_vs_thuong",   "name": "Đối luyện Roi vs Thương",     "difficulty": 7, "gender": "both", "type": "doi", "description": "Côn chống thương — đoản binh phá trường binh"}
+      ]
+    },
+    "dong_doi": {
+      "name": "Đồng đội",
+      "description": "Nội dung thi đấu nhóm 3-5 người",
+      "forms": [
+        {"code": "dd_quyen_nam",   "name": "Đồng đội quyền nam",     "team_size": 5, "gender": "nam",     "type": "dong_doi", "description": "5 VĐV nam biểu diễn quyền đồng đội"},
+        {"code": "dd_quyen_nu",    "name": "Đồng đội quyền nữ",      "team_size": 5, "gender": "nu",      "type": "dong_doi", "description": "5 VĐV nữ biểu diễn quyền đồng đội"},
+        {"code": "dd_quyen_hh",    "name": "Đồng đội quyền hỗn hợp", "team_size": 5, "gender": "hon_hop", "type": "dong_doi", "description": "Đội hỗn hợp nam nữ"},
+        {"code": "dd_binh_khi",    "name": "Đồng đội binh khí",      "team_size": 3, "gender": "both",    "type": "dong_doi", "description": "3 VĐV biểu diễn binh khí đồng đội"}
+      ]
+    }
+  },
+
+  "thap_bat_ban_binh_khi": {
+    "_description": "Thập Bát Ban Binh Khí — 18 loại vũ khí truyền thống trong võ cổ truyền",
+    "weapons": [
+      {"code": "con_roi",      "name": "Côn (Roi)",          "description": "Gỗ, tre, mây hoặc kim loại. Gồm trường côn và đoản côn. Binh khí đặc trưng Bình Định."},
+      {"code": "kiem",          "name": "Kiếm",               "description": "Lưỡi dài sắc bén, bao gồm trường kiếm và đoản kiếm. Thanh nhã, sang trọng."},
+      {"code": "dao",           "name": "Đao",                "description": "Gồm đại đao, trường đao, đơn đao, song đao. Mạnh mẽ, dứt khoát."},
+      {"code": "thuong",        "name": "Thương",             "description": "Vũ khí dài, sắc nhọn ở đầu. Đâm, quét, gạt. Vua trường binh khí."},
+      {"code": "giao",          "name": "Giáo",               "description": "Tương tự thương, dùng trong chiến đấu tầm xa."},
+      {"code": "kich",          "name": "Kích",               "description": "Kết hợp giáo và búa — đâm, chém, móc đa năng."},
+      {"code": "xa_mau",        "name": "Xà Mâu",            "description": "Trường binh hình cong như rắn — sát thương mạnh, khó lường."},
+      {"code": "dinh_ba",       "name": "Đinh Ba (Sỏa)",     "description": "Ba mũi nhọn — đánh, gạt, đỡ. Binh khí đa năng."},
+      {"code": "bo_cao",        "name": "Bồ Cào",             "description": "Binh khí dân dã từ nông nghiệp — biến hóa thành vũ khí."},
+      {"code": "phu",           "name": "Phủ (Búa)",          "description": "Nặng, dùng để bổ, đập mạnh. Yêu cầu sức mạnh."},
+      {"code": "chuy",          "name": "Chùy",               "description": "Đầu tròn hoặc hình cầu bằng kim loại — đập mạnh, yêu cầu thể lực."},
+      {"code": "cung_ten",      "name": "Cung Tên",           "description": "Vũ khí tầm xa hiệu quả nhất trong chiến trận cổ đại."},
+      {"code": "lang_khien",    "name": "Lăng Khiên (Thuẫn)", "description": "Khiên che chắn, đỡ đòn. Thường dùng kết hợp với đao kiếm."},
+      {"code": "tien",          "name": "Tiên (Roi mềm)",     "description": "Roi da hoặc kim loại mềm — dẻo, linh hoạt, khó đoán."},
+      {"code": "gian",          "name": "Giản",                "description": "Côn tre/gỗ có cạnh hoặc roi sắt — rèn luyện nội lực."},
+      {"code": "viet",          "name": "Việt",                "description": "Búa lớn — binh khí nặng, dùng trong trận chiến."},
+      {"code": "song_cau",      "name": "Song Câu (Song Xỉ)", "description": "Binh khí đôi — dao hoặc kiếm ngắn sử dụng song song."},
+      {"code": "thiet_ban",     "name": "Thiết Bản",           "description": "Gậy sắt — đoản binh cận chiến, bền vững."}
+    ]
+  }
+}

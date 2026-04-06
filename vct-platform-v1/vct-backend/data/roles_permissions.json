@@ -1,0 +1,164 @@
+{
+  "_description": "Hệ thống vai trò và quyền hạn RBAC — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "roles": [
+    {
+      "code": "system_admin",
+      "name_vi": "Quản trị hệ thống",
+      "name_en": "System Administrator",
+      "level": 0,
+      "description": "Toàn quyền quản trị hệ thống VCT Platform",
+      "permissions": ["*"]
+    },
+    {
+      "code": "federation_admin",
+      "name_vi": "Quản trị Liên đoàn TW",
+      "name_en": "Federation Administrator",
+      "level": 1,
+      "description": "Quản lý toàn bộ hoạt động Liên đoàn trung ương",
+      "permissions": [
+        "federation.manage", "federation.provinces.view", "federation.provinces.manage",
+        "federation.units.manage", "federation.personnel.manage",
+        "tournament.create", "tournament.manage", "tournament.delete",
+        "certification.issue", "certification.revoke",
+        "discipline.create", "discipline.decide",
+        "document.create", "document.publish",
+        "international.manage",
+        "report.view_all", "report.export"
+      ]
+    },
+    {
+      "code": "province_admin",
+      "name_vi": "Quản trị tỉnh/TP",
+      "name_en": "Provincial Administrator",
+      "level": 2,
+      "description": "Quản lý hoạt động LĐ cấp tỉnh/thành phố",
+      "permissions": [
+        "federation.provinces.view_own",
+        "club.manage", "club.approve",
+        "athlete.manage", "athlete.approve",
+        "coach.manage", "coach.approve",
+        "certification.request", "certification.view_province",
+        "tournament.register_team",
+        "report.view_province", "report.export_province"
+      ]
+    },
+    {
+      "code": "btc",
+      "name_vi": "Ban Tổ chức",
+      "name_en": "Organizing Committee",
+      "level": 2,
+      "description": "Ban tổ chức giải đấu — quản lý vận hành giải",
+      "permissions": [
+        "tournament.manage", "tournament.schedule",
+        "registration.manage", "registration.approve",
+        "weigh_in.manage",
+        "arena.manage",
+        "referee.assign",
+        "result.manage",
+        "appeal.manage",
+        "notification.send"
+      ]
+    },
+    {
+      "code": "club_admin",
+      "name_vi": "Quản trị CLB",
+      "name_en": "Club Administrator",
+      "level": 3,
+      "description": "Quản lý câu lạc bộ — hội viên, lớp học, hoạt động",
+      "permissions": [
+        "club.view_own", "club.edit_own",
+        "athlete.add", "athlete.edit_own",
+        "coach.view_own",
+        "training.manage_own",
+        "class.manage",
+        "finance.view_own"
+      ]
+    },
+    {
+      "code": "referee",
+      "name_vi": "Trọng tài",
+      "name_en": "Referee",
+      "level": 3,
+      "description": "Trọng tài thi đấu — chấm điểm, ra quyết định trên sàn",
+      "permissions": [
+        "tournament.view",
+        "match.score", "match.judge",
+        "form.score",
+        "schedule.view",
+        "referee.view_assignment"
+      ]
+    },
+    {
+      "code": "coach",
+      "name_vi": "Huấn luyện viên",
+      "name_en": "Coach",
+      "level": 3,
+      "description": "HLV — quản lý VĐV, lên kế hoạch tập luyện",
+      "permissions": [
+        "athlete.view_own_team",
+        "training.create", "training.manage_own",
+        "tournament.view",
+        "registration.submit",
+        "result.view"
+      ]
+    },
+    {
+      "code": "delegate",
+      "name_vi": "Trưởng đoàn",
+      "name_en": "Team Delegate",
+      "level": 3,
+      "description": "Trưởng đoàn thi đấu — quản lý đăng ký, VĐV của đoàn",
+      "permissions": [
+        "team.view_own", "team.edit_own",
+        "athlete.view_team", "athlete.add",
+        "registration.submit", "registration.view_team",
+        "weigh_in.view_team",
+        "appeal.submit",
+        "result.view"
+      ]
+    },
+    {
+      "code": "athlete",
+      "name_vi": "Vận động viên",
+      "name_en": "Athlete",
+      "level": 4,
+      "description": "VĐV — xem lịch thi đấu, kết quả, hồ sơ cá nhân",
+      "permissions": [
+        "profile.view_own", "profile.edit_own",
+        "tournament.view",
+        "schedule.view",
+        "result.view_own",
+        "training.view_own",
+        "certification.view_own"
+      ]
+    },
+    {
+      "code": "parent",
+      "name_vi": "Phụ huynh",
+      "name_en": "Parent/Guardian",
+      "level": 4,
+      "description": "Phụ huynh VĐV — theo dõi con em, đồng ý tham gia giải",
+      "permissions": [
+        "athlete.view_child",
+        "training.view_child",
+        "result.view_child",
+        "consent.submit",
+        "payment.view_own", "payment.make"
+      ]
+    },
+    {
+      "code": "spectator",
+      "name_vi": "Khán giả",
+      "name_en": "Spectator",
+      "level": 5,
+      "description": "Khán giả — xem thông tin giải, kết quả trực tiếp",
+      "permissions": [
+        "tournament.view_public",
+        "schedule.view_public",
+        "result.view_public",
+        "live_score.view"
+      ]
+    }
+  ]
+}

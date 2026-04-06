@@ -1,0 +1,91 @@
+/* ════════════════════════════════════════════════════════
+ * VCT FEDERATION PORTAL — NEO-GLASSMORPHISM STYLES
+ * ════════════════════════════════════════════════════════ */
+
+:root {
+  --color-cyber-cyan: #06B6D4;
+  --color-cyber-teal: #14B8A6;
+  --color-cyber-glow: rgba(6, 182, 212, 0.35);
+  --color-neon-line: rgba(6, 182, 212, 0.25);
+  --radius-card: 1.5rem;
+}
+
+.dark {
+  --color-canvas: #020617;
+  --color-canvas-soft: #0a1628;
+  --color-panel: rgba(8, 16, 32, 0.92);
+  --color-panel-soft: rgba(10, 20, 40, 0.78);
+  --color-ink: #F8FAFC;
+  --color-ink-soft: #94A3B8;
+  --color-border: rgba(255, 255, 255, 0.07);
+}
+
+/* ── Ambient Background ── */
+.dark .federation-layout-wrapper::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 35%, rgba(6, 182, 212, 0.06), transparent 42%),
+    radial-gradient(circle at 82% 62%, rgba(20, 184, 166, 0.04), transparent 38%),
+    radial-gradient(circle at 50% 5%, rgba(15, 23, 42, 0.7), transparent 55%);
+  pointer-events: none;
+}
+
+/* ── Custom Scrollbar ── */
+.vct-custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+.vct-custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.vct-custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.25); border-radius: 3px; }
+.dark .vct-custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); }
+
+/* ════════════════════════════════════════════════════════
+ * ANIMATION KEYFRAMES
+ * ════════════════════════════════════════════════════════ */
+@keyframes fed-fade-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fed-slide-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fed-glow-pulse { 0%, 100% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); } 50% { box-shadow: 0 0 35px rgba(6, 182, 212, 0.3); } }
+@keyframes fed-shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+.animate-fed-fade-in { animation: fed-fade-in 0.5s ease-out both; }
+.animate-fed-slide-up { animation: fed-slide-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fed-glow-pulse { animation: fed-glow-pulse 3s ease-in-out infinite; }
+.animate-fed-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: fed-shimmer 2.5s linear infinite;
+}
+
+.stagger-fed > * { animation: fed-fade-in 0.5s ease-out both; }
+.stagger-fed > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-fed > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-fed > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-fed > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-fed > *:nth-child(5) { animation-delay: 240ms; }
+
+/* ════════════════════════════════════════════════════════
+ * NEO-GLASSMORPHISM UTILITIES
+ * ════════════════════════════════════════════════════════ */
+.glass-panel {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(8, 16, 32, 0.8));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.neon-hover {
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dark .neon-hover:hover {
+  border-color: rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.12), 0 16px 40px rgba(0, 0, 0, 0.3);
+}
+
+.cyber-gradient-text {
+  background: linear-gradient(135deg, #06B6D4 0%, #14B8A6 60%, #F8FAFC 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

@@ -1,0 +1,58 @@
+{
+  "_description": "Cấu hình hệ thống mặc định VCT Platform",
+  "_editable": true,
+  "platform": {
+    "name": "VCT Platform",
+    "full_name": "Nền tảng Quản lý Võ Cổ Truyền Việt Nam",
+    "version": "1.0.0",
+    "default_language": "vi-VN",
+    "supported_languages": ["vi-VN", "en-US"],
+    "timezone": "Asia/Ho_Chi_Minh",
+    "utc_offset": "+07:00",
+    "currency": "VND",
+    "currency_symbol": "₫",
+    "date_format": "DD/MM/YYYY",
+    "datetime_format": "DD/MM/YYYY HH:mm",
+    "phone_country_code": "+84"
+  },
+  "tournament": {
+    "max_athletes_per_team_per_event": 3,
+    "max_events_per_athlete": 4,
+    "weigh_in_tolerance_kg": 0.5,
+    "min_age_competition": 8,
+    "max_rounds_combat": 3,
+    "round_duration_seconds": 120,
+    "break_between_rounds_seconds": 60,
+    "min_judges_form": 5,
+    "max_judges_form": 7,
+    "score_decimal_places": 2,
+    "drop_highest_score": true,
+    "drop_lowest_score": true,
+    "sessions": [
+      {"code": "sang", "name": "Sáng", "start": "08:00", "end": "11:30"},
+      {"code": "chieu", "name": "Chiều", "start": "14:00", "end": "17:30"},
+      {"code": "toi", "name": "Tối", "start": "19:00", "end": "21:30"}
+    ]
+  },
+  "registration": {
+    "auto_close_days_before_start": 15,
+    "require_medical_certificate": true,
+    "require_insurance": true,
+    "require_parent_consent_under_age": 18,
+    "allowed_document_types": ["pdf", "jpg", "png"],
+    "max_document_size_mb": 10
+  },
+  "federation": {
+    "central_name": "Liên đoàn Võ thuật cổ truyền Việt Nam",
+    "central_short_name": "LĐ VCT VN",
+    "founded_year": 1991,
+    "headquarters": "36 Trần Phú, Ba Đình, Hà Nội",
+    "website": "https://vct.vn",
+    "certification_validity_years": {
+      "coach": 4,
+      "referee": 3,
+      "club": 3,
+      "belt_rank": null
+    }
+  }
+}

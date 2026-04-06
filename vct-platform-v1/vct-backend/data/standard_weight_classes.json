@@ -1,0 +1,44 @@
+{
+  "_description": "Hạng cân thi đấu chuẩn theo quy định Liên đoàn VCT — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "weight_classes": {
+    "nam": [
+      {"code": "M48",  "name": "Nam 48kg",  "min_kg": 0,    "max_kg": 48,   "order": 1},
+      {"code": "M52",  "name": "Nam 52kg",  "min_kg": 48.1, "max_kg": 52,   "order": 2},
+      {"code": "M55",  "name": "Nam 55kg",  "min_kg": 52.1, "max_kg": 55,   "order": 3},
+      {"code": "M60",  "name": "Nam 60kg",  "min_kg": 55.1, "max_kg": 60,   "order": 4},
+      {"code": "M65",  "name": "Nam 65kg",  "min_kg": 60.1, "max_kg": 65,   "order": 5},
+      {"code": "M70",  "name": "Nam 70kg",  "min_kg": 65.1, "max_kg": 70,   "order": 6},
+      {"code": "M75",  "name": "Nam 75kg",  "min_kg": 70.1, "max_kg": 75,   "order": 7},
+      {"code": "M80",  "name": "Nam 80kg",  "min_kg": 75.1, "max_kg": 80,   "order": 8},
+      {"code": "M85",  "name": "Nam 85kg",  "min_kg": 80.1, "max_kg": 85,   "order": 9},
+      {"code": "M85P", "name": "Nam +85kg", "min_kg": 85.1, "max_kg": null, "order": 10}
+    ],
+    "nu": [
+      {"code": "F42",  "name": "Nữ 42kg",  "min_kg": 0,    "max_kg": 42,   "order": 1},
+      {"code": "F45",  "name": "Nữ 45kg",  "min_kg": 42.1, "max_kg": 45,   "order": 2},
+      {"code": "F48",  "name": "Nữ 48kg",  "min_kg": 45.1, "max_kg": 48,   "order": 3},
+      {"code": "F52",  "name": "Nữ 52kg",  "min_kg": 48.1, "max_kg": 52,   "order": 4},
+      {"code": "F56",  "name": "Nữ 56kg",  "min_kg": 52.1, "max_kg": 56,   "order": 5},
+      {"code": "F60",  "name": "Nữ 60kg",  "min_kg": 56.1, "max_kg": 60,   "order": 6},
+      {"code": "F65",  "name": "Nữ 65kg",  "min_kg": 60.1, "max_kg": 65,   "order": 7},
+      {"code": "F65P", "name": "Nữ +65kg", "min_kg": 65.1, "max_kg": null, "order": 8}
+    ],
+    "thieu_nien_nam": [
+      {"code": "JM35",  "name": "TN Nam 35kg",  "min_kg": 0,    "max_kg": 35,   "order": 1},
+      {"code": "JM40",  "name": "TN Nam 40kg",  "min_kg": 35.1, "max_kg": 40,   "order": 2},
+      {"code": "JM45",  "name": "TN Nam 45kg",  "min_kg": 40.1, "max_kg": 45,   "order": 3},
+      {"code": "JM50",  "name": "TN Nam 50kg",  "min_kg": 45.1, "max_kg": 50,   "order": 4},
+      {"code": "JM55",  "name": "TN Nam 55kg",  "min_kg": 50.1, "max_kg": 55,   "order": 5},
+      {"code": "JM55P", "name": "TN Nam +55kg", "min_kg": 55.1, "max_kg": null, "order": 6}
+    ],
+    "thieu_nien_nu": [
+      {"code": "JF32",  "name": "TN Nữ 32kg",  "min_kg": 0,    "max_kg": 32,   "order": 1},
+      {"code": "JF36",  "name": "TN Nữ 36kg",  "min_kg": 32.1, "max_kg": 36,   "order": 2},
+      {"code": "JF40",  "name": "TN Nữ 40kg",  "min_kg": 36.1, "max_kg": 40,   "order": 3},
+      {"code": "JF44",  "name": "TN Nữ 44kg",  "min_kg": 40.1, "max_kg": 44,   "order": 4},
+      {"code": "JF48",  "name": "TN Nữ 48kg",  "min_kg": 44.1, "max_kg": 48,   "order": 5},
+      {"code": "JF48P", "name": "TN Nữ +48kg", "min_kg": 48.1, "max_kg": null, "order": 6}
+    ]
+  }
+}

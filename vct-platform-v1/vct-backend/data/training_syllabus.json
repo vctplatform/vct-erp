@@ -1,0 +1,209 @@
+{
+  "_description": "Giáo trình thi lên đai — mapping với belt_ranks.json — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+
+  "belt_requirements": [
+    {
+      "belt_code": "yellow",
+      "belt_name": "Đai vàng",
+      "min_training_months": 6,
+      "theory": [
+        "Lịch sử Võ cổ truyền Việt Nam (tổng quan)",
+        "Nội quy, quy tắc võ đường",
+        "Ý nghĩa các thế tấn cơ bản"
+      ],
+      "required_forms": [
+        {"code": "hanh_quyen",  "name": "Hành Quyền"}
+      ],
+      "techniques": {
+        "tan_phap": ["Đinh tấn", "Trung bình tấn", "Quy tấn", "Xà tấn"],
+        "don_tay": ["Trực quyền", "Móc quyền", "Cắt quyền"],
+        "don_chan": ["Đá thẳng", "Đá vòng cầu thấp"],
+        "don_thu": ["Gạt trong", "Gạt ngoài", "Chém tay đỡ"]
+      },
+      "physical_test": {
+        "chong_day": {"reps": 20, "description": "Chống đẩy liên tục"},
+        "bung": {"reps": 30, "description": "Gập bụng liên tục"},
+        "chay": {"distance_m": 400, "description": "Chạy 400m"}
+      }
+    },
+    {
+      "belt_code": "green",
+      "belt_name": "Đai xanh lá",
+      "min_training_months": 12,
+      "theory": [
+        "Lịch sử Võ Bình Định",
+        "Phân loại các dòng võ cổ truyền",
+        "Quy tắc thi đấu cơ bản"
+      ],
+      "required_forms": [
+        {"code": "ngoc_tran",   "name": "Ngọc Trản Quyền"},
+        {"code": "hanh_quyen",  "name": "Hành Quyền (ôn lại)"}
+      ],
+      "optional_forms": [
+        {"code": "than_dong", "name": "Thần Đồng Quyền"}
+      ],
+      "techniques": {
+        "tan_phap": ["Hạc tấn", "Hổ tấn", "Trảo mã tấn", "Chuyển tấn 4 phương"],
+        "don_tay": ["Chỏ ngang", "Chỏ thúc", "Bật ngửa quyền", "Liên hoàn quyền 3 đòn"],
+        "don_chan": ["Đá vòng cầu cao", "Đá tạt", "Đá quét thấp"],
+        "song_luyen": ["Đối luyện tay không cơ bản (3 miếng)"]
+      },
+      "physical_test": {
+        "chong_day": {"reps": 30},
+        "bung": {"reps": 40},
+        "chay": {"distance_m": 800}
+      }
+    },
+    {
+      "belt_code": "blue",
+      "belt_name": "Đai xanh dương",
+      "min_training_months": 24,
+      "theory": [
+        "Triết lý Võ đạo",
+        "Phương pháp tập luyện hiệu quả",
+        "Luật thi đấu đối kháng chi tiết"
+      ],
+      "required_forms": [
+        {"code": "lao_mai",    "name": "Lão Mai Quyền"},
+        {"code": "roi_mua",    "name": "Roi Múa (binh khí nhập môn)"}
+      ],
+      "optional_forms": [
+        {"code": "tu_hai", "name": "Tứ Hải Quyền"},
+        {"code": "ngu_mon", "name": "Ngũ Môn Quyền"}
+      ],
+      "techniques": {
+        "tan_phap": ["Kỵ mã tấn", "Độc cước tấn", "Liên hoàn bộ pháp"],
+        "don_tay": ["Liên hoàn quyền 5 đòn", "Chém cạnh bàn tay", "Phản đòn tay"],
+        "don_chan": ["Đá quay hậu", "Đá móc", "Liên hoàn cước"],
+        "binh_khi": ["Cơ bản côn pháp: đâm, quét, gạt, bổ"],
+        "doi_khang": ["Tập đối kháng có bảo hộ (3 hiệp x 1 phút)"]
+      },
+      "physical_test": {
+        "chong_day": {"reps": 40},
+        "bung": {"reps": 50},
+        "chay": {"distance_m": 1500}
+      }
+    },
+    {
+      "belt_code": "brown",
+      "belt_name": "Đai nâu",
+      "min_training_months": 36,
+      "theory": [
+        "Lịch sử các môn phái (Bình Định, TKBT, Sa Long Cương, Vovinam...)",
+        "Phương pháp huấn luyện cho người mới",
+        "Sơ cứu và phòng tránh chấn thương"
+      ],
+      "required_forms": [
+        {"code": "hung_ke",     "name": "Hùng Kê Quyền"},
+        {"code": "roi_thuan",   "name": "Roi Thuận Truyền"},
+        {"code": "sl_tay_khong","name": "Song luyện tay không"}
+      ],
+      "optional_forms": [
+        {"code": "bach_hac", "name": "Bạch Hạc Lượng Xí Quyền"},
+        {"code": "don_kiem", "name": "Đơn Kiếm"}
+      ],
+      "techniques": {
+        "doi_khang": ["Thi đấu đối kháng chính thức (3 hiệp x 2 phút)"],
+        "binh_khi": ["Côn pháp nâng cao", "Kiếm cơ bản"],
+        "tu_ve": ["Phản đòn khi bị tấn công dao", "Thoát khóa tay"],
+        "giang_day": ["Thực hành dạy lớp cơ bản (dưới giám sát)"]
+      },
+      "physical_test": {
+        "chong_day": {"reps": 50},
+        "bung": {"reps": 60},
+        "chay": {"distance_m": 2000},
+        "pha_don": {"count": 5, "description": "Phá 5 đòn tấn công khác nhau"}
+      }
+    },
+    {
+      "belt_code": "black_1",
+      "belt_name": "Đai đen sơ đẳng",
+      "min_training_months": 48,
+      "theory": [
+        "Võ học cổ truyền Việt Nam so với các hệ thống võ thuật khác",
+        "Phương pháp lập kế hoạch huấn luyện năm",
+        "Đạo đức nghề nghiệp huấn luyện viên",
+        "Luật thi đấu quốc gia"
+      ],
+      "required_forms": [
+        {"code": "lao_ho",      "name": "Lão Hổ Thượng Sơn Quyền"},
+        {"code": "tu_linh_dao", "name": "Tứ Linh Đao"},
+        {"code": "sl_vu_khi",   "name": "Song luyện vũ khí"}
+      ],
+      "optional_forms_choose": {
+        "choose": 2,
+        "from": [
+          {"code": "tu_linh", "name": "Tứ Linh Quyền"},
+          {"code": "bat_quai_con", "name": "Bát Quái Côn"},
+          {"code": "song_kiem", "name": "Song Kiếm"},
+          {"code": "thuong_phap", "name": "Thương Pháp"}
+        ]
+      },
+      "competition_requirement": "Phải tham gia ít nhất 1 giải cấp tỉnh trở lên",
+      "teaching_requirement": "Trợ giảng ≥ 100 giờ dưới HLV có chứng chỉ",
+      "physical_test": {
+        "chong_day": {"reps": 60},
+        "bung": {"reps": 80},
+        "chay": {"distance_m": 3000},
+        "doi_khang": {"description": "Thi đấu đối kháng 3 đối thủ liên tục"}
+      }
+    },
+    {
+      "belt_code": "black_2",
+      "belt_name": "Đai đen nhị đẳng",
+      "min_training_months": 72,
+      "theory": [
+        "Phân tích kỹ thuật chuyên sâu",
+        "Tâm lý học thể thao cơ bản",
+        "Quản lý câu lạc bộ"
+      ],
+      "required_forms": [
+        {"code": "sieu_xung_thien", "name": "Siêu Xung Thiên"},
+        {"code": "song_dao",         "name": "Song Đao Phá Trận"}
+      ],
+      "optional_forms_choose": {
+        "choose": 2,
+        "from": [
+          {"code": "ngu_hinh", "name": "Ngũ Hình Quyền"},
+          {"code": "dai_dao", "name": "Đại Đao"},
+          {"code": "doc_lu_thuong", "name": "Độc Lư Thương"},
+          {"code": "thap_bat_la_han", "name": "Thập Bát La Hán Quyền"}
+        ]
+      },
+      "competition_requirement": "Phải tham gia ít nhất 2 giải cấp tỉnh, trong đó 1 giải đạt huy chương",
+      "teaching_requirement": "Có khả năng dạy độc lập ≥ 200 giờ",
+      "thesis": "Viết tiểu luận 2000 chữ về 1 chủ đề võ học"
+    },
+    {
+      "belt_code": "black_3",
+      "belt_name": "Đai đen tam đẳng",
+      "min_training_months": 108,
+      "requirements_summary": "Thi đấu cấp quốc gia, đào tạo HLV cấp dưới, nghiên cứu và bảo tồn bài quyền truyền thống. Yêu cầu tiểu luận 5000 chữ về lịch sử hoặc kỹ thuật võ cổ truyền."
+    },
+    {
+      "belt_code": "black_4",
+      "belt_name": "Đai đen tứ đẳng",
+      "min_training_months": 156,
+      "requirements_summary": "Cống hiến xuất sắc trong giảng dạy, tổ chức giải đấu, phát triển phong trào. Xét duyệt bởi Hội đồng kỹ thuật LĐ trung ương."
+    },
+    {
+      "belt_code": "black_5",
+      "belt_name": "Đai đen ngũ đẳng — Võ sư",
+      "min_training_months": 216,
+      "requirements_summary": "Danh hiệu Võ sư. Có đóng góp quan trọng trong phát triển phong trào cấp tỉnh trở lên. Xét duyệt bởi Đại hội đồng LĐ."
+    }
+  ],
+
+  "exam_format": {
+    "_description": "Cấu trúc buổi thi lên đai",
+    "sections": [
+      {"order": 1, "name": "Lý thuyết",       "format": "Bài thi viết hoặc vấn đáp", "weight_pct": 20, "pass_score": 60},
+      {"order": 2, "name": "Quyền thuật",      "format": "Biểu diễn bài bắt buộc + tự chọn",  "weight_pct": 40, "pass_score": 60},
+      {"order": 3, "name": "Kỹ thuật / Đối luyện", "format": "Trình bày kỹ thuật + đối luyện", "weight_pct": 20, "pass_score": 60},
+      {"order": 4, "name": "Thể lực",          "format": "Bài test thể lực chuẩn",             "weight_pct": 20, "pass_score": 60}
+    ],
+    "overall_pass_score": 65,
+    "retry_policy": "Trượt 1 môn được thi lại sau 3 tháng. Trượt ≥2 môn phải thi lại toàn bộ sau 6 tháng."
+  }
+}

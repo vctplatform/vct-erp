@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  # Isolated environment for testing backend code
+  test-vct-backend:
+    image: golang:1.22
+    working_dir: /app
+    volumes:
+      - ./vct-platform/vct-backend:/app
+    command: ["go", "test", "./..."]
+
+  # Isolated environment for testing frontend code
+  test-vct-frontend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./vct-platform/vct-frontend:/app
+    # Note: agents should modify the command depending on what they want to test before marking 'Done'
+    command: ["npm", "run", "lint"]
+
+  # Isolated environment for testing ERP code
+  test-vct-erp:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./vct-erp:/app
+    command: ["npm", "run", "lint"]
+
+  # Isolated environment for testing website code
+  test-vct-website:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./vct-website:/app
+    command: ["npm", "run", "lint"]

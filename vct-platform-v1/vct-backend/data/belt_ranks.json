@@ -1,0 +1,20 @@
+{
+  "_description": "Hệ thống đai và đẳng cấp Võ cổ truyền Việt Nam — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "belt_ranks": [
+    {"code": "white",    "name_vi": "Đai trắng",              "name_en": "White Belt",           "color_hex": "#FFFFFF", "order": 1,  "min_training_months": 0,   "description": "Người mới bắt đầu"},
+    {"code": "yellow",   "name_vi": "Đai vàng",               "name_en": "Yellow Belt",          "color_hex": "#FFD700", "order": 2,  "min_training_months": 6,   "description": "Nắm vững cơ bản tấn pháp, quyền cơ bản"},
+    {"code": "green",    "name_vi": "Đai xanh lá",            "name_en": "Green Belt",           "color_hex": "#228B22", "order": 3,  "min_training_months": 12,  "description": "Thành thạo quyền thuật cơ bản"},
+    {"code": "blue",     "name_vi": "Đai xanh dương",         "name_en": "Blue Belt",            "color_hex": "#0066CC", "order": 4,  "min_training_months": 24,  "description": "Bắt đầu luyện binh khí và đối luyện"},
+    {"code": "brown",    "name_vi": "Đai nâu",                "name_en": "Brown Belt",           "color_hex": "#8B4513", "order": 5,  "min_training_months": 36,  "description": "Thành thạo quyền và binh khí nâng cao"},
+    {"code": "black_1",  "name_vi": "Đai đen sơ đẳng",        "name_en": "Black Belt 1st Dan",   "color_hex": "#000000", "order": 6,  "min_training_months": 48,  "description": "Huyền đai — Đạt trình độ huấn luyện viên tập sự"},
+    {"code": "black_2",  "name_vi": "Đai đen nhị đẳng",       "name_en": "Black Belt 2nd Dan",   "color_hex": "#000000", "order": 7,  "min_training_months": 72,  "description": "Có thể dạy độc lập"},
+    {"code": "black_3",  "name_vi": "Đai đen tam đẳng",       "name_en": "Black Belt 3rd Dan",   "color_hex": "#000000", "order": 8,  "min_training_months": 108, "description": "HLV cấp tỉnh"},
+    {"code": "black_4",  "name_vi": "Đai đen tứ đẳng",        "name_en": "Black Belt 4th Dan",   "color_hex": "#000000", "order": 9,  "min_training_months": 156, "description": "HLV cấp quốc gia"},
+    {"code": "black_5",  "name_vi": "Đai đen ngũ đẳng",       "name_en": "Black Belt 5th Dan",   "color_hex": "#000000", "order": 10, "min_training_months": 216, "description": "Võ sư"},
+    {"code": "black_6",  "name_vi": "Đai đen lục đẳng",       "name_en": "Black Belt 6th Dan",   "color_hex": "#000000", "order": 11, "min_training_months": 288, "description": "Cao đẳng Võ sư"},
+    {"code": "black_7",  "name_vi": "Đai đen thất đẳng",      "name_en": "Black Belt 7th Dan",   "color_hex": "#000000", "order": 12, "min_training_months": 372, "description": "Đại Võ sư"},
+    {"code": "black_8",  "name_vi": "Đai đen bát đẳng",       "name_en": "Black Belt 8th Dan",   "color_hex": "#000000", "order": 13, "min_training_months": 480, "description": "Thượng đẳng Đại Võ sư"},
+    {"code": "black_9",  "name_vi": "Đai đen cửu đẳng",       "name_en": "Black Belt 9th Dan",   "color_hex": "#000000", "order": 14, "min_training_months": 600, "description": "Tối cao Đại Võ sư — Danh hiệu vinh danh"}
+  ]
+}

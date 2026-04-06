@@ -1,0 +1,342 @@
+{
+  "_description": "Điều lệ & Template tạo giải đấu Võ cổ truyền — Tham chiếu Giải VĐQG 2025, Luật sửa đổi 128/2024/LĐVTCTVN",
+  "_editable": true,
+  "_updated_at": "2026-03-13",
+  "_legal_basis": "Luật thi đấu Võ cổ truyền Việt Nam 2021 + Luật sửa đổi bổ sung 128/2024/LĐVTCTVN (có hiệu lực 19/07/2024)",
+  "_source": "Liên đoàn Võ thuật Cổ truyền Việt Nam",
+
+  "tournament_template": {
+    "_description": "Template mặc định khi tạo giải đấu mới trên VCT Platform",
+    "name": "",
+    "type": "national",
+    "level": "vo_dich_quoc_gia",
+    "level_options": ["vo_dich_quoc_gia", "vo_dich_tre", "vo_dich_clb", "vo_dich_tinh", "giao_huu", "tap_huan"],
+    "organizer": "Liên đoàn Võ thuật Cổ truyền Việt Nam",
+    "venue": "",
+    "city": "",
+    "province_code": "",
+    "start_date": "",
+    "end_date": "",
+    "registration_deadline": "",
+    "weigh_in_date": "",
+    "max_delegations": 34,
+    "max_athletes_per_delegation": null,
+    "law_version": "128/2024/LĐVTCTVN",
+    "categories_enabled": {
+      "doi_khang_ht1": true,
+      "doi_khang_ht2": true,
+      "quyen_quy_dinh": true,
+      "quyen_tu_chon": true,
+      "doi_luyen": true,
+      "dong_doi": true
+    }
+  },
+
+  "age_groups": {
+    "_description": "Nhóm tuổi thi đấu theo quy định LĐ VCT VN",
+    "groups": [
+      {"code": "thieu_nien_1", "name": "Thiếu niên nhóm 1", "min_age": 6,  "max_age": 10, "applicable": ["quyen_quy_dinh", "quyen_tu_chon"]},
+      {"code": "thieu_nien_2", "name": "Thiếu niên nhóm 2", "min_age": 11, "max_age": 14, "applicable": ["quyen_quy_dinh", "quyen_tu_chon", "doi_luyen"]},
+      {"code": "tre_1",        "name": "Trẻ nhóm 1",        "min_age": 12, "max_age": 13, "applicable": ["doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon"], "fight_surface": "tham"},
+      {"code": "tre_2",        "name": "Trẻ nhóm 2",        "min_age": 14, "max_age": 15, "applicable": ["doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen"], "fight_surface": "tham"},
+      {"code": "tre_3",        "name": "Trẻ nhóm 3",        "min_age": 16, "max_age": 17, "applicable": ["doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen", "dong_doi"], "fight_surface": "ring"},
+      {"code": "tuyen",        "name": "Tuyển (Vô địch)",   "min_age": 18, "max_age": 40, "applicable": ["doi_khang_ht1", "doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen", "dong_doi"], "fight_surface": "ring"},
+      {"code": "clb",          "name": "CLB (17-40 tuổi)",   "min_age": 17, "max_age": 40, "applicable": ["doi_khang_ht1", "doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen", "dong_doi"], "fight_surface": "ring"}
+    ]
+  },
+
+  "doi_khang": {
+    "_description": "Quy định thi đấu đối kháng — 2 hình thức",
+
+    "hinh_thuc_1": {
+      "name": "Đối kháng Hình thức 1 — Không giáp, không mũ",
+      "code": "ht1",
+      "description": "Thi đấu đối kháng không đội mũ, không mặc giáp",
+      "equipment": ["gang_tay", "bao_rang", "bao_ve_ha_bo", "bang_chan", "bang_tay"],
+      "rounds": 3,
+      "round_time_male_sec": 180,
+      "round_time_female_sec": 120,
+      "rest_between_rounds_sec": 60,
+      "judges": 5,
+      "xe_dai_required": true,
+      "xe_dai_description": "Tổ hợp 3-5 động tác võ thuật cổ truyền Việt Nam trước mỗi hiệp",
+      "weight_classes": {
+        "nam": [
+          {"code": "HT1_M54",  "name": "51-54kg",  "min_kg": 51.01, "max_kg": 54, "order": 1},
+          {"code": "HT1_M57",  "name": "54-57kg",  "min_kg": 54.01, "max_kg": 57, "order": 2},
+          {"code": "HT1_M60",  "name": "57-60kg",  "min_kg": 57.01, "max_kg": 60, "order": 3},
+          {"code": "HT1_M64",  "name": "60-64kg",  "min_kg": 60.01, "max_kg": 64, "order": 4},
+          {"code": "HT1_M68",  "name": "64-68kg",  "min_kg": 64.01, "max_kg": 68, "order": 5}
+        ],
+        "nu": [
+          {"code": "HT1_F54",  "name": "51-54kg",  "min_kg": 51.01, "max_kg": 54, "order": 1},
+          {"code": "HT1_F57",  "name": "54-57kg",  "min_kg": 54.01, "max_kg": 57, "order": 2},
+          {"code": "HT1_F60",  "name": "57-60kg",  "min_kg": 57.01, "max_kg": 60, "order": 3}
+        ]
+      }
+    },
+
+    "hinh_thuc_2": {
+      "name": "Đối kháng Hình thức 2 — Có giáp, có mũ",
+      "code": "ht2",
+      "description": "Thi đấu đối kháng đội mũ bảo hiểm, mặc giáp, đeo bọc chỏ",
+      "equipment": ["mu_bao_hiem", "giap", "boc_cho", "gang_tay", "bao_rang", "bao_ve_ha_bo", "bang_chan", "bang_tay"],
+      "rounds": 3,
+      "round_time_male_sec": 180,
+      "round_time_female_sec": 120,
+      "round_time_junior_sec": 120,
+      "rest_between_rounds_sec": 60,
+      "judges": 5,
+      "xe_dai_required": true,
+      "weight_classes": {
+        "nam": [
+          {"code": "HT2_M48", "name": "45-48kg",    "min_kg": 45.01, "max_kg": 48,   "order": 1},
+          {"code": "HT2_M51", "name": "48-51kg",    "min_kg": 48.01, "max_kg": 51,   "order": 2},
+          {"code": "HT2_M54", "name": "51-54kg",    "min_kg": 51.01, "max_kg": 54,   "order": 3},
+          {"code": "HT2_M57", "name": "54-57kg",    "min_kg": 54.01, "max_kg": 57,   "order": 4},
+          {"code": "HT2_M60", "name": "57-60kg",    "min_kg": 57.01, "max_kg": 60,   "order": 5},
+          {"code": "HT2_M64", "name": "60-64kg",    "min_kg": 60.01, "max_kg": 64,   "order": 6},
+          {"code": "HT2_M68", "name": "64-68kg",    "min_kg": 64.01, "max_kg": 68,   "order": 7},
+          {"code": "HT2_M72", "name": "68-72kg",    "min_kg": 68.01, "max_kg": 72,   "order": 8},
+          {"code": "HT2_M76", "name": "72-76kg",    "min_kg": 72.01, "max_kg": 76,   "order": 9},
+          {"code": "HT2_M80", "name": "76-80kg",    "min_kg": 76.01, "max_kg": 80,   "order": 10},
+          {"code": "HT2_M85", "name": "80-85kg",    "min_kg": 80.01, "max_kg": 85,   "order": 11},
+          {"code": "HT2_M90", "name": "85-90kg",    "min_kg": 85.01, "max_kg": 90,   "order": 12},
+          {"code": "HT2_M95", "name": "90-95kg",    "min_kg": 90.01, "max_kg": 95,   "order": 13},
+          {"code": "HT2_M110","name": "95-110kg",   "min_kg": 95.01, "max_kg": 110,  "order": 14}
+        ],
+        "nu": [
+          {"code": "HT2_F45", "name": "42-45kg",   "min_kg": 42.01, "max_kg": 45,  "order": 1},
+          {"code": "HT2_F48", "name": "45-48kg",   "min_kg": 45.01, "max_kg": 48,  "order": 2},
+          {"code": "HT2_F51", "name": "48-51kg",   "min_kg": 48.01, "max_kg": 51,  "order": 3},
+          {"code": "HT2_F54", "name": "51-54kg",   "min_kg": 51.01, "max_kg": 54,  "order": 4},
+          {"code": "HT2_F57", "name": "54-57kg",   "min_kg": 54.01, "max_kg": 57,  "order": 5},
+          {"code": "HT2_F60", "name": "57-60kg",   "min_kg": 57.01, "max_kg": 60,  "order": 6},
+          {"code": "HT2_F64", "name": "60-64kg",   "min_kg": 60.01, "max_kg": 64,  "order": 7},
+          {"code": "HT2_F68", "name": "64-68kg",   "min_kg": 64.01, "max_kg": 68,  "order": 8},
+          {"code": "HT2_F72", "name": "68-72kg",   "min_kg": 68.01, "max_kg": 72,  "order": 9},
+          {"code": "HT2_F76", "name": "72-76kg",   "min_kg": 72.01, "max_kg": 76,  "order": 10},
+          {"code": "HT2_F80", "name": "76-80kg",   "min_kg": 76.01, "max_kg": 80,  "order": 11}
+        ],
+        "tre_nam": [
+          {"code": "HT2_JM45", "name": "42-45kg", "min_kg": 42.01, "max_kg": 45, "order": 1},
+          {"code": "HT2_JM48", "name": "45-48kg", "min_kg": 45.01, "max_kg": 48, "order": 2},
+          {"code": "HT2_JM51", "name": "48-51kg", "min_kg": 48.01, "max_kg": 51, "order": 3},
+          {"code": "HT2_JM54", "name": "51-54kg", "min_kg": 51.01, "max_kg": 54, "order": 4},
+          {"code": "HT2_JM57", "name": "54-57kg", "min_kg": 54.01, "max_kg": 57, "order": 5},
+          {"code": "HT2_JM60", "name": "57-60kg", "min_kg": 57.01, "max_kg": 60, "order": 6},
+          {"code": "HT2_JM64", "name": "60-64kg", "min_kg": 60.01, "max_kg": 64, "order": 7},
+          {"code": "HT2_JM68", "name": "64-68kg", "min_kg": 64.01, "max_kg": 68, "order": 8},
+          {"code": "HT2_JM72", "name": "68-72kg", "min_kg": 68.01, "max_kg": 72, "order": 9},
+          {"code": "HT2_JM76", "name": "72-76kg", "min_kg": 72.01, "max_kg": 76, "order": 10},
+          {"code": "HT2_JM80", "name": "76-80kg", "min_kg": 76.01, "max_kg": 80, "order": 11},
+          {"code": "HT2_JM80P","name": "trên 80kg","min_kg": 80.01, "max_kg": null, "order": 12}
+        ],
+        "tre_nu": [
+          {"code": "HT2_JF45", "name": "42-45kg", "min_kg": 42.01, "max_kg": 45, "order": 1},
+          {"code": "HT2_JF48", "name": "45-48kg", "min_kg": 45.01, "max_kg": 48, "order": 2},
+          {"code": "HT2_JF51", "name": "48-51kg", "min_kg": 48.01, "max_kg": 51, "order": 3},
+          {"code": "HT2_JF54", "name": "51-54kg", "min_kg": 51.01, "max_kg": 54, "order": 4},
+          {"code": "HT2_JF57", "name": "54-57kg", "min_kg": 54.01, "max_kg": 57, "order": 5},
+          {"code": "HT2_JF60", "name": "57-60kg", "min_kg": 57.01, "max_kg": 60, "order": 6},
+          {"code": "HT2_JF64", "name": "60-64kg", "min_kg": 60.01, "max_kg": 64, "order": 7},
+          {"code": "HT2_JF68", "name": "64-68kg", "min_kg": 64.01, "max_kg": 68, "order": 8},
+          {"code": "HT2_JF68P","name": "trên 68kg","min_kg": 68.01, "max_kg": null, "order": 9}
+        ]
+      }
+    },
+
+    "vo_dai": {
+      "name": "Quy cách Võ đài",
+      "shape": "vuong",
+      "min_size_m": 4.90,
+      "max_size_m": 6.10,
+      "height_min_m": 0.91,
+      "height_max_m": 1.22,
+      "corners": {
+        "do": "Góc đỏ — bên trái, gần bàn Tổng trọng tài",
+        "xanh": "Góc xanh — đối diện góc đỏ",
+        "trung_lap_1": "Góc trắng trung lập 1",
+        "trung_lap_2": "Góc trắng trung lập 2"
+      },
+      "stairs": 3,
+      "stairs_for": ["Trọng tài đài", "Võ sĩ góc Đỏ", "Võ sĩ góc Xanh"]
+    },
+
+    "scoring": {
+      "method": "Thắng 2/3 hiệp",
+      "judges_per_match": 5,
+      "description": "Mỗi hiệp: 5 giám định chấm điểm. Võ sĩ có số giám định chấm thắng nhiều hơn sẽ thắng hiệp. Thắng 2/3 hiệp = thắng trận.",
+      "fouls": {
+        "trang_phuc": "Xử lý theo Điều 12 Luật sửa đổi 128/2024",
+        "tan_cong_cam": ["Đánh vào gáy", "Đánh vào hạ bộ", "Đánh vào cột sống", "Bẻ khớp", "Vật quật"],
+        "canh_cao": "2 lần cảnh cáo = trừ 1 điểm. 3 lần cảnh cáo = thua cuộc"
+      }
+    }
+  },
+
+  "quyen_thuat": {
+    "_description": "Quy định thi đấu quyền thuật — biểu diễn",
+
+    "quyen_quy_dinh": {
+      "name": "Quyền thuật quy định",
+      "description": "Bài quyền/binh khí do LĐ VCT VN quy định thống nhất sử dụng tại giải quốc gia",
+      "regulated_forms_ref": "→ Xem file standard_forms.json > regulated_10",
+      "forms_count": 10,
+      "forms_summary": [
+        "Hùng Kê Quyền", "Lão Hổ Thượng Sơn", "Lão Mai Quyền", "Ngọc Trản Quyền",
+        "Phong Hoa Đao", "Song Tuyết Kiếm", "Độc Lư Thương",
+        "Thanh Long Độc Kiếm", "Siêu Xung Thiên", "Thái Sơn Côn"
+      ]
+    },
+
+    "quyen_tu_chon": {
+      "name": "Quyền thuật tự chọn",
+      "description": "Bài quyền/binh khí có xuất xứ từ Võ cổ truyền Việt Nam, do VĐV/HLV tự chọn",
+      "requirements": [
+        "Phải có xuất xứ từ Võ cổ truyền Việt Nam",
+        "Phải biểu lộ đặc trưng kỹ thuật, nghệ thuật VCT",
+        "Thể hiện: diễn quyền, hướng di chuyển, tấn pháp, hướng nhìn, bộ pháp"
+      ]
+    },
+
+    "doi_luyen": {
+      "name": "Đối luyện",
+      "description": "Thi đấu đối luyện 2-5 VĐV, có bài bản",
+      "formats": [
+        {"type": "1v1", "description": "Một chống một — có hoặc không vũ khí"},
+        {"type": "1v2", "description": "Một chống hai"},
+        {"type": "1v3", "description": "Một chống ba"},
+        {"type": "1v4", "description": "Một chống bốn"}
+      ],
+      "gender_options": ["nam_vs_nam", "nu_vs_nu", "nam_nu_phoi_hop"]
+    },
+
+    "dong_doi": {
+      "name": "Quyền thuật tập thể / Đồng đội",
+      "description": "Nhóm 3-5 VĐV biểu diễn quyền hoặc binh khí đồng đội",
+      "team_size_min": 3,
+      "team_size_max": 5,
+      "types": [
+        {"code": "dd_quyen_nam", "name": "Đồng đội quyền nam", "team_size": 5, "gender": "nam"},
+        {"code": "dd_quyen_nu",  "name": "Đồng đội quyền nữ",  "team_size": 5, "gender": "nu"},
+        {"code": "dd_quyen_hh",  "name": "Đồng đội hỗn hợp",   "team_size": 5, "gender": "hon_hop"},
+        {"code": "dd_binh_khi",  "name": "Đồng đội binh khí",   "team_size": 3, "gender": "both"}
+      ]
+    },
+
+    "scoring": {
+      "max_score": 10.0,
+      "criteria": [
+        {"name": "Kỹ thuật", "weight": 0.40, "description": "Tấn pháp, bộ pháp, chiêu thức, phát lực chính xác"},
+        {"name": "Nghệ thuật", "weight": 0.30, "description": "Thần thái, đặc trưng VCT, hướng nhìn, diễn quyền"},
+        {"name": "Thể lực", "weight": 0.15, "description": "Sức mạnh, tốc độ, dẻo dai, phối hợp"},
+        {"name": "Nội dung bài", "weight": 0.15, "description": "Độ khó, tính sáng tạo, số chiêu thức, đa dạng"}
+      ],
+      "deductions": [
+        {"reason": "Mất thăng bằng (loạng choạng)", "points": -0.1},
+        {"reason": "Ngã", "points": -0.3},
+        {"reason": "Quên bài / dừng bài", "points": -0.5},
+        {"reason": "Vượt thời gian quy định", "points": -0.2},
+        {"reason": "Sai trang phục", "points": -0.1}
+      ]
+    }
+  },
+
+  "registration_rules": {
+    "_description": "Quy định đăng ký thi đấu cho VĐV",
+    "max_doi_khang": 1,
+    "max_doi_khang_note": "Mỗi VĐV chỉ được đăng ký 1 hạng cân đối kháng",
+    "max_quyen_thuat_tuyen": 2,
+    "max_quyen_thuat_tuyen_note": "01 bài quyền (quy định HOẶC tự chọn) + 01 bài đối luyện",
+    "max_quyen_thuat_tre": 3,
+    "max_quyen_thuat_tre_note": "01 bài quyền (quy định HOẶC tự chọn) + 01 bài đối luyện + 01 bài quyền tập thể",
+    "required_documents": [
+      "Đơn đăng ký có xác nhận của đơn vị chủ quản",
+      "Bản sao giấy khai sinh hoặc CMND/CCCD",
+      "Giấy khám sức khỏe (không quá 30 ngày)",
+      "Bảo hiểm tai nạn thi đấu (bắt buộc)",
+      "02 ảnh chân dung 4x6 nền trắng",
+      "Giấy chứng nhận trình độ đai (nếu có)"
+    ],
+    "weigh_in": {
+      "timing": "Cân đo trước ngày thi đấu nội dung đối kháng",
+      "tolerance_kg": 0,
+      "reweigh_allowed": false,
+      "note": "VĐV không cân đúng hạng cân đăng ký sẽ bị loại khỏi nội dung đối kháng"
+    }
+  },
+
+  "officials": {
+    "_description": "Ban tổ chức và trọng tài giải đấu",
+    "ban_to_chuc": [
+      {"role": "truong_ban", "title": "Trưởng Ban Tổ chức", "min_count": 1},
+      {"role": "pho_ban",    "title": "Phó Ban Tổ chức",    "min_count": 1},
+      {"role": "thu_ky",     "title": "Thư ký giải",        "min_count": 1}
+    ],
+    "ban_trong_tai": [
+      {"role": "tong_trong_tai",  "title": "Tổng trọng tài",      "min_count": 1, "cert_required": "TT quốc gia"},
+      {"role": "pho_tong_tt",     "title": "Phó Tổng trọng tài",  "min_count": 1, "cert_required": "TT quốc gia"},
+      {"role": "trong_tai_dai",   "title": "Trọng tài đài",       "min_count": 2, "cert_required": "TT cấp 1+", "per_ring": true},
+      {"role": "giam_dinh",       "title": "Giám định",            "min_count": 5, "cert_required": "TT cấp 1+", "per_ring": true},
+      {"role": "giam_sat",        "title": "Giám sát",             "min_count": 1}
+    ],
+    "ban_y_te": [
+      {"role": "bac_si",     "title": "Bác sĩ trực giải",  "min_count": 2},
+      {"role": "y_ta",       "title": "Y tá / Điều dưỡng", "min_count": 2}
+    ],
+    "ban_chuyen_mon": [
+      {"role": "giam_khao_quyen", "title": "Giám khảo quyền thuật", "min_count": 5, "cert_required": "Giám khảo quốc gia"},
+      {"role": "trong_tai_quyen", "title": "Trọng tài quyền thuật", "min_count": 3}
+    ]
+  },
+
+  "awards": {
+    "_description": "Giải thưởng và khen thưởng",
+    "individual": {
+      "huy_chuong": [
+        {"type": "gold",   "name": "Huy chương vàng",  "count_per_category": 1},
+        {"type": "silver", "name": "Huy chương bạc",   "count_per_category": 1},
+        {"type": "bronze", "name": "Huy chương đồng",  "count_per_category": 2, "note": "2 HCĐ cho 2 VĐV bán kết thua"}
+      ]
+    },
+    "team": [
+      {"name": "Nhất toàn đoàn",    "criteria": "Tổng HCV + HCB + HCĐ theo thứ tự ưu tiên"},
+      {"name": "Nhì toàn đoàn",     "criteria": ""},
+      {"name": "Ba toàn đoàn",      "criteria": ""}
+    ],
+    "special": [
+      {"name": "VĐV xuất sắc nhất giải", "criteria": "Ban tổ chức bình chọn"},
+      {"name": "Đoàn có thành tích nổi bật", "criteria": "Tinh thần thi đấu + thành tích"},
+      {"name": "HLV xuất sắc", "criteria": "Đào tạo VĐV đạt thành tích cao nhất"}
+    ]
+  },
+
+  "reference_tournaments_2025": {
+    "_description": "Các giải đấu quốc gia chính thức năm 2025 — để tham chiếu",
+    "tournaments": [
+      {
+        "name": "Giải Vô địch các CLB Võ cổ truyền Quốc gia lần thứ XIV năm 2025",
+        "dates": "20-30/04/2025",
+        "venue": "Nhà thi đấu TDTT tỉnh Thái Nguyên",
+        "age_group": "clb",
+        "formats": ["doi_khang_ht1", "doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen"]
+      },
+      {
+        "name": "Giải Vô địch Trẻ Võ cổ truyền Quốc gia lần thứ XXVI năm 2025",
+        "dates": "18-25/06/2025",
+        "venue": "Quảng trường Lam Sơn, TP Thanh Hóa",
+        "age_group": "tre",
+        "formats": ["doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen", "dong_doi"],
+        "note": "Lần đầu tiên đưa nội dung quyền thuật tập thể vào chương trình thi đấu"
+      },
+      {
+        "name": "Giải Vô địch Võ cổ truyền Quốc gia lần thứ XXXIV năm 2025",
+        "dates": "20-30/08/2025",
+        "venue": "Trung tâm Võ thuật cổ truyền Bình Định, Quy Nhơn",
+        "age_group": "tuyen",
+        "formats": ["doi_khang_ht1", "doi_khang_ht2", "quyen_quy_dinh", "quyen_tu_chon", "doi_luyen", "dong_doi"]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "_description": "Nhóm lứa tuổi thi đấu chuẩn theo quy định LĐ VCT — Có thể chỉnh sửa thủ công",
+  "_editable": true,
+  "age_groups": [
+    {"code": "thieu_nhi_a",  "name": "Thiếu nhi A",  "min_age": 8,  "max_age": 10, "description": "Nội dung quyền cá nhân, đồng đội", "allowed_events": ["quyen"]},
+    {"code": "thieu_nhi_b",  "name": "Thiếu nhi B",  "min_age": 11, "max_age": 13, "description": "Nội dung quyền và đối kháng nhẹ", "allowed_events": ["quyen", "doi_khang"]},
+    {"code": "thieu_nien",   "name": "Thiếu niên",   "min_age": 14, "max_age": 16, "description": "Đầy đủ các nội dung thi đấu", "allowed_events": ["quyen", "doi_khang", "binh_khi", "song_luyen"]},
+    {"code": "thanh_nien",   "name": "Thanh niên",    "min_age": 17, "max_age": 35, "description": "Lứa tuổi thi đấu chính — đầy đủ nội dung", "allowed_events": ["quyen", "doi_khang", "binh_khi", "song_luyen", "dong_doi"]},
+    {"code": "trung_nien",   "name": "Trung niên",    "min_age": 36, "max_age": 50, "description": "Thi đấu quyền và binh khí", "allowed_events": ["quyen", "binh_khi"]},
+    {"code": "cao_nien",     "name": "Cao niên",      "min_age": 51, "max_age": null, "description": "Biểu diễn quyền thuật", "allowed_events": ["quyen", "binh_khi"]}
+  ]
+}
