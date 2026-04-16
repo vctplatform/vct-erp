@@ -1,6 +1,9 @@
-{
-    "id":  1,
-    "name":  "Task 1",
-    "assignee":  "Jen",
-    "status":  "todo"
-}
+[
+  {
+    "id": 1,
+    "name": "Soạn thảo Điều khoản và Chính sách bảo mật",
+    "description": "Yêu cầu phòng Legal soạn thảo bộ Hợp đồng, Điều khoản sử dụng dịch vụ và Chính sách bảo mật thông tin (Terms and Privacy Policy) cho toàn bộ VCT Platform ecosystem.",
+    "assignee": "Jen (Legal Team)",
+    "status": "done"
+  }
+]

@@ -47,4 +47,7 @@ xml
     - **TESTING LAWS**: All core financial/identity logic in Backend MUST be fully Unit Tested.
     - **CI/CD DEPLOYMENT**: Agents must design the project so it can be deployed headless via GitHub Actions. Zero manual SSH execution should be assumed for production environments.
   </rule>
+  <rule id="powershell_commands">
+    - When executing terminal commands on Windows/PowerShell, NEVER use `&&`. Use `;` to chain commands instead.
+  </rule>
 </global_constraints>
